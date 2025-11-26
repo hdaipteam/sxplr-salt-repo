@@ -2,6 +2,8 @@
 # Entry-Point für das komplette Master-Bundle
 
 include:
+  - infra.salt.master.git
+  - infra.salt.master.hardening
+  - infra.salt.master.wireguard
   - infra.salt.master.config
   - infra.salt.master.systemd
-  - infra.security.ssh   # falls du ssh-harden hier mitziehen willst
