@@ -2,5 +2,5 @@
 # Produktions-spezifische Pillars
 
 prod:
-  '*':
+  'mngm-002.*':
     - prod.settings

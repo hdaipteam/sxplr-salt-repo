@@ -3,6 +3,8 @@
 
 sxplr:
   env: dev
+  role: secondary-master
+  description: "MNGM-001 (VBOX) - temporärer, selbstverwalteter Dev-Master"
 
   salt:
     master:

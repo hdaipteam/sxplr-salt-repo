@@ -3,6 +3,8 @@
 
 sxplr:
   env: prod
+  role: primary-master
+  description: "MNGM-002 (VPS) - produktiver externer Salt-Master"
 
   salt:
     master:
