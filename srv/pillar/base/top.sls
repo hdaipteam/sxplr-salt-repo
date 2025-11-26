@@ -1,6 +1,12 @@
 # srv/pillar/base/top.sls
-# Basis-Pillars (clusterweite Einstellungen)
+# Ordnet globale und Master-spezifische Pillars zu
 
 base:
   '*':
     - global.settings
+
+  'mngm-001.*':
+    - mngm.mngm-001
+
+  'mngm-002.*':
+    - mngm.mngm-002

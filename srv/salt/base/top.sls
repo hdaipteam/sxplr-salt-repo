@@ -1,8 +1,11 @@
 # srv/salt/base/top.sls
-# Globale Zuweisung von States für alle Minions (Basislayer)
+# Mapping Rollen/Hosts → States
 
 base:
-  '*':
-    - infra.proxmox.base
-    - infra.network.base
+  'mngm-001.*':
+    - infra.salt.master
+    - infra.security.ssh
+
+  'mngm-002.*':
+    - infra.salt.master
     - infra.security.ssh
