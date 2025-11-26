@@ -3,4 +3,4 @@
 
 dev:
   'mngm-001.*':
-    - dev.settings
+    - settings

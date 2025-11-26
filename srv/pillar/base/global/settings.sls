@@ -2,6 +2,9 @@
 # Globale SXPLR-Settings (Git, WireGuard, Salt-Defaults)
 
 sxplr:
+  env: base
+  role: generic
+  description: "Globale Einstellungen für SXPLR-Umgebungen"
   git:
     repo_url: "git@github.com:hdaipteam/sxplr-salt-repo.git"
     branch: "main"

@@ -3,4 +3,4 @@
 
 prod:
   'mngm-002.*':
-    - prod.settings
+    - settings
