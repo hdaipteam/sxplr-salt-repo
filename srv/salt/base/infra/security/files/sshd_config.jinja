@@ -1,0 +1,42 @@
+# srv/salt/base/infra/security/files/sshd_config.jinja
+# Managed by Salt - DO NOT EDIT MANUALLY
+
+Port {{ ssh_port | default(22) }}
+Protocol 2
+
+# Listen on all interfaces (WireGuard & Public IP)
+AddressFamily any
+ListenAddress 0.0.0.0
+ListenAddress ::
+
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+UsePrivilegeSeparation sandbox
+SyslogFacility AUTH
+LogLevel VERBOSE
+
+LoginGraceTime 30
+PermitRootLogin {{ permit_root | default('no') }}
+StrictModes yes
+MaxAuthTries 4
+MaxSessions 10
+
+PubkeyAuthentication yes
+PasswordAuthentication {{ password_auth | default('no') }}
+ChallengeResponseAuthentication no
+
+UsePAM yes
+
+# Security defaults
+X11Forwarding no
+AllowTcpForwarding no
+PermitTunnel no
+GatewayPorts no
+
+# Environment
+AcceptEnv LANG LC_*
+
+# SFTP subsystem
+Subsystem sftp /usr/lib/openssh/sftp-server
