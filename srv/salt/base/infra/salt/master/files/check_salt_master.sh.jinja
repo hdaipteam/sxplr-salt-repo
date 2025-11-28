@@ -1,45 +1,189 @@
 #!/usr/bin/env bash
-# /usr/local/sbin/check_salt_master.sh
-# Jinja-Template
+# srv/salt/base/infra/salt/master/files/check_salt_master.sh.jinja
+# Managed by Salt - DO NOT EDIT MANUALLY
+#
+# Einfaches HA-Healthcheck-Script für Salt-Master (MNGM-001 / MNGM-002)
+# - liest alle Entscheidungen aus dem Grain "sxplr_master"
+# - ha_role: single    -> kein HA, Master bleibt wie er ist
+#            primary   -> Master MUSS laufen
+#            secondary -> Master DARF nur laufen, wenn Peer nicht erreichbar ist
+#
+# Flags:
+#   --dry-run / -n   : nur loggen, keine systemctl-Aktionen
+#   --verbose / -v   : ausführlichere Logs (mehrfach möglich)
 
 set -euo pipefail
 
-LOGFILE="/var/log/salt-master-ha.log"
-MASTER_SERVICE="salt-master"
+DRY_RUN=0
+VERBOSE=0
 
-# Aktuelle Minion-ID und Peer-Infos aus Pillar
-MY_ID="{{ grains['id'] }}"
-PEER_ID="{{ salt['pillar.get']('sxplr:ha:masters:' ~ grains['id'] ~ ':peer_id', '') }}"
-PEER_IP="{{ salt['pillar.get']('sxplr:ha:masters:' ~ grains['id'] ~ ':peer_ip', '') }}"
-
-timestamp() {
-  date +"%Y-%m-%d %H:%M:%S"
-}
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -n|--dry-run)
+      DRY_RUN=1
+      shift
+      ;;
+    -v|--verbose)
+      VERBOSE=$((VERBOSE + 1))
+      shift
+      ;;
+    *)
+      # unbekannte Flags ignorieren, damit systemd nicht stolpert
+      shift
+      ;;
+  esac
+done
 
 log() {
-  echo "$(timestamp) [$MY_ID] $*" >> "$LOGFILE"
+  local level="$1"; shift
+  local msg="$*"
+  # in Journal und optional auf STDOUT
+  logger -t salt-master-ha "[$level] $msg" || true
+  if [[ "$VERBOSE" -gt 0 ]]; then
+    echo "[$(date -Is)] [$level] $msg"
+  fi
 }
 
-log "HA-Check gestartet"
+# ----------------------------------------------------------
+# 1. sxplr_master-Grain holen und auflösen
+# ----------------------------------------------------------
 
-# 1. Salt-Master Status prüfen
-if systemctl is-active --quiet "${MASTER_SERVICE}"; then
-  log "Salt-Master-Service '${MASTER_SERVICE}' ist aktiv."
-else
-  log "WARNUNG: Salt-Master-Service '${MASTER_SERVICE}' ist NICHT aktiv – versuche Neustart..."
-  systemctl restart "${MASTER_SERVICE}" || log "FEHLER: Neustart von '${MASTER_SERVICE}' fehlgeschlagen!"
+RAW_JSON="$(salt-call --local --out=json grains.item sxplr_master 2>/dev/null || true)"
+
+if [[ -z "${RAW_JSON}" ]]; then
+  log "WARN" "sxplr_master-Grain nicht gefunden - keine HA-Entscheidung möglich, exit 0."
+  exit 0
 fi
 
-# 2. Peer-Reachability prüfen (falls konfiguriert)
-if [[ -n "$PEER_IP" ]]; then
-  if ping -c 2 -W 2 "$PEER_IP" >/dev/null 2>&1; then
-    log "Peer $PEER_ID ($PEER_IP) ist erreichbar."
-  else
-    log "WARNUNG: Peer $PEER_ID ($PEER_IP) ist NICHT erreichbar."
+# Mit Python das JSON parsen und die relevanten Felder extrahieren
+# Ausgabe: je Wert eine Zeile (damit wir das sauber mit mapfile einlesen können)
+parse_grains() {
+  python3 << 'PY' <<< "${RAW_JSON}"
+import json, sys
+
+try:
+    data = json.load(sys.stdin)
+except Exception as exc:
+    # Wenn irgendwas schiefgeht, geben wir leere Defaults zurück
+    print("single")
+    print("")
+    print("")
+    print("")
+    sys.exit(0)
+
+sx = data.get("local", {}).get("sxplr_master", {}) or {}
+
+role = sx.get("role", {}) or {}
+mngm = sx.get("mngm", {}) or {}
+sm   = sx.get("salt_master", {}) or {}
+
+ha_role      = str(role.get("ha_role", "single"))
+node_id      = str(mngm.get("node_id", ""))
+wg_ip        = str(sm.get("wg_ip", ""))
+peer_wg_ip   = str(sm.get("ha_peer_wg_ip", ""))
+
+print(ha_role)
+print(node_id)
+print(wg_ip)
+print(peer_wg_ip)
+PY
+}
+
+mapfile -t _vals < <(parse_grains)
+
+HA_ROLE="${_vals[0]:-single}"
+NODE_ID="${_vals[1]:-}"
+WG_IP="${_vals[2]:-}"
+PEER_WG_IP="${_vals[3]:-}"
+
+log "DEBUG" "sxplr_master: ha_role='${HA_ROLE}', node_id='${NODE_ID}', wg_ip='${WG_IP}', peer_wg_ip='${PEER_WG_IP}'"
+
+# ----------------------------------------------------------
+# 2. kleine Helfer für systemctl
+# ----------------------------------------------------------
+
+is_master_active() {
+  systemctl is-active --quiet salt-master
+}
+
+start_master() {
+  if is_master_active; then
+    log "INFO" "salt-master läuft bereits - kein start nötig."
+    return 0
   fi
-else
-  log "Keine Peer-IP in Pillar konfiguriert – überspringe Peer-Check."
-fi
 
-log "HA-Check beendet"
+  if [[ "${DRY_RUN}" -eq 1 ]]; then
+    log "INFO" "DRY-RUN: würde 'systemctl start salt-master' ausführen."
+  else
+    log "INFO" "Starte salt-master (Failover / Sicherstellung aktivem Master)…"
+    systemctl start salt-master || {
+      log "ERROR" "Konnte salt-master nicht starten!"
+      return 1
+    }
+  fi
+}
+
+stop_master() {
+  if ! is_master_active; then
+    log "INFO" "salt-master ist bereits gestoppt - kein stop nötig."
+    return 0
+  fi
+
+  if [[ "${DRY_RUN}" -eq 1 ]]; then
+    log "INFO" "DRY-RUN: würde 'systemctl stop salt-master' ausführen."
+  else
+    log "WARN" "Stoppe salt-master (Peer gilt als aktiv)…"
+    systemctl stop salt-master || {
+      log "ERROR" "Konnte salt-master nicht stoppen!"
+      return 1
+    }
+  fi
+}
+
+peer_reachable() {
+  local ip="$1"
+  if [[ -z "${ip}" ]]; then
+    # Ohne Peer-IP können wir keine Aussage treffen
+    return 1
+  fi
+  ping -c1 -W1 "${ip}" >/dev/null 2>&1
+}
+
+# ----------------------------------------------------------
+# 3. HA-Entscheidung
+# ----------------------------------------------------------
+
+case "${HA_ROLE}" in
+  single|"")
+    # Kein HA – Knoten verhält sich "standalone"
+    log "INFO" "ha_role='${HA_ROLE}' -> Standalone-Modus, keine HA-Aktion."
+    exit 0
+    ;;
+  primary)
+    # Primary MUSS laufen
+    if is_master_active; then
+      log "INFO" "ha_role='primary' und salt-master läuft - OK."
+    else
+      log "WARN" "ha_role='primary', aber salt-master läuft NICHT - versuche zu starten…"
+      start_master
+    fi
+    ;;
+  secondary)
+    # Secondary DARF nur laufen, wenn der Peer NICHT erreichbar ist
+    if peer_reachable "${PEER_WG_IP}"; then
+      log "INFO" "ha_role='secondary' und Peer (${PEER_WG_IP}) ist erreichbar - secondary bleibt PASSIV."
+      stop_master
+    else
+      log "WARN" "ha_role='secondary' und Peer (${PEER_WG_IP}) ist NICHT erreichbar - secondary übernimmt AKTIV."
+      start_master
+    fi
+    ;;
+  *)
+    # Unbekannte Rolle -> defensiv verhalten, nichts machen
+    log "WARN" "Unbekannte ha_role='${HA_ROLE}' - keine HA-Aktion."
+    ;;
+esac
+
+exit 0
+
 
