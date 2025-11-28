@@ -3,6 +3,7 @@
 
 include:
   - infra.salt.master    # Git-Repo, roots.conf, systemd, etc.
+  - infra.salt.master.ha # dein HA-State für Salt-Master
   - infra.salt.minion    # falls du einen Sammel-State infra/salt/minion/init.sls hast
   - infra.security.ssh   # SSH-Basishärtung
   

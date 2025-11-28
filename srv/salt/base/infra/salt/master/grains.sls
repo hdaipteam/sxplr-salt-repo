@@ -1,34 +1,46 @@
 # srv/salt/base/infra/salt/master/grains.sls
-# Leitet zentrale Pillar-Werte in statische Grains ab
+# Leitet zentrale Pillar-Werte in statische Grains ab (für MNGM-001/MNGM-002)
 
-{% set sxplr_env = salt['pillar.get']('sxplr:env', 'base') %}
-{% set sxplr_role_type = salt['pillar.get']('sxplr:role:type', 'unknown') %}
-{% set sxplr_ha_role = salt['pillar.get']('sxplr:role:ha_role', 'single') %}
-{% set sxplr_cluster = salt['pillar.get']('sxplr:role:cluster', 'none') %}
+{%- set sxplr = salt['pillar.get']('sxplr', {}) %}
+{%- set env = sxplr.get('env', 'base') %}
 
-{% set mngm_node_id = salt['pillar.get']('sxplr:mngm:node_id', opts['id']) %}
-{% set mngm_hostname = salt['pillar.get']('sxplr:mngm:hostname', grains['host']) %}
-{% set mngm_location = salt['pillar.get']('sxplr:mngm:location', 'unknown') %}
+{%- set raw_role = sxplr.get('role', {}) %}
+{%- if raw_role is mapping %}
+  {%- set role = raw_role %}
+{%- else %}
+  {%- set role = {} %}
+{%- endif %}
 
-{% set salt_master_id = salt['pillar.get']('salt_master:id', opts['id']) %}
-{% set salt_master_wg_ip = salt['pillar.get']('salt_master:wg_ip', '') %}
-{% set salt_master_ha_peer_id = salt['pillar.get']('salt_master:ha:peer_id', '') %}
-{% set salt_master_ha_peer_wg_ip = salt['pillar.get']('salt_master:ha:peer_wg_ip', '') %}
+{%- set raw_mngm = sxplr.get('mngm', {}) %}
+{%- if raw_mngm is mapping %}
+  {%- set mngm = raw_mngm %}
+{%- else %}
+  {%- set mngm = {} %}
+{%- endif %}
+
+{%- set salt_master = salt['pillar.get']('salt_master', {}) %}
+{%- set sm_id = salt_master.get('id', opts['id']) %}
+{%- set sm_wg_ip = salt_master.get('wg_ip', '') %}
+{%- set sm_ha = salt_master.get('ha', {}) %}
+{%- set sm_ha_peer_id = sm_ha.get('peer_id', '') %}
+{%- set sm_ha_peer_wg_ip = sm_ha.get('peer_wg_ip', '') %}
 
 sxplr_master_grains:
   grains.present:
     - value:
-        sxplr_env: {{ sxplr_env }}
-        sxplr_role:
-          type: {{ sxplr_role_type }}
-          ha_role: {{ sxplr_ha_role }}
-          cluster: {{ sxplr_cluster }}
-        sxplr_mngm:
-          node_id: {{ mngm_node_id }}
-          hostname: {{ mngm_hostname }}
-          location: {{ mngm_location }}
+        sxplr:
+          env: {{ env }}
+          role:
+            type: {{ role.get('type', 'management-master') }}
+            ha_role: {{ role.get('ha_role', 'single') }}
+            cluster: {{ role.get('cluster', 'sxplr-mngm-ha-cluster') }}
+          mngm:
+            node_id: {{ mngm.get('node_id', opts['id']) }}
+            hostname: {{ mngm.get('hostname', grains['host']) }}
+            location: {{ mngm.get('location', 'unknown') }}
         salt_master:
-          id: {{ salt_master_id }}
-          wg_ip: {{ salt_master_wg_ip }}
-          ha_peer_id: {{ salt_master_ha_peer_id }}
-          ha_peer_wg_ip: {{ salt_master_ha_peer_wg_ip }}
+          id: {{ sm_id }}
+          wg_ip: {{ sm_wg_ip }}
+          ha_peer_id: {{ sm_ha_peer_id }}
+          ha_peer_wg_ip: {{ sm_ha_peer_wg_ip }}
+
