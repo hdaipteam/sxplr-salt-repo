@@ -5,7 +5,7 @@ sxplr:
   env: prod
   role:
     type: management-master
-    ha_role: primary
+    ha_role: primary             # MNGM-002 als "primary"
     cluster: sxplr-mngm-ha-cluster
   mngm:
     node_id: mngm-002.minion.saltvpn.cfg
