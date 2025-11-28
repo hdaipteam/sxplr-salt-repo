@@ -1,23 +1,31 @@
-{% set wg_unit = 'wg-quick@wg0.service' %}
+# srv/salt/base/infra/salt/minion/systemd.sls
+# Systemd-Overrides für normale Minions
+# (Master-Minions bekommen eigene Overrides im Master-Bundle)
 
-/etc/systemd/system/salt-minion.service.d/override.conf:
+{% set wg_unit = "wg-quick@wg0.service" %}
+
+salt-minion-systemd-override:
   file.managed:
-    - makedirs: True
+    - name: /etc/systemd/system/salt-minion.service.d/override.conf
+    - makedirs: true
     - mode: "0644"
+    - user: root
+    - group: root
     - contents: |
         [Unit]
         After=network-online.target {{ wg_unit }}
         Wants=network-online.target {{ wg_unit }}
 
-salt-minion-systemd-daemon-reload:
+salt-minion-daemon-reload:
   cmd.run:
     - name: systemctl daemon-reload
     - onchanges:
-      - file: /etc/systemd/system/salt-minion.service.d/override.conf
+      - file: salt-minion-systemd-override
 
-salt-minion-service:
+salt-minion-service-running-main:
   service.running:
     - name: salt-minion
-    - enable: True
+    - enable: true
     - require:
-      - cmd: salt-minion-systemd-daemon-reload
+      - cmd: salt-minion-daemon-reload
+

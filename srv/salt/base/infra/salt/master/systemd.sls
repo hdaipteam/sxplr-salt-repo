@@ -1,18 +1,22 @@
 
 # srv/salt/base/infra/salt/master/systemd.sls
-# systemd-Units für salt-master und salt-minion, abhängig von WireGuard
+# systemd-Units für Salt-Master + Self-Managing Minion
+# inklusive WireGuard-Abhängigkeit
 
-{%- set wg_iface = pillar.get("sxplr", {}).get("wireguard", {}).get("iface", "wg0") %}
+{% set wg_iface = pillar.get("sxplr", {}).get("wireguard", {}).get("iface", "wg0") %}
 
-# Drop-in für Salt Master
-/etc/systemd/system/salt-master.service.d:
+# --- MASTER SERVICE OVERRIDES ---
+
+salt-master-systemd-dir:
   file.directory:
+    - name: /etc/systemd/system/salt-master.service.d
     - user: root
     - group: root
     - mode: "0755"
 
-/etc/systemd/system/salt-master.service.d/10-wireguard.conf:
+salt-master-wireguard-dropin:
   file.managed:
+    - name: /etc/systemd/system/salt-master.service.d/10-wireguard.conf
     - user: root
     - group: root
     - mode: "0644"
@@ -21,15 +25,18 @@
         After=wg-quick@{{ wg_iface }}.service
         Wants=wg-quick@{{ wg_iface }}.service
 
-# Drop-in für Salt Minion (Self-Managing Master)
-/etc/systemd/system/salt-minion.service.d:
+# --- SELF-MANAGING MASTER: MINION OVERRIDES ---
+
+salt-master-minion-systemd-dir:
   file.directory:
+    - name: /etc/systemd/system/salt-minion.service.d
     - user: root
     - group: root
     - mode: "0755"
 
-/etc/systemd/system/salt-minion.service.d/10-wireguard.conf:
+salt-master-minion-wireguard-dropin:
   file.managed:
+    - name: /etc/systemd/system/salt-minion.service.d/10-wireguard.conf
     - user: root
     - group: root
     - mode: "0644"
@@ -38,23 +45,23 @@
         After=wg-quick@{{ wg_iface }}.service
         Wants=wg-quick@{{ wg_iface }}.service
 
-systemd-reload:
+salt-master-systemd-daemon-reload:
   cmd.run:
     - name: systemctl daemon-reload
     - onchanges:
-      - file: /etc/systemd/system/salt-master.service.d/10-wireguard.conf
-      - file: /etc/systemd/system/salt-minion.service.d/10-wireguard.conf
+      - file: salt-master-wireguard-dropin
+      - file: salt-master-minion-wireguard-dropin
 
-salt-master-service:
+salt-master-service-running:
   service.running:
     - name: salt-master
     - enable: true
     - require:
-      - cmd: systemd-reload
+      - cmd: salt-master-systemd-daemon-reload
 
-salt-minion-service:
+salt-master-minion-service-running:
   service.running:
     - name: salt-minion
     - enable: true
     - require:
-      - cmd: systemd-reload
+      - cmd: salt-master-systemd-daemon-reload
