@@ -199,7 +199,7 @@ if [[ ! -f "${SSH_STATE}" ]]; then
     - template: jinja
     - user: root
     - group: root
-    - mode: '0600'
+    - mode: "0600"
 
 sshd:
   service.running:

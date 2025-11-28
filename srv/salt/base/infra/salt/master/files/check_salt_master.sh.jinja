@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# /usr/local/sbin/check_salt_master.sh
+# Jinja-Template
+
+set -euo pipefail
+
+LOGFILE="/var/log/salt-master-ha.log"
+MASTER_SERVICE="salt-master"
+
+# Aktuelle Minion-ID und Peer-Infos aus Pillar
+MY_ID="{{ grains['id'] }}"
+PEER_ID="{{ salt['pillar.get']('sxplr:ha:masters:' ~ grains['id'] ~ ':peer_id', '') }}"
+PEER_IP="{{ salt['pillar.get']('sxplr:ha:masters:' ~ grains['id'] ~ ':peer_ip', '') }}"
+
+timestamp() {
+  date +"%Y-%m-%d %H:%M:%S"
+}
+
+log() {
+  echo "$(timestamp) [$MY_ID] $*" >> "$LOGFILE"
+}
+
+log "HA-Check gestartet"
+
+# 1. Salt-Master Status prüfen
+if systemctl is-active --quiet "${MASTER_SERVICE}"; then
+  log "Salt-Master-Service '${MASTER_SERVICE}' ist aktiv."
+else
+  log "WARNUNG: Salt-Master-Service '${MASTER_SERVICE}' ist NICHT aktiv – versuche Neustart..."
+  systemctl restart "${MASTER_SERVICE}" || log "FEHLER: Neustart von '${MASTER_SERVICE}' fehlgeschlagen!"
+fi
+
+# 2. Peer-Reachability prüfen (falls konfiguriert)
+if [[ -n "$PEER_IP" ]]; then
+  if ping -c 2 -W 2 "$PEER_IP" >/dev/null 2>&1; then
+    log "Peer $PEER_ID ($PEER_IP) ist erreichbar."
+  else
+    log "WARNUNG: Peer $PEER_ID ($PEER_IP) ist NICHT erreichbar."
+  fi
+else
+  log "Keine Peer-IP in Pillar konfiguriert – überspringe Peer-Check."
+fi
+
+log "HA-Check beendet"
+

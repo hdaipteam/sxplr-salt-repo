@@ -1,0 +1,14 @@
+# srv/salt/base/infra/salt/master/files/salt-master-ha.service.jinja
+[Unit]
+Description=Salt Master HA Healthcheck
+After=network.target salt-master.service
+Wants=salt-master.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/check_salt_master.sh
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target

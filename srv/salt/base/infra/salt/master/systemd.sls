@@ -9,13 +9,13 @@
   file.directory:
     - user: root
     - group: root
-    - mode: 755
+    - mode: "0755"
 
 /etc/systemd/system/salt-master.service.d/10-wireguard.conf:
   file.managed:
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - contents: |
         [Unit]
         After=wg-quick@{{ wg_iface }}.service
@@ -26,13 +26,13 @@
   file.directory:
     - user: root
     - group: root
-    - mode: 755
+    - mode: "0755"
 
 /etc/systemd/system/salt-minion.service.d/10-wireguard.conf:
   file.managed:
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - contents: |
         [Unit]
         After=wg-quick@{{ wg_iface }}.service

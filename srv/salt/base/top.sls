@@ -3,9 +3,7 @@
 
 base:
   'mngm-001.*':
-    - infra.salt.master
-    - infra.security.ssh
+    - roles.mngm_master
 
   'mngm-002.*':
-    - infra.salt.master
-    - infra.security.ssh
+    - roles.mngm_master

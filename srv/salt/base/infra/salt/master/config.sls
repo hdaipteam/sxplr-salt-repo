@@ -10,13 +10,13 @@
   file.directory:
     - user: root
     - group: root
-    - mode: 755
+    - mode: "0755"
 
 /srv:
   file.directory:
     - user: root
     - group: root
-    - mode: 755
+    - mode: "0755"
 
 /srv/salt:
   file.symlink:
@@ -37,7 +37,7 @@
   file.directory:
     - user: root
     - group: root
-    - mode: 755
+    - mode: "0755"
 
 # roots.conf aus Pillar-Template
 /etc/salt/master.d/roots.conf:
@@ -46,4 +46,4 @@
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"

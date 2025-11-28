@@ -1,7 +1,0 @@
-# Rolle für Management-Master (MNGM-001, MNGM-002)
-include:
-  - infra.salt.master.systemd
-  - infra.salt.minion.systemd
-  - infra.security.ssh          # falls du das bereits nutzt
-  - infra.proxmox.base          # optional, wenn der Master auch Proxmox-Bezug hat
-  

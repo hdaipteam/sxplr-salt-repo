@@ -1,11 +1,26 @@
 # srv/pillar/base/mngm/mngm-002.sls
 # Pillar für MNGM-002 (VPS: vps-a6f04377)
 
+sxplr:
+  env: prod
+  role:
+    type: management-master
+    ha_role: primary
+    cluster: sxplr-mngm-ha-cluster
+  mngm:
+    node_id: mngm-002.minion.saltvpn.cfg
+    hostname: vps-a6f04377
+    location: HDaIP Virtual Data Center OVH
+
 salt_master:
   id: "mngm-002.minion.saltvpn.cfg"
   hostname: "vps-a6f04377"
   role: "salt-master"
   wg_ip: "10.99.0.251"
+
+  ha:
+    peer_id: "mngm-001.minion.saltvpn.cfg"
+    peer_wg_ip: "10.99.0.250"
 
   file_roots:
     base:
@@ -22,3 +37,4 @@ salt_master:
   env_order:
     - base
     - prod
+

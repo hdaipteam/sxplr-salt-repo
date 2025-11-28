@@ -1,0 +1,13 @@
+# srv/salt/base/infra/salt/master/files/salt-master-ha.timer.jinja
+[Unit]
+Description=Salt Master HA Healthcheck Timer
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=1min
+Persistent=true
+Unit=salt-master-ha.service
+
+[Install]
+WantedBy=timers.target
+
