@@ -1,11 +1,9 @@
 # srv/salt/base/infra/salt/master/ha.sls
+# HA- und Self-Heal-Mechanismen für MNGM-001 und MNGM-002
 
 {%- set repo_path = salt['pillar.get']('sxplr:git:path', '/opt/sxplr-salt-repo') %}
-{%- set ha_role = salt['grains.get']('sxplr_role:ha_role', 'single') %}
-{%- set peer_id = salt['grains.get']('salt_master:ha_peer_id', '') %}
-{%- set peer_wg_ip = salt['grains.get']('salt_master:ha_peer_wg_ip', '') %}
 
-ha-check-script:
+ha_check_script:
   file.managed:
     - name: /usr/local/sbin/check_salt_master.sh
     - source: salt://infra/salt/master/files/check_salt_master.sh.jinja
@@ -13,13 +11,8 @@ ha-check-script:
     - user: root
     - group: root
     - mode: "0750"
-    - context:
-        repo_path: {{ repo_path }}
-        ha_role: {{ ha_role }}
-        peer_id: {{ peer_id }}
-        peer_wg_ip: {{ peer_wg_ip }}
 
-ha-service-unit:
+ha_service_unit_file:
   file.managed:
     - name: /etc/systemd/system/salt-master-ha.service
     - source: salt://infra/salt/master/files/salt-master-ha.service.jinja
@@ -27,10 +20,8 @@ ha-service-unit:
     - user: root
     - group: root
     - mode: "0644"
-  watch_in:
-    - cmd: systemd-reload-ha
 
-ha-timer-unit:
+ha_timer_unit_file:
   file.managed:
     - name: /etc/systemd/system/salt-master-ha.timer
     - source: salt://infra/salt/master/files/salt-master-ha.timer.jinja
@@ -38,26 +29,23 @@ ha-timer-unit:
     - user: root
     - group: root
     - mode: "0644"
-  watch_in:
-    - cmd: systemd-reload-ha
 
-systemd-reload-ha:
+ha_systemd_daemon_reload:
   cmd.run:
     - name: systemctl daemon-reload
     - onchanges:
-      - file: ha-service-unit
-      - file: ha-timer-unit
+      - file: ha_service_unit_file
+      - file: ha_timer_unit_file
 
-ha-timer-enabled:
+ha_timer_enabled:
   service.enabled:
     - name: salt-master-ha.timer
     - require:
-      - file: ha-timer-unit
+      - cmd: ha_systemd_daemon_reload
 
-ha-timer-running:
+ha_timer_running:
   service.running:
     - name: salt-master-ha.timer
     - enable: True
     - require:
-      - service: ha-timer-enabled
-
+      - service: ha_timer_enabled
