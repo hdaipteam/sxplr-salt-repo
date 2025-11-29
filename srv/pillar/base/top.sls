@@ -4,6 +4,7 @@
 base:
   '*':
     - global.settings
+    - security.users
 
   'mngm-001.*':
     - mngm.mngm-001
