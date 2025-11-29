@@ -2,9 +2,14 @@
 # Robustes User-Management & SSH-Keys auf Basis der Pillars
 # - ändert UID/GID nur, wenn es gefahrlos möglich ist
 # - bricht nicht ab, wenn User bereits mit anderer UID existiert
+# - optional: Migration des Ubuntu-Standard-Users "ubuntu" zu "cloudmaster"
 
 {%- set ssh_cfg = pillar.get('security', {}).get('ssh', {}) %}
 {%- set users = ssh_cfg.get('users', {}) %}
+
+{# ---------------------------------------------------------
+   1. Normale SSH-User aus security:ssh:users
+   --------------------------------------------------------- #}
 
 {%- for username, u in users.items() %}
 {%-   if u.get('enabled', True) %}
@@ -38,7 +43,7 @@
 {%-     endif %}
 
 {# ---------------------------------------------------------
-   1. Gruppe anlegen/prüfen
+   1a. Gruppe anlegen/prüfen
    --------------------------------------------------------- #}
 
 {{ username }}-group:
@@ -55,7 +60,7 @@
     {%- endif %}
 
 {# ---------------------------------------------------------
-   2. User anlegen/prüfen (ohne harte UID-Zwangsänderung)
+   1b. User anlegen/prüfen (ohne harte UID-Zwangsänderung)
    --------------------------------------------------------- #}
 
 {{ username }}-user:
@@ -97,7 +102,7 @@
       - group: {{ username }}-group
 
 {# ---------------------------------------------------------
-   3. .ssh-Verzeichnis & authorized_keys
+   1c. .ssh-Verzeichnis & authorized_keys
    --------------------------------------------------------- #}
 
 {{ username }}-ssh-dir:
@@ -120,8 +125,49 @@
       - file: {{ username }}-ssh-dir
 
 {%-     endfor %}
-
 {%-   endif %}
 {%- endfor %}
+
+{# ---------------------------------------------------------
+   2. Migration ubuntu -> cloudmaster (optional via Pillar)
+   --------------------------------------------------------- #}
+
+{%- set migrate_flag = ssh_cfg.get('migrate_ubuntu_to_cloudmaster', False) %}
+{%- set cm_cfg = users.get('cloudmaster', {}) %}
+{%- if migrate_flag and cm_cfg.get('enabled', True) %}
+{%-   set ub_info = salt['user.info']('ubuntu') %}
+
+{%-   if ub_info and ub_info.get('name') %}
+
+ubuntu-migration-note:
+  test.succeed_without_changes:
+    - name: "Ubuntu-Standarduser vorhanden – Migration/Absicherung aktiv (SSH & sudo werden eingeschränkt)."
+
+# SSH-Login für ubuntu deaktivieren, indem authorized_keys entfernt wird.
+ubuntu-disable-ssh-keys:
+  file.absent:
+    - name: /home/ubuntu/.ssh/authorized_keys
+    - require:
+      - test: ubuntu-migration-note
+
+# Option: ubuntu weiterhin für lokale Konsole nutzbar, aber kein interaktives SSH-Shell-Login
+ubuntu-lock-shell:
+  user.present:
+    - name: ubuntu
+    - shell: /usr/sbin/nologin
+    - require:
+      - test: ubuntu-migration-note
+
+# Entfernt ubuntu aus der sudo-Gruppe (falls noch Mitglied)
+ubuntu-remove-from-sudo:
+  cmd.run:
+    - name: "deluser ubuntu sudo"
+    - onlyif: "id -nG ubuntu | grep -qw sudo"
+    - require:
+      - test: ubuntu-migration-note
+
+{%-   endif %}
+{%- endif %}
+
 
 
