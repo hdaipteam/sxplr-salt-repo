@@ -48,39 +48,52 @@ log() {
 # 1. sxplr_master-Grain holen und auflösen
 # ----------------------------------------------------------
 
-RAW_JSON="$(salt-call --local --out=json grains.item sxplr_master 2>/dev/null || true)"
+# Immer die Salt-Config aus /etc/salt verwenden und vorher Grains refreshen.
+RAW_JSON="$(
+  salt-call --local -c /etc/salt --out=json saltutil.refresh_grains >/dev/null 2>&1 || true
+  salt-call --local -c /etc/salt --out=json grains.item sxplr_master 2>/dev/null || true
+)"
 
 if [[ -z "${RAW_JSON}" ]]; then
-  log "WARN" "sxplr_master-Grain nicht gefunden - keine HA-Entscheidung möglich, exit 0."
+  log "WARN" "sxplr_master-Grain nicht gefunden (leerer JSON-Output) - keine HA-Entscheidung möglich, exit 0."
   exit 0
 fi
 
-# Mit Python das JSON parsen und die relevanten Felder extrahieren
-# Ausgabe: je Wert eine Zeile (damit wir das sauber mit mapfile einlesen können)
 parse_grains() {
   python3 << 'PY' <<< "${RAW_JSON}"
 import json, sys
 
 try:
     data = json.load(sys.stdin)
-except Exception as exc:
-    # Wenn irgendwas schiefgeht, geben wir leere Defaults zurück
+except Exception:
+    # Fallback auf Standalone-Modus
     print("single")
     print("")
     print("")
     print("")
     sys.exit(0)
 
-sx = data.get("local", {}).get("sxplr_master", {}) or {}
+if not isinstance(data, dict) or not data:
+    print("single")
+    print("")
+    print("")
+    print("")
+    sys.exit(0)
 
+# Top-Level-Key ist bei salt-call typischerweise "local",
+# wir nehmen generisch einfach den ersten.
+top_key = next(iter(data.keys()))
+root = data.get(top_key, {}) or {}
+
+sx = root.get("sxplr_master", {}) or {}
 role = sx.get("role", {}) or {}
 mngm = sx.get("mngm", {}) or {}
 sm   = sx.get("salt_master", {}) or {}
 
-ha_role      = str(role.get("ha_role", "single"))
-node_id      = str(mngm.get("node_id", ""))
-wg_ip        = str(sm.get("wg_ip", ""))
-peer_wg_ip   = str(sm.get("ha_peer_wg_ip", ""))
+ha_role    = str(role.get("ha_role", "single"))
+node_id    = str(mngm.get("node_id", ""))
+wg_ip      = str(sm.get("wg_ip", ""))
+peer_wg_ip = str(sm.get("ha_peer_wg_ip", ""))
 
 print(ha_role)
 print(node_id)
@@ -116,10 +129,10 @@ start_master() {
     log "INFO" "DRY-RUN: würde 'systemctl start salt-master' ausführen."
   else
     log "INFO" "Starte salt-master (Failover / Sicherstellung aktivem Master)…"
-    systemctl start salt-master || {
+    if ! systemctl start salt-master; then
       log "ERROR" "Konnte salt-master nicht starten!"
       return 1
-    }
+    fi
   fi
 }
 
@@ -133,10 +146,10 @@ stop_master() {
     log "INFO" "DRY-RUN: würde 'systemctl stop salt-master' ausführen."
   else
     log "WARN" "Stoppe salt-master (Peer gilt als aktiv)…"
-    systemctl stop salt-master || {
+    if ! systemctl stop salt-master; then
       log "ERROR" "Konnte salt-master nicht stoppen!"
       return 1
-    }
+    fi
   fi
 }
 
@@ -155,7 +168,7 @@ peer_reachable() {
 
 case "${HA_ROLE}" in
   single|"")
-    # Kein HA – Knoten verhält sich "standalone"
+    # Kein HA - Knoten verhält sich "standalone"
     log "INFO" "ha_role='${HA_ROLE}' -> Standalone-Modus, keine HA-Aktion."
     exit 0
     ;;
@@ -185,5 +198,3 @@ case "${HA_ROLE}" in
 esac
 
 exit 0
-
-
