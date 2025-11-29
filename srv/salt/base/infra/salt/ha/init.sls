@@ -1,3 +1,6 @@
+# srv/salt/base/infra/salt/ha/init.sls
+# Entry-Point für Salt-Master HA-spezifische States
+
 {% set masters = pillar.get('salt_master', {}) %}
 
 ha-wireguard-allow:

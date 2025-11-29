@@ -1,5 +1,5 @@
-# srv/salt/base/infra/salt/minion/grains.sls
-# Schreibt konsolidierte SXPLR-Grains nach /etc/salt/grains, basierend auf Pillar
+{# srv/salt/base/infra/salt/minion/grains.sls #}
+{# Schreibt konsolidierte SXPLR-Grains nach /etc/salt/grains, basierend auf Pillar #}
 
 {%- set sxplr = salt['pillar.get']('sxplr', {}) %}
 
@@ -23,6 +23,8 @@
   file.managed:
     - makedirs: True
     - mode: "0644"
+    - user: root
+    - group: root
     - contents: |
         sxplr:
           env: {{ env }}

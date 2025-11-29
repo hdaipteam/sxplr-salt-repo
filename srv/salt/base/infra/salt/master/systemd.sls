@@ -1,4 +1,3 @@
-
 # srv/salt/base/infra/salt/master/systemd.sls
 # systemd-Units für Salt-Master + Self-Managing Minion
 # inklusive WireGuard-Abhängigkeit
