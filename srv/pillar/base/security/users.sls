@@ -14,6 +14,6 @@ security:
         groups:
           - sudo
         authorized_keys:
-          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDRRTXIP1PjGJdx89voimNXGTSptou5zADydZSTiTNV6 hdaipteam@yandex.com"
+          - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDRRTXIP1PjGJdx89voimNXGTSptou5zADydZSTiTNV6 hdaipteam@yandex.com"
           # - "ssh-ed25519 AAAA...WEITERER_PUBKEY... kommentar"
 
