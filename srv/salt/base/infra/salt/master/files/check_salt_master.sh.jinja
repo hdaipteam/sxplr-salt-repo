@@ -48,9 +48,8 @@ log() {
 # 1. sxplr_master-Grain holen und auflösen
 # ----------------------------------------------------------
 
-# Immer die Salt-Config aus /etc/salt verwenden und vorher Grains refreshen.
+# Immer die Salt-Config aus /etc/salt verwenden.
 RAW_JSON="$(
-  salt-call --local -c /etc/salt --out=json saltutil.refresh_grains >/dev/null 2>&1 || true
   salt-call --local -c /etc/salt --out=json grains.item sxplr_master 2>/dev/null || true
 )"
 
@@ -85,7 +84,25 @@ if not isinstance(data, dict) or not data:
 top_key = next(iter(data.keys()))
 root = data.get(top_key, {}) or {}
 
-sx = root.get("sxplr_master", {}) or {}
+# Verschiedene mögliche Strukturen abdecken:
+# 1) {"local": {"sxplr_master": {...}}}
+# 2) {"local": {"return": {"sxplr_master": {...}}}}
+sx = {}
+
+if isinstance(root, dict):
+    if "sxplr_master" in root:
+        sx = root.get("sxplr_master") or {}
+    elif "return" in root and isinstance(root["return"], dict):
+        sx = root["return"].get("sxplr_master") or {}
+
+if not sx:
+    # Kein sinnvolles sxplr_master gefunden -> Standalone
+    print("single")
+    print("")
+    print("")
+    print("")
+    sys.exit(0)
+
 role = sx.get("role", {}) or {}
 mngm = sx.get("mngm", {}) or {}
 sm   = sx.get("salt_master", {}) or {}
