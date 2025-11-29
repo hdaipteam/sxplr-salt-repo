@@ -1,6 +1,47 @@
 # srv/salt/base/infra/security/files/sshd_config.jinja
 # Managed by Salt - DO NOT EDIT MANUALLY
 
+{# -------------------------------------------------------------------
+   Normalisierung der Werte aus Pillar
+   - permit_root:
+       erlaubt: yes / no / prohibit-password
+       bool/true/false werden auf yes/no gemappt
+   - password_auth:
+       erlaubt: yes / no
+       bool/true/false werden auf yes/no gemappt
+   ------------------------------------------------------------------- #}
+
+{% set pr = permit_root %}
+{% set pa = password_auth %}
+
+{# ---- PermitRootLogin normalisieren ---- #}
+{% if pr in ['yes', 'no', 'prohibit-password'] %}
+  {% set permit_root_val = pr %}
+{% elif pr in ['true', True, 1, '1'] %}
+  {% set permit_root_val = 'yes' %}
+{% elif pr in ['false', False, 0, '0'] %}
+  {% set permit_root_val = 'no' %}
+{% else %}
+  {# Fallback: sicherer Standard – Root darf nur mit Key rein #}
+  {% set permit_root_val = 'prohibit-password' %}
+{% endif %}
+
+{# ---- PasswordAuthentication normalisieren ---- #}
+{% if pa in ['yes', 'no'] %}
+  {% set password_auth_val = pa %}
+{% elif pa in ['true', True, 1, '1'] %}
+  {% set password_auth_val = 'yes' %}
+{% elif pa in ['false', False, 0, '0'] %}
+  {% set password_auth_val = 'no' %}
+{% else %}
+  {# Fallback: konservativ – kein Passwort-Login #}
+  {% set password_auth_val = 'no' %}
+{% endif %}
+
+{# -------------------------------------------------------------------
+   Ab hier die eigentliche sshd_config
+   ------------------------------------------------------------------- #}
+
 Port {{ ssh_port | default(22) }}
 Protocol 2
 
@@ -13,18 +54,18 @@ HostKey /etc/ssh/ssh_host_rsa_key
 HostKey /etc/ssh/ssh_host_ecdsa_key
 HostKey /etc/ssh/ssh_host_ed25519_key
 
-UsePrivilegeSeparation sandbox
+# UsePrivilegeSeparation ist deprecated und wird NICHT mehr verwendet
 SyslogFacility AUTH
 LogLevel VERBOSE
 
 LoginGraceTime 30
-PermitRootLogin {{ permit_root | default('no') }}
+PermitRootLogin {{ permit_root_val }}
 StrictModes yes
 MaxAuthTries 4
 MaxSessions 10
 
 PubkeyAuthentication yes
-PasswordAuthentication {{ password_auth | default('no') }}
+PasswordAuthentication {{ password_auth_val }}
 ChallengeResponseAuthentication no
 
 UsePAM yes
@@ -40,3 +81,4 @@ AcceptEnv LANG LC_*
 
 # SFTP subsystem
 Subsystem sftp /usr/lib/openssh/sftp-server
+
