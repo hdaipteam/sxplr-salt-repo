@@ -1,0 +1,16 @@
+services:
+  vault:
+    image: hashicorp/vault:latest
+    container_name: sxplr-vault-001
+    restart: unless-stopped
+    cap_add:
+      - IPC_LOCK
+    ports:
+      - "8200:8200"
+    volumes:
+      - /data/vault/config:/vault/config
+      - /data/vault/file:/vault/file
+      - /data/vault/logs:/vault/logs
+      - /data/vault/certs:/vault/certs
+    command: vault server -config=/vault/config/vault.hcl
+
