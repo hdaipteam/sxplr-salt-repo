@@ -17,6 +17,11 @@ set -euo pipefail
 DRY_RUN=0
 VERBOSE=0
 
+# Optionaler Vault-Health-Check (nur HTTP /sys/health, keine Secrets!)
+VAULT_ADDR="${VAULT_ADDR:-http://10.99.0.1:8200}"
+VAULT_TIMEOUT="${VAULT_TIMEOUT:-2}"
+CHECK_VAULT="${CHECK_VAULT:-1}"  # 1 = prüfen, 0 = ignorieren
+
 while [[ $# -gt 0 ]]; do
   case "$1" in
     -n|--dry-run)
@@ -41,6 +46,20 @@ log() {
   logger -t salt-master-ha "[$level] $msg" || true
   if [[ "$VERBOSE" -gt 0 ]]; then
     echo "[$(date -Is)] [$level] $msg"
+  fi
+}
+
+check_vault() {
+  if [[ "${CHECK_VAULT}" -ne 1 ]]; then
+    return 0
+  fi
+
+  if curl -s --max-time "${VAULT_TIMEOUT}" "${VAULT_ADDR}/v1/sys/health" >/dev/null 2>&1; then
+    log "DEBUG" "Vault reachable at ${VAULT_ADDR}"
+    return 0
+  else
+    log "ERROR" "Vault at ${VAULT_ADDR} not reachable"
+    return 1
   fi
 }
 
@@ -190,7 +209,12 @@ case "${HA_ROLE}" in
     exit 0
     ;;
   primary)
-    # Primary MUSS laufen
+    # Optional: Primary soll bestenfalls nur aktiv sein, wenn Vault erreichbar ist
+    if ! check_vault; then
+      log "WARN" "ha_role='primary', aber Vault ist NICHT erreichbar - lasse salt-master weiterlaufen, aber markiere Health als kritisch."
+      # Kein stop_master() hier, damit im Worst-Case wenigstens ein Master da ist.
+    fi
+
     if is_master_active; then
       log "INFO" "ha_role='primary' und salt-master läuft - OK."
     else
@@ -199,11 +223,16 @@ case "${HA_ROLE}" in
     fi
     ;;
   secondary)
-    # Secondary DARF nur laufen, wenn der Peer NICHT erreichbar ist
+    # Secondary DARF nur laufen, wenn der Peer NICHT erreichbar ist UND Vault funktioniert
     if peer_reachable "${PEER_WG_IP}"; then
       log "INFO" "ha_role='secondary' und Peer (${PEER_WG_IP}) ist erreichbar - secondary bleibt PASSIV."
       stop_master
     else
+      if ! check_vault; then
+        log "ERROR" "ha_role='secondary', Peer nicht erreichbar, aber Vault ebenfalls nicht erreichbar - übernehme NICHT aktiv."
+        stop_master
+        exit 1
+      fi
       log "WARN" "ha_role='secondary' und Peer (${PEER_WG_IP}) ist NICHT erreichbar - secondary übernimmt AKTIV."
       start_master
     fi
