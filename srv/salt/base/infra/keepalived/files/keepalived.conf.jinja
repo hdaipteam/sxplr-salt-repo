@@ -1,0 +1,43 @@
+# /etc/keepalived/keepalived.conf
+# Managed by Salt - DO NOT EDIT MANUALLY
+# HA-Setup für Salt-Master VIP auf WireGuard-Interface
+
+{% set ka = keepalived or {} %}
+{% set interface = ka.get('interface', 'wg0') %}
+{% set vip = ka.get('virtual_ip', '10.99.0.10/32') %}
+{% set vrrp_instance = ka.get('vrrp_instance', 'VI_SXPLR_SALT') %}
+{% set vrid = ka.get('virtual_router_id', 42) %}
+{% set state = ka.get('state', 'BACKUP') %}
+{% set priority = ka.get('priority', 100) %}
+
+vrrp_script chk_salt {
+    script "/etc/keepalived/check_salt.sh"
+    interval 2
+    timeout 2
+    rise 1
+    fall 2
+}
+
+vrrp_instance {{ vrrp_instance }} {
+    state {{ state }}
+    interface {{ interface }}
+    virtual_router_id {{ vrid }}
+    priority {{ priority }}
+    advert_int 1
+
+    # Optional:
+    # nopreempt
+
+    authentication {
+        auth_type PASS
+        auth_pass 42saltHA
+    }
+
+    virtual_ipaddress {
+        {{ vip }}
+    }
+
+    track_script {
+        chk_salt
+    }
+}
