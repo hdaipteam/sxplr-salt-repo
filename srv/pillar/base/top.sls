@@ -1,4 +1,4 @@
-# srv/pillar/base/top.sls
+# /srv/pillar/base/top.sls
 # Ordnet globale und Master-spezifische Pillars zu
 
 base:
@@ -11,3 +11,4 @@ base:
 
   'mngm-002.*':
     - mngm.mngm-002
+    

@@ -1,4 +1,4 @@
-# srv/pillar/base/mngm/mngm-001.sls
+# /srv/pillar/base/mngm/mngm-001.sls
 # Pillar für MNGM-001 (VBOX: sxplr-grndctrl-ops-node-001)
 
 sxplr:
@@ -22,6 +22,7 @@ salt_master:
     peer_id: "mngm-002.minion.saltvpn.cfg"
     peer_wg_ip: "10.99.0.251"
 
+  # Target: /etc/salt/master.d/roots.conf
   file_roots:
     base:
       - /srv/salt/base
@@ -42,3 +43,12 @@ salt_master:
     - base
     - prod
     - dev
+
+keepalived:
+  enable: true
+  interface: wg0
+  virtual_ip: 10.99.0.10/32
+  vrrp_instance: VI_SXPLR_SALT
+  virtual_router_id: 42
+  state: MASTER          # MNGM-001 hält die VIP im Normalfall
+  priority: 200
