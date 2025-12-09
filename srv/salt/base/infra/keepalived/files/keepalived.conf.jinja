@@ -2,35 +2,22 @@
 # Managed by Salt - DO NOT EDIT MANUALLY
 # HA-Setup für Salt-Master VIP auf WireGuard-Interface
 
-# -------------------------------------------------------------------
-# Globale Settings: Script-Sicherheit aktivieren
-# -------------------------------------------------------------------
-global_defs {
-    # Wir können hier auch einen dedizierten User nehmen (z.B. keepalived_script),
-    # aber dafür müsste es den Systemuser geben. Fürs erste: root.
-    script_user root
-    enable_script_security
-}
+{# Pillar laden #}
+{% set ka = pillar.get('keepalived', {}) %}
+{% set sm = pillar.get('salt_master', {}) %}
 
-# -------------------------------------------------------------------
-# Jinja-Setup: Werte aus Pillar
-# -------------------------------------------------------------------
-{% set ka = keepalived or {} %}
-{% set interface = ka.get('interface', 'wg0') %}
-{% set vip = ka.get('virtual_ip', '10.99.0.10/32') %}
-{% set vrrp_instance = ka.get('vrrp_instance', 'VI_SXPLR_SALT') %}
-{% set vrid = ka.get('virtual_router_id', 42) %}
-{% set state = ka.get('state', 'BACKUP') %}
-{% set priority = ka.get('priority', 100) %}
+{# Keepalived-spezifische Werte #}
+{% set interface       = ka.get('interface', 'wg0') %}
+{% set vip             = ka.get('virtual_ip', '10.99.0.10/32') %}
+{% set vrrp_instance   = ka.get('vrrp_instance', 'VI_SXPLR_SALT') %}
+{% set vrid            = ka.get('virtual_router_id', 42) %}
+{% set state           = ka.get('state', 'BACKUP') %}
+{% set priority        = ka.get('priority', 100) %}
 
 {# Unicast-VRRP: WireGuard-IPs aus salt_master-Pillar #}
-{% set sm = salt_master or {} %}
-{% set unicast_src_ip = sm.get('wg_ip') %}
+{% set unicast_src_ip  = sm.get('wg_ip') %}
 {% set unicast_peer_ip = (sm.get('ha') or {}).get('peer_wg_ip') %}
 
-# -------------------------------------------------------------------
-# Healthcheck-Skript: prüft, ob salt-master läuft
-# -------------------------------------------------------------------
 vrrp_script chk_salt {
     script "/etc/keepalived/check_salt.sh"
     interval 2
@@ -39,9 +26,6 @@ vrrp_script chk_salt {
     fall 2
 }
 
-# -------------------------------------------------------------------
-# VRRP-Instanz für Salt-Master-VIP
-# -------------------------------------------------------------------
 vrrp_instance {{ vrrp_instance }} {
     state {{ state }}
     interface {{ interface }}
@@ -49,7 +33,7 @@ vrrp_instance {{ vrrp_instance }} {
     priority {{ priority }}
     advert_int 1
 
-    {# WICHTIG: Unicast auf wg0 erzwingen, sonst wird VRRP deaktiviert #}
+    {# Nur setzen, wenn Werte vorhanden sind #}
     {% if unicast_src_ip and unicast_peer_ip %}
     unicast_src_ip {{ unicast_src_ip }}
     unicast_peer {
@@ -73,4 +57,5 @@ vrrp_instance {{ vrrp_instance }} {
         chk_salt
     }
 }
+
 
