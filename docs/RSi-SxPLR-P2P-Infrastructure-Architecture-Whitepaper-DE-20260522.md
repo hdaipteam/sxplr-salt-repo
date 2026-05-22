@@ -658,4 +658,3 @@ Auf Anfrage verfügbar. Bitte kontaktieren Sie den Autor für Zugriff auf:
 ---
 
 *© 2026 Ralf Siebert (aka Maxim R. Garrtner). Veröffentlicht unter CC BY-SA 4.0.*  
-*Dieses Dokument wurde mit Qwen 3.6 unterstützt generiert.* 🛠️
