@@ -16,7 +16,7 @@
 | **Klassifikation** | Konzeptionell / Öffentlich / Technisch |
 | **Lizenz** | CC BY-SA 4.0 |
 | **Sprache** | Deutsch |
-| **Bezug** | Positionspapier: *„Digitale Souveränität durch Echtes Peer-to-Peer"* (PP-2026-001) |
+| **Bezug** | Positionspapier: *„Digitale Souveränität durch Echtes Peer-to-Peer"* (DAE-PP-2026-001-v0.5.1) |
 
 ---
 
@@ -1521,6 +1521,88 @@ Die Architektur des Internets ist keine technische Neutralität. Sie ist das Erg
 > *„Die Zukunft des Internets wird nicht von Konzernen verhandelt, sondern von Communities gebaut. Echtes Peer-to-Peer ist kein technisches Nischenprojekt. Es ist die infrastrukturelle Wiederherstellung von Eigentum, Privatsphäre und Kooperation im digitalen Raum."*
 
 ---
+
+# 9. Technisches Glossar
+
+Dieses Glossar definiert die zentralen Begriffe, Protokolle und Architekturkonzepte des Decentralized Autonomous Ecosystems (DAE) aus technischer Perspektive. Alle Definitionen sind auf die spezifische Implementierungslogik des Whitepapers abgestimmt und ersetzen keine lexikalischen Standarddefinitionen, sondern operationalisieren die Terminologie für Infrastruktur-Architekten, Entwickler und Systemadministratoren.
+
+| Begriff | Technische Definition im DAE-Kontext |
+|---------|--------------------------------------|
+| **B.A.T.M.A.N. advanced** | Proaktives Layer-2-Routing-Protokoll (Linux-Kernel-Modul `batman-adv`). Nutzt MAC-Adress-basierte Originator Messages (OGMs) und Transmission-Quality (TQ)-Metriken für autonomes Mesh-Routing über WLAN/Ethernet. |
+| **Circle-Prinzip / Circle-Topologie** | Sozio-technische Gruppierungsstruktur, in der Peers über explizite, kryptographisch verifizierte Peering-Beziehungen autorisiert werden. Technisch umgesetzt durch ACL-basierte Mesh-Filter, TPM-gesiegelte Key-Registrierung und Circle-scoped CRDT-Namespaces. |
+| **Compliance-by-Design** | Architektonische Implementierung regulatorischer Anforderungen (DSGVO, eIDAS, IFG) durch lokale Datenpersistenz, TPM-basierte Non-Repudiation, automatische Drift-Rollbacks und selektive Disclosure-Pipelines. |
+| **CRDT (Conflict-Free Replicated Data Types)** | Mathematisch definierte, kommutative/assoziative/idempotente Datenstrukturen für offline-fähige, konfliktfreie Zustandsreplikation zwischen autorisierten Peers. Im DAE ersetzt CRDT-Merge-Logik zentrale Sequenzierung und Quorum-Server. |
+| **DAE (Decentralized Autonomous Ecosystem)** | Applikationsagnostische, protokollgesteuerte Infrastruktur, die Datensouveränität, Transparenz und Resilienz durch echte P2P-Vernetzung (OSI L2–4), Circle-Governance und hardwaregesicherte Kryptographie technisch erzwingt. |
+| **Echtes Peer-to-Peer** | Vernetzungsarchitektur auf OSI-Layer 2–4 (MAC/IP/Transport), die serverbasierte Vermittlungsinstanzen eliminiert. Verbindungen werden über kryptographische Identitäten, Crypto-Key-Routing und proaktives Mesh-Routing autonom etabliert. |
+| **GitOps** | Betriebsparadigma, bei dem Infrastruktur-States, Circle-Policies und Validierungsregeln als versionierter, signierter Code in einem Git-Repository verwaltet werden. SaltStack-Minions pullen via `gitfs` und konvergieren automatisch zum deklarierten Soll-Zustand. |
+| **Graceful Degradation** | Architektonische Eigenschaft, bei der Teilausfälle (WAN-Down, Node-Crash, TPM-Seal-Fehler) nicht zum Totalausfall führen. CRDT-Puffering, BATMAN-Multi-Path-Routing und WireGuard-Keepalives gewährleisten Offline-First-Betrieb. |
+| **Merkle-DAG (Directed Acyclic Graph)** | Hash-verkettete, verzweigte Datenstruktur zur Abbildung von Quellenprovenenz, Interpretations-Branches und CRDT-Merge-Historien. Gewährleistet Immutabilität der Primärdaten bei gleichzeitiger Versionierbarkeit von Kontextlayern. |
+| **Metadata-First-Indexing** | Query-, Filter- und Aggregationslogik, die primär auf Schema.org/JSON-LD-Metadaten operiert, nicht auf Payload-Inhalten. Ermöglicht Proactive Transparency-by-Design ohne personenbezogene Datenexposition. |
+| **Non-Repudiation** | Technische Unabstreitbarkeit von Signaturen, Zustandsänderungen oder Konfigurations-Commits. Im DAE durch TPM 2.0 Sealing, hardwaregebundene ECC-Keys, PCR-Attestation und GitOps-Provenenz erzwungen. |
+| **OSI-Layer 2–4** | Referenzschichten, auf denen das DAE operiert: L2 (MAC-basiertes Mesh-Routing), L3 (kryptographisches Overlay-VPN), L4 (zustandslose, verschlüsselte Datenströme). Ermöglicht native Sicherheit ohne applikatorische Nachrüstung. |
+| **p2plib** | Konzeptionelle P2P-Kommunikationsbibliothek für Service-Discovery ohne DNS, libsodium-basierte E2E-Payload-Verschlüsselung und CRDT-basierte Offline-First-Synchronisation. Framework-agnostisch, bindet sich in NodeJS/Python/Go-Dienste. |
+| **Protokoll-Triade** | Komplementäre Schichtarchitektur: `B.A.T.M.A.N. advanced` (L2), `WireGuard` (L3), `p2plib` (L5–7). Keine einzelne Schicht ist allein ausreichend; ihr Zusammenspiel eliminiert strukturelle Abhängigkeiten und erzwingt Zero-Trust. |
+| **Proactive Transparency-by-Design** | Architekturprinzip, das Transparenz als Default-Verhalten implementiert. Metadaten, Algorithmus-Hashes und Validierungsregeln werden automatisch, maschinenlesbar und privacy-preserving publiziert. |
+| **Pseudo-P2P** | Applikative Dezentralisierung auf OSI-Layer 7 (z. B. ActivityPub, Matrix, Nostr). Client-zu-Client-Verbindungen werden über zentrale/föderierte Server-Relays vermittelt. Bewahrt das Vermittlungsparadigma und Datenextraktionsrisiken. |
+| **Selective Disclosure** | Granulare, kryptographisch gesteuerte Datenfreigabe. Export-Modes: `metadata_only`, `payload_hash_only`, `full_frozen_snapshot` + OTDK. Ermöglicht forensische Verwertbarkeit ohne vollständige Privatsphäre-Preisgabe. |
+| **Sibling-Paarung (1:1)** | Fest gekoppelte Node-Paarung: Lokaler Edge-Node ↔ Öffentlicher Gateway-Node. Bidirektionale CRDT-Synchronisation, Failover-Routing und Public-Termination. Eliminiert Single Point of Failure und Cloud-Backup-Abhängigkeit. |
+| **TPM 2.0 Sealing / Hardware-Root-of-Trust** | Bindung kryptographischer Keys an physische Systemstates (PCR-Quotes). Private Keys verlassen niemals den Chip; `tpm2_unseal` erfolgt nur zur Laufzeit bei validem Boot/Config-State. |
+| **WireGuard** | Stateless Layer-3-Overlay-VPN mit Curve25519/ChaCha20-Poly1305. Crypto-Key-Routing ersetzt DNS/CA-Abhängigkeit. <4.000 LOC, NAT-Durchdringung via `PersistentKeepalive=25`, kernel-native Integration. |
+
+---
+
+# 10. Referenzen & Quellenverzeichnis
+
+Die nachfolgenden Quellen bilden die technische, rechtliche, wissenschaftliche und konzeptionelle Grundlage des Decentralized Autonomous Ecosystems. Sie sind nach Domänen kategorisiert, um eine zielgerichtete Vertiefung für Architekten, Entwickler, Compliance-Verantwortliche und Forschende zu ermöglichen.
+
+### 📘 A. Protokolle, Spezifikationen & Technische Standards
+| Quelle / Standard | Referenz | Relevanz für das DAE |
+|-------------------|----------|----------------------|
+| **B.A.T.M.A.N. advanced** | https://www.open-mesh.org/ ; Linux Kernel `net/batman-adv/` | Kernel-native L2-Mesh-Routing, proaktive OGMs, Hybrid-WLAN/Ethernet |
+| **WireGuard** | Donenfeld, J. (2016–2024) / https://www.wireguard.com/ ; RFC 9198 (2022) | Stateless L3-Overlay, Curve25519/ChaCha20-Poly1305, NAT-Durchdringung |
+| **CRDT-Theory** | Shapiro, M. et al. (2011). *A Comprehensive Study of CRDTs* | Konfliktfreie Zustandsreplikation, Merge-Logik, Offline-First-Konsens |
+| **Merkle-DAG / Blockchain-Prinzipien** | Merkle, R. (1987). *A Digital Signature Based on a Conventional Encryption Function* | Hash-verkettete Provenenz, verzweigte Narrative, Immutabilität ohne PoW |
+| **TPM 2.0 Specification** | Trusted Computing Group (2019). *TPM Library Specification v2.0* | Hardware-Root-of-Trust, Sealing/Unsealing, PCR-Attestation, Key-Lifecycle |
+| **p2plib (konzeptionell)** | DAE-Designprinzipien, CRDT-Integration, libsodium E2E | Service-Discovery ohne DNS, Offline-First-Sync, Applikations-Agnostik |
+| **OSI-Modell** | ISO/IEC 7498-1:1994. *Open Systems Interconnection* | Referenzrahmen für L2–4-Architektur, Schichtentrennung, Security-by-Design |
+
+### ⚖️ B. Rechtliche & Normative Rahmenwerke
+| Norm / Gesetz | Referenz | Operative Übersetzung im DAE |
+|---------------|----------|------------------------------|
+| **DSGVO (EU) 2016/679** | Art. 4, 5, 17, 20 | Datenminimierung, Löschrecht, Portabilität durch lokale Persistenz & selektive Disclosure |
+| **Informationsfreiheitsgesetze** | IFG §1, UIG §2, VIG §1 (DE) | Proaktive Metadaten-Publikation, maschinenlesbare Entscheidungsgrundlagen |
+| **eIDAS-Verordnung (EU) 910/2014** | Art. 3, 25, 26 | TPM-basierte Non-Repudiation, forensische Beweiskette, qualifizierte Signatur-Äquivalenz |
+| **ISO/IEC 2382:2015** | *Information Technology Vocabulary* | Standardisierte Terminologie für Daten, Information, Provenenz, Validierung |
+
+### 📜 C. Wissenschaftliche & Theoretische Grundlagen
+| Quelle | Referenz | Relevanz für das DAE |
+|--------|----------|----------------------|
+| **Zuboff, S.** | *The Age of Surveillance Capitalism* (2019) | Diagnose extraktiver Datenökonomien; Legitimation architektonischer Souveränität |
+| **Proctor, R. N. / McGoey, L.** | *Agnotology: A Missing Epistemology* (2008/2012) | Theoretischer Rahmen für produziertes Nicht-Wissen; Basis für Transparenz-Architektur |
+| **Bates, M. J.** | *Information, Knowledge, and the DIKW Hierarchy* (2005) | Begriffliche Trennung Daten/Information; Fundament für Metadata-First-Indexing |
+| **Shannon, C. & Weaver, W.** | *The Mathematical Theory of Communication* (1948) | Informationstheoretische Grundlage; Unterscheidung syntaktischer Daten vs. semantischer Information |
+| **Oreskes, N. & Conway, E.** | *Merchants of Doubt* (2010) | Analyse strategischer Intransparenz; motiviert Proactive-Transparency-by-Design |
+
+### 🌐 D. Projektdokumentation, Historie & Kontextquellen
+| Quelle | Referenz | Einbindung ins DAE |
+|--------|----------|---------------------|
+| **Anatomie eines Peer to Peer Netzwerks** | R. Siebert / M. R. Garrtner (2023/2026) | Ursprungsidee, Circle-Prinzip, globale Rechenkapazitätsanalyse, Agnotologie-Bezug |
+| **OLPC-Projekt** | Negroponte, N. et al. (2005–2008) | Historischer Kontext für Mesh-Netzwerke, Lessons Learned zu proprietären Chipsätzen |
+| **ActivityPub W3C Recommendation** | W3C (2018) | Abgrenzung Pseudo-P2P (Layer 7), Föderation vs. echte Direktverbindung |
+| **IPFS / Nostr Dokumentation** | Protocol Whitepapers & RFCs | Vergleich applikatorischer Dezentralisierung, Limitationen, Sicherheitsnachrüstungen |
+| **Competence Signature Kontext** | DAE-Use-Case-Dokumentation | Exemplarische Validierungs-Applikation, TPM-Signierung, Multi-Peer-Konsens |
+
+### 🛠️ E. Software, Orchestrierung & Betriebstools
+| Tool / Framework | Referenz | Rolle im DAE |
+|------------------|----------|--------------|
+| **SaltStack GitFS** | https://docs.saltproject.io/en/latest/ref/file_server/all/salt.fileserver.gitfs.html | Versionierte State-/Pillar-Provisionierung, dezentrale Konvergenz |
+| **Docker Compose** | https://docs.docker.com/compose/ | Container-Isolation, Zero-Trust-Richtlinien, Read-only Root-FS |
+| **Caddy Reverse Proxy** | https://caddyserver.com/ | Auto-HTTPS, HSTS/CSP-Hardening, Rate-Limiting, Circle-scoped Routing |
+| **Restic Backup** | https://restic.readthedocs.io/ | TPM-gesiegelte Repo-Keys, bidirektionale Sync, verschlüsselte Snapshots |
+| **Prometheus / Loki / Grafana** | CNCF Stack | Lokales PLG-Monitoring, Drift-Detection, Circle-only Dashboards |
+
+---
+
 📬 **Kontakt & Contribution**  
 Dieses Whitepaper ist ein lebendes Dokument. Feedback, Forks, Implementierungsbeiträge und Peer-Reviews sind ausdrücklich erwünscht.
 
