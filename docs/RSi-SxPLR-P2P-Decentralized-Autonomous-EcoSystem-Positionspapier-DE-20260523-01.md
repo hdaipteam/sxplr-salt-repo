@@ -1,7 +1,7 @@
 # Positionspapier: Digitale Souveränität durch Echtes Peer-to-Peer
 ## Warum dezentrale Infrastrukturen die notwendige Antwort auf den Überwachungskapitalismus sind
 
-**Paper of position v0.5.1 (FINAL DRAFT)**
+**Paper of position v0.5.1 (DRAFT)**
 
 ---
 
@@ -10,7 +10,7 @@ Dokumenten-Information
 | Feld | Wert |
 |------|------|
 | **Dokument-ID** | `DAE-PP-2026-001-v0.5.1` |
-| **Version / Status** | 0.5.1 (FINAL DRAFT) |
+| **Version / Status** | 0.5.1 (DRAFT) |
 | **Datum** | 23. Mai 2026 |
 | **Autor** | Ralf Siebert (aka Maxim R. Garrtner) |
 | **Kontakt** | [maxim.r.garrtner@yandex.com](mailto:maxim.r.garrtner@yandex.com) |
@@ -40,7 +40,7 @@ Dieses Positionspapier begründet, warum **echtes Peer-to-Peer (P2P) auf OSI-Lay
 | Feld | Wert |
 |------|------|
 | **Dokument-ID** | `DAE-WP-2026-001-v0.5.1` |
-| **Version / Status** | 0.5.1 (FINAL DRAFT) |
+| **Version / Status** | 0.5.1 (DRAFT) |
 | **Datum** | 23. Mai 2026 |
 | **Autor** | Ralf Siebert (aka Maxim R. Garrtner) |
 | **Kontakt** | [maxim.r.garrtner@yandex.com](mailto:maxim.r.garrtner@yandex.com) |
@@ -1063,11 +1063,78 @@ Das DAE ist damit nicht nur eine Antwort auf den Überwachungskapitalismus oder 
 
 Desinformation wird als architektonische Anomalie behandelt, nicht als inhaltliches Urteil. Historische Aufklärung wird nicht zentral kuratiert, sondern dezentral rekonstruiert. Juristische Wiedergutmachung wird nicht eingeklagt, sondern architektonisch ermöglicht.
 
-> *„Die Anatomie von Information verrät mehr als ihr Inhalt. Das Decentralized Autonomous Ecosystem liest diese Anatomie, speichert sie unveränderlich und macht sie kooperativ validierbar. Nicht um eine ‚einzige Wahrheit' zu erzwingen. Sondern um Desinformation durch Transparenz, Manipulation durch Provenenz und Vergessen durch Rekonstruktion zu ersetzen."*
+> *„Die Anatomie von Information verrät mehr als ihr Inhalt. Das Decentralized Autonomous Ecosystem liest diese Anatomie, speichert sie unveränderlich und macht sie kooperativ validierbar. Nicht um eine ‚einzige Wahrheit' zu erzwingen. Sondern um Desinformation durch Transparenz, Manipulation durch Provenenz und Vergessen durch Rekonstruktion zu ersetzen."
 
 ---
 
-## 10. Referenzen
+# 10. Glossar der Kernbegriffe
+
+Dieses Glossar definiert die zentralen Begrifflichkeiten des Positionspapiers im Kontext des Decentralized Autonomous Ecosystems (DAE). Alle Definitionen sind architektur- und kontextbezogen formuliert und ersetzen keine lexikalischen Standarddefinitionen, sondern operationalisieren die Begriffe für die hier diskutierte Infrastruktur.
+
+| Begriff | Definition im Kontext des DAE |
+|---------|------------------------------|
+| **Agnotologie** | Wissenschaftliche Disziplin, die sich mit der gezielten Erzeugung, Verzögerung oder Fragmentierung von Nicht-Wissen beschäftigt. Im DAE dient die Analyse agnotologischer Mechanismen (Selektion, Kontextentzug, Framing) als Grundlage für Transparenz- und Validierungsarchitekturen. |
+| **Circle-Prinzip** | Sozio-technisches Organisationsmodell, bei dem sich Peers in bekannten, persönlich verifizierten Gruppen (Familie, Verein, Nachbarschaft, Grätzl) strukturieren. Autorisierung ist explizit, widerrufbar und identitätsgebunden. Ersetzt anonyme Reichweite durch vertrauenswürdige Vernetzung. |
+| **Compliance-by-Design** | Architektonische Implementierung rechtlicher und ethischer Normen (DSGVO, IFG, eIDAS) durch Protokoll-Design, Hardware-Root-of-Trust und dezentrale Validierung. Rechtskonformität entsteht nicht durch Verwaltung, sondern durch technische Zwangsläufigkeit. |
+| **CRDT (Conflict-Free Replicated Data Types)** | Mathematisch definierte Datenstrukturen, die konfliktfreie, offline-fähige Synchronisation zwischen autorisierten Peers ermöglichen. Im DAE gewährleisten sie Zustandskonsistenz ohne zentrale Sequenzierung oder Lock-Mechanismen. |
+| **Decentralized Autonomous Ecosystem (DAE)** | Die im Paper beschriebene Infrastruktur: ein applikationsagnostisches, protokollgesteuertes Ökosystem, das Datensouveränität, Transparenz und Resilienz durch echte Peer-to-Peer-Vernetzung (Layer 2–4), Circle-Governance und hardwaregesicherte Kryptographie technisch erzwingt. |
+| **Digitale Souveränität** | Die technische und gesellschaftliche Fähigkeit von Einzelpersonen und Communities, über eigene Daten, Identitäten und Kommunikationspfade zu verfügen, ohne von zentralen Infrastrukturen oder Plattformmonopolen abhängig zu sein. Im DAE wird Souveränität nicht vertraglich garantiert, sondern architektonisch implementiert. |
+| **Echtes Peer-to-Peer** | Vernetzungsarchitektur, die auf OSI-Layer 2–4 (Data Link, Network, Transport) operiert. Eliminiert vermittelnde Server-Instanzen, ermöglicht autonome, verschlüsselte Direktverbindungen und basiert auf kryptographischer Identität statt auf DNS oder Plattformregistrierung. |
+| **GitOps** | Betriebsparadigma, bei dem Infrastruktur-Konfiguration, Validierungsregeln und Circle-Policies als versionierter, signierter Code in einem Git-Repository verwaltet werden. Automatische Konvergenz (State-Apply) und Auditierbarkeit ersetzen manuelle Administration. |
+| **Informationsfreiheit** | Recht der Gesellschaft auf Nachvollziehbarkeit von Prozesslogik, Entscheidungsgrundlagen und Validierungsregeln. Im DAE wird Informationsfreiheit durch Proactive Transparency-by-Design, maschinenlesbare Metadaten und Circle-Governance operationalisiert. |
+| **Merkle-DAG (Directed Acyclic Graph)** | Hash-verkettete, verzweigte Datenstruktur zur Abbildung historischer Rekonstruktionen, Quellenprovenenz und divergierender Narrative. Gewährleistet Immutabilität der Primärquelle bei gleichzeitiger Versionierbarkeit von Interpretationslayern. |
+| **Non-Repudiation** | Technische Unabstreitbarkeit von Handlungen, Signaturen oder Zustandsänderungen. Im DAE durch TPM 2.0 Sealing, hardwaregebundene ECC-Keys und GitOps-Provenenz erzwungen. |
+| **OSI-Layer 2–4** | Referenzschichten des OSI-Modells, auf denen das DAE operiert: Layer 2 (MAC-basiertes Mesh-Routing), Layer 3 (kryptographisches Overlay-VPN), Layer 4 (zustandslose, verschlüsselte Datenströme). Ermöglichen native Sicherheit ohne applikatorische Nachrüstung. |
+| **Proactive Transparency-by-Design** | Architekturprinzip, das Transparenz als Default-Verhalten implementiert. Metadaten, Algorithmus-Hashes und Validierungsregeln werden automatisch, maschinenlesbar und privacy-preserving publiziert, ohne personenbezogene Payloads zu exponieren. |
+| **Protokoll-Triade** | Die komplementäre Schichtarchitektur des DAE: `B.A.T.M.A.N. advanced` (L2: autonomes Mesh-Routing), `WireGuard` (L3: kryptographischer Transit), `p2plib` (L5–7: Service-Discovery, CRDT-Sync, E2E-Kommunikation). |
+| **Pseudo-P2P** | Applikative Dezentralisierung auf OSI-Layer 7 (z. B. ActivityPub, Matrix, Nostr). Client-zu-Client-Verbindungen werden über zentrale oder föderierte Server-Relays vermittelt. Reduziert Monopolabhängigkeit, bewahrt aber das Vermittlungsparadigma und Datenextraktionsrisiken. |
+| **Selective Disclosure** | Granulare, kryptographisch gesteuerte Datenfreigabe. Ermöglicht die Offenlegung spezifischer Metadaten, Hashes oder Payloads an autorisierte Peers, ohne die gesamte Privatsphäre preiszugeben. |
+| **TPM 2.0 Sealing** | Hardware-basierte Bindung kryptographischer Keys an den physischen Systemzustand (PCR-Quotes). Private Keys verlassen niemals den Chip; Unsealing erfolgt nur zur Laufzeit bei validem Systemstate. |
+| **Überwachungskapitalismus** | Wirtschaftssystem, das menschliche Erfahrung als kostenlosen Rohstoff für kommerzielle Extraktion, Verhaltensvorhersage und algorithmische Optimierung beansprucht (vgl. Zuboff, 2019). Im DAE wird diese Extraktionslogik durch architektonische Eliminierung zentraler Vermittler unterlaufen. |
+
+---
+
+# 11. Referenzen & Quellenverzeichnis
+
+Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und historische Grundlage des Positionspapiers. Sie sind nach Kategorien sortiert, um eine zielgerichtete Vertiefung zu ermöglichen. Alle Verweise entsprechen dem Stand der Diskussion und den im Text integrierten Erkenntnissen.
+
+### 📘 A. Primärliteratur & Theoretische Grundlagen
+| Quelle | Referenz | Relevanz für das DAE |
+|--------|----------|----------------------|
+| Zuboff, S. (2019) | *The Age of Surveillance Capitalism* | Grundlegende Diagnose extraktiver Datenökonomien; legitimiert die Notwendigkeit architektonischer Souveränität |
+| Proctor, R. N. (2008) | *Agnotology: A Missing Epistemology* | Theoretischer Rahmen für produziertes Nicht-Wissen; Basis für Transparenz- & Validierungsarchitektur |
+| McGoey, L. (2012) | *The Strategic Uses of Agnotology* | Analyse institutioneller Intransparenz; motiviert Proactive-Transparency-by-Design |
+| Bates, M. J. (2005) | *Information, Knowledge, and the DIKW Hierarchy* | Begriffliche Trennung Daten/Information; Fundament für Metadaten-First-Architektur |
+| Shannon, C. & Weaver, W. (1948) | *The Mathematical Theory of Communication* | Informationstheoretische Grundlage; Unterscheidung syntaktischer Daten vs. semantischer Information |
+
+### 🌐 B. Technische Spezifikationen & Protokolle
+| Quelle / Standard | Referenz | Implementierung im DAE |
+|-------------------|----------|------------------------|
+| **B.A.T.M.A.N. advanced** | https://www.open-mesh.org/ | Kernel-native Layer-2-Mesh-Routing, proaktive OGMs, Hybrid-WLAN/Ethernet |
+| **WireGuard** | Donenfeld, J. (2016–2024) / https://www.wireguard.com/ | Stateless L3-Overlay, Curve25519/ChaCha20-Poly1305, NAT-Durchdringung |
+| **p2plib (konzeptionell)** | DAE-Designprinzipien, CRDT-Theorie | Service-Discovery ohne DNS, libsodium E2E, Offline-First-Sync |
+| **CRDT-Theory** | Shapiro, M. et al. (2011) *A Comprehensive Study of CRDTs* | Konfliktfreie Zustandsreplikation, Merge-Logik, Circle-Konsens |
+| **Merkle-DAG** | Merkle, R. (1987); Git/Blockchain-Implementierungen | Hash-verkettete Provenenz, verzweigte Narrative, Immutabilität |
+| **TPM 2.0 Specification** | TCG (2019) *TPM Library Specification* | Hardware-Root-of-Trust, Sealing/Unsealing, PCR-Attestation |
+| **GitOps & SaltStack GitFS** | Weaveworks (2017); SaltStack Docs | Versionierte Provisionierung, State-Konvergenz, Auditierbarkeit |
+| **OSI-Modell** | ISO/IEC 7498-1:1994 | Referenzrahmen für Layer-2–4-Architektur, Schichtentrennung, Security-by-Design |
+
+### ⚖️ C. Rechtliche & Normative Rahmenwerke
+| Norm / Gesetz | Referenz | Operative Übersetzung im DAE |
+|---------------|----------|------------------------------|
+| **DSGVO (EU) 2016/679** | Art. 4, 5, 17, 20 | Datenminimierung, Löschrecht, Portabilität durch lokale Persistenz & selektive Disclosure |
+| **Informationsfreiheitsgesetz (IFG) / UIG / VIG** | §1 IFG, §2 UIG, §1 VIG | Proaktive Metadaten-Publikation, maschinenlesbare Entscheidungsgrundlagen |
+| **eIDAS-Verordnung (EU) 910/2014** | Art. 3, 25, 26 | TPM-basierte Non-Repudiation, forensische Beweiskette, qualifizierte Signatur-Äquivalenz |
+| **ISO/IEC 2382:2015** | *Information Technology Vocabulary* | Standardisierte Terminologie für Daten, Information, Provenenz, Validierung |
+
+### 📜 D. Projektdokumentation, Historie & Kontextquellen
+| Quelle | Referenz | Einbindung ins DAE |
+|--------|----------|---------------------|
+| **Anatomie eines Peer to Peer Netzwerks** | R. Siebert / M. R. Garrtner (2023/2026) | Ursprungsidee, Circle-Prinzip, globale Rechenkapazitätsanalyse, Agnotologie-Bezug |
+| **OLPC-Projekt (One Laptop per Child)** | Negroponte, N. et al. (2005–2008) | Historischer Kontext für Mesh-Netzwerke, Lessons Learned zu proprietären Chipsätzen |
+| **Bitcoin Whitepaper** | Nakamoto, S. (2008) | Strukturelle Prinzipien (Hash-Chains, dezentrale Validierung) ohne PoW/Token-Logik |
+| **ActivityPub W3C Recommendation** | W3C (2018) | Abgrenzung Pseudo-P2P (Layer 7), Föderation vs. echte Direktverbindung |
+| **IPFS / Nostr / Matrix Dokumentation** | Protokoll-Whitepapers & RFCs | Vergleich applikatorischer Dezentralisierung, Limitationen, Sicherheitsnachrüstungen |
 
 ---
 
