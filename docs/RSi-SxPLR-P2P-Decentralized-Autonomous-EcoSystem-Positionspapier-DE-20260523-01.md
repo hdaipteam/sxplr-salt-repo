@@ -348,8 +348,6 @@ Die drei Protokolle sind keine Alternativen, sondern **komplementäre Schichten*
 ```mermaid
 flowchart TD
     subgraph L7["Applikationsschicht (L7)"]
-    flowchart TD
-    subgraph L7["Applikationsschicht (L7)"]
         APP["Competence Core, Chat, BBS, Friendica, WP"]
     end
     subgraph L5_6["Session & Payload (L5-L6)"]
