@@ -143,9 +143,7 @@ Eine Analyse aktueller Forschungs- und Praxisstandards (2024–2026) zeigt, dass
 
 ---
 
-#### 1.5.2 Operative Übersetzung in die DAE-Architektur
-
-# 1.5.5 Operative Übersetzung: Von der Definition zur Infrastruktur
+#### 1.5.2 Operative Übersetzung in die DAE-Architektur: Von der Definition zur Infrastruktur
 Diese begriffliche Klarheit wird im DAE nicht durch Richtlinien, sondern durch technische Schichtung erzwungen:
 
 | Ebene | Daten (Raw) | Information (Validated & Contextualized) | Gesellschaftlich-operative Wirkung | Technische Umsetzung im DAE |
