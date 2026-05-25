@@ -145,13 +145,16 @@ Eine Analyse aktueller Forschungs- und Praxisstandards (2024–2026) zeigt, dass
 
 #### 1.5.2 Operative Übersetzung in die DAE-Architektur
 
-| Ebene | Daten (Raw) | Information (Validated & Contextualized) | Technische Umsetzung im DAE |
-|-------|-------------|------------------------------------------|-----------------------------|
-| **Speicherung** | Lokale NVMe-Blöcke, verschlüsselte Payloads, CRDT-States | Metadaten-Schema, Review-Status, geografische/zeitliche Einordnung | `NVMe-2`, `OPAL 2.0`, `p2plib`-Sync, JSON-LD/Schema.org |
-| **Identität & Signatur** | TPM-gesiegelte Private Keys, lokale Zertifikate | Non-Repudiable Signatur, Author-PublicKey, Git-Config-Hash | `tpm2_sign`, `ed25519`, GitOps-Provenienz |
-| **Validierung** | Ungeprüfte Einträge, subjektive Erfassung | Circle-Konsens (≥3 Peers), `review_status`, Konflikt-Markierung | CRDT-Merge, Circle-Governance, SaltStack-Drift-Check |
-| **Transparenz & Zugriffssteuerung** | Verschlüsselte lokale Dateien, selektive Freigabe | Maschinenlesbare Metadaten, öffentliche Algorithmus-Hashes, Proactive-Transparency | WireGuard-Auth, Caddy-Routing, Loki-Audit, Bitcoin-Timestamp |
-| **Juristische Verwertbarkeit** | Rohdokumente, Bescheide, Gesundheitsverläufe | Forensisch verwertbare Beweiskette, eIDAS-konform, unveränderlich | TPM-Attestation, OP_RETURN, selektive Disclosure, Circle-Review |
+# 1.5.5 Operative Übersetzung: Von der Definition zur Infrastruktur
+Diese begriffliche Klarheit wird im DAE nicht durch Richtlinien, sondern durch technische Schichtung erzwungen:
+
+| Ebene | Daten (Raw) | Information (Validated & Contextualized) | Gesellschaftlich-operative Wirkung | Technische Umsetzung im DAE |
+|-------|-------------|------------------------------------------|------------------------------------|-----------------------------|
+| **Speicherung** | Lokale NVMe-Blöcke, verschlüsselte Payloads, CRDT-States | Metadaten-Schema, Review-Status, geografische/zeitliche Einordnung | Datensouveränität bleibt lokal; Kontext wird teilbar | `NVMe-2`, `OPAL 2.0`, `p2plib`-Sync, JSON-LD/Schema.org |
+| **Identität & Signatur** | TPM-gesiegelte Private Keys, lokale Zertifikate | Non-Repudiable Signatur, Author-PublicKey, Git-Config-Hash | Verantwortung ist hardwaregebunden, nicht abstreitbar | `tpm2_sign`, `ed25519`, GitOps-Provenienz |
+| **Validierung** | Ungeprüfte Einträge, subjektive Erfassung | Circle-Konsens (≥3 Peers), `review_status`, Konflikt-Markierung | Mehr-Augen-Prinzip ersetzt zentrale Kuratierung | CRDT-Merge, Circle-Governance, SaltStack-Drift-Check |
+| **Transparenz & Zugriff** | Verschlüsselte lokale Dateien, selektive Freigabe | Maschinenlesbare Metadaten, öffentliche Algorithmus-Hashes | Informationsfreiheit als Default, nicht als Ausnahme | WireGuard-Auth, Caddy-Routing, Loki-Audit, Bitcoin-Timestamp |
+| **Juristische Verwertbarkeit** | Rohdokumente, Bescheide, Gesundheitsverläufe | Forensisch verwertbare Beweiskette, eIDAS-konform, unveränderlich | Aufklärung wird architektonisch ermöglicht, nicht eingeklagt | TPM-Attestation, OP_RETURN, selektive Disclosure, Circle-Review |
 
 ---
 
@@ -179,17 +182,6 @@ Sind strukturierte, semi-strukturierte oder unstrukturierte Zeichenfolgen, Signa
 
 🌐 **Information**  
 Sind Daten, die durch Kontext, Metadaten, Validierung und Zweckbindung semantisch aufgelöst wurden. Information ist handlungsrelevant, nachvollziehbar in ihrer Herkunft (Provenenz), architektonisch verifizierbar und unterliegt einer transparenten Entstehungslogik. Im DAE ist Information erst dann vollständig, wenn sie valide, kontextualisiert, maschinenlesbar und kooperativ nachprüfbar ist.
-
-#### 1.5.5 Operative Übersetzung: Von der Definition zur Infrastruktur
-Diese begriffliche Klarheit wird im DAE nicht durch Richtlinien, sondern durch technische Schichtung erzwungen:
-
-| Ebene | Daten (Raw) | Information (Validated & Contextualized) | Gesellschaftlich-operative Wirkung |
-|-------|-------------|------------------------------------------|-----------------------------------|
-| **Speicherung** | Lokale NVMe-Blöcke, verschlüsselte Payloads, CRDT-States | Metadaten-Schema, Review-Status, geografische/zeitliche Einordnung | Datensouveränität bleibt lokal; Kontext wird teilbar |
-| **Identität & Signatur** | TPM-gesiegelte Private Keys, lokale Zertifikate | Non-Repudiable Signatur, Author-PublicKey, Git-Config-Hash | Verantwortung ist hardwaregebunden, nicht abstreitbar |
-| **Validierung** | Ungeprüfte Einträge, subjektive Erfassung | Circle-Konsens (≥3 Peers), `review_status`, Konflikt-Markierung | Mehr-Augen-Prinzip ersetzt zentrale Kuratierung |
-| **Transparenz & Zugriff** | Verschlüsselte lokale Dateien, selektive Freigabe | Maschinenlesbare Metadaten, öffentliche Algorithmus-Hashes | Informationsfreiheit als Default, nicht als Ausnahme |
-| **Juristische Verwertbarkeit** | Rohdokumente, Bescheide, Gesundheitsverläufe | Forensisch verwertbare Beweiskette, eIDAS-konform, unveränderlich | Aufklärung wird architektonisch ermöglicht, nicht eingeklagt |
 
 #### 1.5.6 Agnotologie-Resistenz durch Architektur
 Agnotologie beschreibt, wie Unwissenheit nicht durch Zufall, sondern durch **Selektion, Verzögerung, Kontextentzug oder Framing** erzeugt wird. Staatliche Intransparenz, historische Lücken oder algorithmische Blackbox-Entscheidungen folgen oft diesem Muster. Das DAE adressiert diese Mechanismen durch gezielte Gegenarchitekturen:
