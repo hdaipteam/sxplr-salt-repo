@@ -1,7 +1,7 @@
 # Decentralized Autonomous Ecosystem Architecture
 ## Infrastruktur für digitale Souveränität durch echtes Peer-to-Peer
 
-**Whitepaper v0.5.1 (FINAL DRAFT)**
+**Whitepaper v0.5.1 (DRAFT)**
 
 ---
 
@@ -9,7 +9,7 @@
 
 | Feld | Wert |
 |------|------|
-| **Version** | 0.5.1 (FINAL DRAFT) |
+| **Version** | 0.5.1 (DRAFT) |
 | **Datum** | 23. Mai 2026 |
 | **Autor** | Ralf Siebert (aka Maxim R. Garrtner) |
 | **Kontakt** | [maxim.r.garrtner@yandex.com](mailto:maxim.r.garrtner@yandex.com) |
