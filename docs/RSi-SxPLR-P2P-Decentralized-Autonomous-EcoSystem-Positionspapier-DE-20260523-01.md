@@ -1067,7 +1067,7 @@ Desinformation wird als architektonische Anomalie behandelt, nicht als inhaltlic
 
 ---
 
-# 10. Glossar der Kernbegriffe
+## 10. Glossar der Kernbegriffe
 
 Dieses Glossar definiert die zentralen Begrifflichkeiten des Positionspapiers im Kontext des Decentralized Autonomous Ecosystems (DAE). Alle Definitionen sind architektur- und kontextbezogen formuliert und ersetzen keine lexikalischen Standarddefinitionen, sondern operationalisieren die Begriffe für die hier diskutierte Infrastruktur.
 
@@ -1094,7 +1094,7 @@ Dieses Glossar definiert die zentralen Begrifflichkeiten des Positionspapiers im
 
 ---
 
-# 11. Referenzen & Quellenverzeichnis
+## 11. Referenzen & Quellenverzeichnis
 
 Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und historische Grundlage des Positionspapiers. Sie sind nach Kategorien sortiert, um eine zielgerichtete Vertiefung zu ermöglichen. Alle Verweise entsprechen dem Stand der Diskussion und den im Text integrierten Erkenntnissen.
 
