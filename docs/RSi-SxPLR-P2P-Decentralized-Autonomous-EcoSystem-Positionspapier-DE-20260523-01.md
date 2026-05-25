@@ -348,28 +348,30 @@ Die drei Protokolle sind keine Alternativen, sondern **komplementäre Schichten*
 ```mermaid
 flowchart TD
     subgraph L7["Applikationsschicht (L7)"]
+    flowchart TD
+    subgraph L7["Applikationsschicht (L7)"]
         APP["Competence Core, Chat, BBS, Friendica, WP"]
     end
     subgraph L5_6["Session & Payload (L5-L6)"]
-        P2P["p2plib<br/>Service Discovery, CRDT-Sync, E2E-Verschlüsselung"]
+        P2P["p2plib\nService Discovery, CRDT-Sync, E2E-Verschlüsselung"]
     end
     subgraph L3["Verschlüsseltes Overlay (L3)"]
-        WG["WireGuard<br/>Crypto-Key Routing, NAT-Traversal, Authenticated Tunnel"]
+        WG["WireGuard\nCrypto-Key Routing, NAT-Traversal, Authenticated Tunnel"]
     end
     subgraph L2["Mesh-Routing (L2)"]
-        BAT["B.A.T.M.A.N. advanced<br/>MAC-basiert, proaktiv, hybrid (WLAN+Ethernet)"]
+        BAT["B.A.T.M.A.N. advanced\nMAC-basiert, proaktiv, hybrid (WLAN+Ethernet)"]
     end
     subgraph PHY["Physikalische Schicht (L1)"]
-        HW["WiFi / Ethernet / LoRa (optional)<br/>Hardware-gebundene Adressierung"]
+        HW["WiFi / Ethernet / LoRa (optional)\nHardware-gebundene Adressierung"]
     end
 
     APP --> P2P --> WG --> BAT --> HW
     
-    classDef app fill:#e8f5e9,stroke:#2e7d32;
-    classDef session fill:#fff3e0,stroke:#ef6c00;
-    classDef net3 fill:#e3f2fd,stroke:#1976d2;
-    classDef net2 fill:#f3e5f5,stroke:#7b1fa2;
-    classDef phy fill:#ffebee,stroke:#c62828;
+    classDef app fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
+    classDef session fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef net3 fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
+    classDef net2 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef phy fill:#ffebee,stroke:#c62828,stroke-width:2px;
     
     class APP app;
     class P2P session;
