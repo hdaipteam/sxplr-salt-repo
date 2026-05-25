@@ -1010,7 +1010,7 @@ flowchart LR
 
 Epochen systematischer Informationskontrolle wie der Nationalsozialismus oder Stalinismus/Kommunismus sind geprägt von Aktenvernichtung, propagandistischer Umdeutung und bewussten Archivlücken. Desinformation-Detektion im DAE erfolgt nicht durch inhaltliche Bewertung oder KI-„Faktenchecks", sondern durch **strukturelle Analyse der Informations-Anatomie**.
 
-### 7.1 Agnotologische Mechanismen & DAE-Gegenarchitektur
+##### 9.1.7.1 Agnotologische Mechanismen & DAE-Gegenarchitektur
 | Agnotologisches Merkmal | DAE-Detektionsmechanismus | Operative Konsequenz |
 |------------------------|--------------------------|----------------------|
 | **Fehlende Provenenz** | `provenance_gap`-Flag im DAG | Hash-Kette bricht; TPM-Quote fehlt; Git-Historie unvollständig |
@@ -1019,7 +1019,7 @@ Epochen systematischer Informationskontrolle wie der Nationalsozialismus oder St
 | **Nachträgliche Manipulation** | `immutability_violation`-Alert | Primärquellen-Hash ≠ zitierte Passage; CRDT-Konflikt nicht aufgelöst |
 | **Unverifizierte Kausalität** | `causality_unlinked`-Marker | Maßnahme → Wirkung ohne dokumentierte Entscheidungsbasis |
 
-### 7.2 Circle-basierte Mehrperspektiven-Validierung
+##### 9.1.7.2 Circle-basierte Mehrperspektiven-Validierung
 Das DAE vermeidet die binäre Logik "richtig/falsch" oder "Befürworter/Kritiker" durch **metadatenbasierte Kontextualisierung**:
 
 ```mermaid
