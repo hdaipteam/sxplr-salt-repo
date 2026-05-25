@@ -1,7 +1,7 @@
 # Positionspapier: Digitale Souveränität durch Echtes Peer-to-Peer
 ## Warum dezentrale Infrastrukturen die notwendige Antwort auf den Überwachungskapitalismus sind
 
-Paper of position v0.5.1 (FINAL DRAFT)
+**Paper of position v0.5.1 (FINAL DRAFT)**
 
 ---
 
