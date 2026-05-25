@@ -404,13 +404,83 @@ Im nächsten Kapitel wird gezeigt, wie diese technischen Grundlagen in fünf ope
 
 ---
 
-# 4. Fünf Säulen der digitalen Souveränität
+
+### 📍 Einordnung & Struktur-Anpassung im Positionspapier
+
+**Empfohlene Position:** Das Thema wird als **Kapitel 4** eingefügt. Es bildet die notwendige gesellschaftlich-rechtliche Brücke zwischen den technischen Grundlagen (Kapitel 1–3) und den operationalen Prinzipien des Ökosystems. 
+
+**Verschiebung der Kapitelzählung:**
+| Alt | Neu | Titel |
+|-----|-----|-------|
+| 4 | **5** | Fünf Säulen der digitalen Souveränität |
+| 5 | **6** | Vom Konzept zum Decentralized Autonomous Ecosystem |
+| 6 | **7** | Gesellschaftliche Dringlichkeit & Handlungsaufforderung |
+| 7 | **8** | Fazit & Ausblick |
+
+Diese Anordnung ist zwingend, da Informationsfreiheit und Transparenz erst nach der Klärung der Protokoll-Triade (Kap. 3) und der begrifflichen Trennung von Daten und Information (Kap. 1.5) architektonisch und gesellschaftlich fundiert begründet werden können.
+
+---
+
+### 📘 Positionspapier – Kapitel 4: Informationsfreiheit, Transparenz & Agnotologie-Resistenz als infrastrukturelles Prinzip
+
+Die Debatte um digitale Souveränität wird häufig als Zielkonflikt inszeniert: Schutz persönlicher Daten (Datenschutz) versus Recht auf Zugang zu öffentlichen Informationen (Informationsfreiheit). Diese vermeintliche Opposition ist ein Relikt zentralisierter Infrastrukturen, in denen Transparenz und Privatsphäre um dieselben physischen Speicherorte konkurrieren. Im Decentralized Autonomous Ecosystem (DAE) wird dieser Konflikt nicht regulativ, sondern **architektonisch aufgelöst**. Beide Prinzipien sind keine Gegensätze, sondern komplementäre Säulen einer demokratischen Informationsinfrastruktur.
+
+#### 4.1 Die komplementäre Dualität: Datenschutz vs. Informationsfreiheit
+Während der Datenschutz das Recht des Einzelnen schützt, *nicht* preisgeben zu müssen, was er nicht teilen möchte, garantiert die Informationsfreiheit das Recht der Gesellschaft, *zu erfahren*, wie mit geteilten Informationen umgegangen wird, welche Prozesse darauf angewendet werden und welche Algorithmen Entscheidungen beeinflussen.
+
+| Prinzip | Schutzgut | Richtung im DAE | Operatives Ziel |
+|---------|-----------|-----------------|-----------------|
+| **Datenschutz** | Persönliche Daten, Privatsphäre, informationelle Selbstbestimmung | Individuum → Schutz vor unerwünschter Offenlegung | Lokale Verschlüsselung, selektive Disclosure, TPM-gesiegelte Keys |
+| **Informationsfreiheit** | Prozesslogik, Entscheidungsgrundlagen, Validierungsregeln, Verwaltungshandeln | Gesellschaft → Recht auf Nachvollziehbarkeit | Open-Logic-by-Design, GitOps-Historie, maschinenlesbare Metadaten |
+
+Das DAE operationalisiert diese Dualität durch **strukturierte Transparenzebenen**: Personenbezogene Payloads bleiben verschlüsselt und lokal hoheitlich geschützt (vgl. Kap. 1.5). Metadaten, Konfigurations-Commits, Validierungslogiken und Algorithmus-Hashes sind standardmäßig einsehbar, nachvollziehbar und auditierbar. Transparenz wird damit nicht zum Privatheitsrisiko, sondern zum **Vertrauens-Enabler**.
+
+#### 4.2 Agnotologie & die Kaskade staatlicher Intransparenz
+Agnotologie – die wissenschaftliche Disziplin zur Erforschung des *kulturell produzierten Nicht-Wissens* – zeigt, dass Informationsdefizite selten zufällig entstehen. In staatlichen und institutionellen Kontexten folgen sie oft systematischen Mustern:
+- **Selektive Veröffentlichung:** Nur „signifikante" oder politisch gefilterte Dokumente werden proaktiv bereitgestellt; historische Aktenlagen bleiben fragmentiert.
+- **Prozedurale Hürden:** Informationsfreiheitsanfragen erfordern Fristen, Begründungen und Formulare. Teilantworten oder Verweise auf „Betriebsgeheimnisse" verzögern oder blockieren den Zugang.
+- **Reaktive statt proaktive Transparenz:** Informationen werden nur auf explizite Anfrage herausgegeben. Ein Automatismus zur maschinenlesbaren Publikation relevanter Sachverhalte existiert de facto nicht.
+- **Kontextentzug & Framing:** Komplexe Juristensprache, fehlende Verknüpfungen zwischen Maßnahmen und Entscheidungsgrundlagen sowie Blackbox-Entscheidungen erschweren demokratische Kontrolle.
+
+Die Pandemie (#COVID19) und historische Epochen systematischer Informationskontrolle (Nationalsozialismus, Stalinismus/Kommunismus) demonstrieren, wie diese Mechanismen zu **Kaskaden der Intransparenz** führen. Nicht-Wissen wird nicht durch Zufall erzeugt, sondern durch Architektur. Das DAE adressiert diese Lücke nicht durch Appelle an institutionellen Goodwill, sondern durch **infrastrukturelle Automatisierung**.
+
+#### 4.3 Proactive Transparency-by-Design im DAE
+Das DAE transformiert Informationsfreiheit von einem rechtlichen Anspruch in eine **technisch erzwungene Systemeigenschaft**. Durch die Kombination aus Circle-Topologie, GitOps, TPM-Attestation und Merkle-DAG-Provenenz wird Transparenz zum Default, nicht zur Ausnahme.
+
+| Agnotologisches Risiko | DAE-Gegenarchitektur | Operative Umsetzung |
+|------------------------|----------------------|---------------------|
+| **Blackbox-Entscheidungen** | Open-Logic-by-Design | Jeder Validierungs-Algorithmus, jede Sync-Regel und Circle-Policy ist im Git-Repository versioniert, signiert und öffentlich einsehbar (Code-Hashes) |
+| **Nachträgliche Manipulation** | Immutabilität durch Provenenz | TPM 2.0 siegelt alle kritischen Einträge; Merkle-DAG-Struktur macht nachträgliche Änderungen ohne neuen Branch technisch unmöglich |
+| **Kontextentzug & Framing** | Metadaten-First-Indexierung | Strikte Trennung von Payload und Kontext (`source_type`, `temporal_context`, `review_status`, `causality_linked`). Analyse arbeitet primär auf Metadaten, nicht auf Inhalten |
+| **Zentrale Kuratierung** | Circle-basierte Governance | Änderungen an Regeln oder Validierungslogik erfordern explizite Autorisierung durch ≥3 autorisierte Peers. Konsens ist dokumentiert, nicht deklariert |
+| **Reaktive IFG-Prozesse** | Automatisierte Publikations-Pipeline | `p2plib` synchronisiert maschinenlesbare Metadaten automatisch an Public-Gateways (Schema.org/JSON-LD). Personenbezogene Daten bleiben verschlüsselt; Prozesslogik ist standardmäßig offen |
+
+> *„Informationsfreiheit bedeutet nicht, alles zu sehen. Sie bedeutet, zu verstehen, wie Entscheidungen getroffen werden – und die Möglichkeit zu haben, diese Regeln mitzugestalten. Das DAE operationalisiert dies nicht durch Verträge, sondern durch Code, Hardware und kooperative Topologie."*
+
+#### 4.4 Vom reaktiven Appell zur automatisierten Infrastruktur
+Im klassischen Modell muss Transparenz eingefordert werden. Im DAE wird sie **architektonisch vorausgesetzt**. Dies geschieht durch drei ineinandergreifende Prinzipien, die direkt auf den in Kapitel 3 definierten Protokollen aufsetzen:
+
+1. **Konfiguration als öffentliche Infrastruktur:** Jede Netzwerkeinstellung, Validierungsregel und Circle-Policy ist via GitOps commit-geprüft, kryptographisch signiert und historisiert. Änderungen sind nachvollziehbar, rückgängig machbar und nicht abstreitbar.
+2. **Metadaten als Transparenzträger:** Durch standardisierte Annotation werden Entscheidungsprozesse maschinenlesbar dokumentiert. Citizen Science, Journalismus und Forschung können automatisiert Abweichungen, Lücken oder Widersprüche erkennen, ohne personenbezogene Daten zu exponieren.
+3. **Circle-Governance als demokratische Kontrolle:** Innerhalb eines Circle können Transparenzregeln lokal definiert werden (z. B. „Alle Validierungslogs sind für Circle-Mitglieder einsehbar"). Gateways verbinden Circles föderiert, aber nur autorisierte, verschlüsselte Datensätze passieren die Grenze. Keine Metadaten-Lecks, keine impliziten Zugriffsrechte.
+
+Diese Architektur löst das agnotologische Dilemma: **Privatheit und Transparenz koexistieren, weil sie auf unterschiedlichen Schichten operieren**. Die Payload bleibt geschützt; die Logik, die sie verarbeitet, ist offen.
+
+#### 4.5 Brücken zu den weiteren Kapiteln
+- **Verweis auf Kap. 1.5 (Daten vs. Information):** Die hier beschriebene Transparenzarchitektur setzt die begriffliche Trennung technisch um: Daten bleiben lokal und verschlüsselt; Information entsteht durch Validierung, Metadaten und nachvollziehbare Provenenz.
+- **Verweis auf Kap. 3 (Protokoll-Fundament):** `B.A.T.M.A.N. advanced`, `WireGuard` und `p2plib` liefern die transport- und routingtechnische Basis, die autorisierte, verschlüsselte und dennoch transparent protokollierte Datenflüsse ermöglicht.
+- **Verweis auf Kap. 5 (Fünf Säulen):** Dieses Kapitel konkretisiert die Säule *„Rechtliche Operationalisierung & Agnotologie-Resistenz"* und zeigt, wie Compliance-by-Design nicht durch Verwaltung, sondern durch Infrastruktur gewährleistet wird.
+- **Verweis auf Kap. 6 (DAE-Architektur):** Die Proactive-Transparency-Pipeline ist ein Kernbestandteil des Circle-Gateway-Modells und operationalisiert die föderale Skalierung ohne zentrale Kontrollinstanz.
+
+---
+
+# 5. Fünf Säulen der digitalen Souveränität
 
 Die technische Architektur eines echten Peer-to-Peer-Netzwerks ist kein Selbstzweck. Sie ist das operative Fundament, auf dem digitale Souveränität in fünf kritischen Dimensionen wiederhergestellt wird. Jede Säule adressiert eine strukturelle Schwäche des Überwachungskapitalismus und übersetzt sie durch die Protokoll-Triade (`B.A.T.M.A.N. advanced`, `WireGuard`, `p2plib`) in eine technisch erzwungene, nicht verhandelbare Alternative.
 
 ---
 
-### 4.1 Datensouveränität vs. Datenkolonialismus
+### 5.1 Datensouveränität vs. Datenkolonialismus
 
 | **Das Problem** | Daten werden physisch in fremden Rechenzentren gespeichert. Eigentümerschaft bleibt faktisch beim Infrastrukturprovider; Extraktion, Replikation und Analyse erfolgen ohne explizite, nachvollziehbare Einwilligung. |
 |-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -419,7 +489,7 @@ Die technische Architektur eines echten Peer-to-Peer-Netzwerks ist kein Selbstzw
 
 ---
 
-### 4.2 Authentische Sozialität vs. Algorithmische Manipulation
+### 5.2 Authentische Sozialität vs. Algorithmische Manipulation
 
 | **Das Problem** | Plattformen optimieren auf Engagement, nicht auf Qualität. Anonyme/pseudonyme Interaktion, algorithmische Filterblasen und vermittelte Sichtbarkeit ersetzen direkte, bewusste soziale Beziehungen. |
 |-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -428,7 +498,7 @@ Die technische Architektur eines echten Peer-to-Peer-Netzwerks ist kein Selbstzw
 
 ---
 
-### 4.3 Systemische Resilienz vs. Single Point of Failure
+### 5.3 Systemische Resilienz vs. Single Point of Failure
 
 | **Das Problem** | Zentralisierte Infrastrukturen sind anfällig für Ausfälle (Cloud-Region-Down), Zensur (Deplatforming) und gezielte Angriffe auf kritische Knoten. Ein Ausfall paralyisiert Millionen von Diensten. |
 |-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -437,7 +507,7 @@ Die technische Architektur eines echten Peer-to-Peer-Netzwerks ist kein Selbstzw
 
 ---
 
-### 4.4 Ökonomische Gerechtigkeit vs. Ausbeutungsmodell
+### 5.4 Ökonomische Gerechtigkeit vs. Ausbeutungsmodell
 
 | **Das Problem** | Nutzende generieren durch Daten, Aufmerksamkeit und Interaktion den Wert, den Plattformen extrahieren und monetarisieren. Intransparente Kostenmodelle, Vendor-Lock-in und Externalisierung gesellschaftlicher Kosten sind strukturell. |
 |-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -446,7 +516,7 @@ Die technische Architektur eines echten Peer-to-Peer-Netzwerks ist kein Selbstzw
 
 ---
 
-### 4.5 Rechtliche Operationalisierung vs. Juristische Grauzonen
+### 5.5 Rechtliche Operationalisierung vs. Juristische Grauzonen
 
 | **Das Problem** | Grundrechte wie Auskunft, Löschung oder Datenportabilität existieren juristisch, scheitern aber oft an der technischen Architektur. Plattformen verlagern Server, umgehen Gerichtsbarkeiten oder erschweren echte Löschung. |
 |-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -467,13 +537,13 @@ Im nächsten Kapitel wird gezeigt, wie diese Prinzipien in einem konkreten **Dec
 
 ---
 
-# 5. Vom Konzept zum Decentralized Autonomous Ecosystem
+# 6. Vom Konzept zum Decentralized Autonomous Ecosystem
 
 Die fünf Säulen digitaler Souveränität bleiben abstrakt, solange sie nicht in eine konkrete, betriebsreife Architektur übersetzt werden. Das **Decentralized Autonomous Ecosystem (DAE)** ist die operative Antwort auf die strukturellen Defizite des Überwachungskapitalismus. Es ist kein zentral gesteuertes Netzwerk, keine föderierte Server-Infrastruktur und keine applikatorische Simulation von Dezentralität. Es ist ein autonomes, selbst-organisierendes System, in dem jeder Peer vollständige Kontrolle über seine Daten, seine Identität und seine Kommunikationspfade besitzt – technisch verankert, nicht vertraglich versprochen.
 
 ---
 
-### 5.1 Architektur-Prinzipien: Vollständigkeit, Paarung & Kreise
+### 6.1 Architektur-Prinzipien: Vollständigkeit, Paarung & Kreise
 
 Das DAE basiert auf drei nicht verhandelbaren Design-Prinzipien, die jede Abhängigkeit von fremdverwalteter Infrastruktur eliminieren:
 
@@ -487,7 +557,7 @@ Diese Prinzipien kehren die Client-Server-Logik um: Statt dass anonyme Nutzer au
 
 ---
 
-### 5.2 Die Protokoll-Triade als operatives Rückgrat
+### 6.2 Die Protokoll-Triade als operatives Rückgrat
 
 Das DAE operationalisiert die zuvor definierten Prinzipien durch die komplementäre Integration der drei Kernprotokolle. Jede Schicht des OSI-Modells wird gezielt adressiert, um Sicherheit, Resilienz und Autonomie durch Design zu erzwingen.
 
@@ -504,7 +574,7 @@ Das DAE operationalisiert die zuvor definierten Prinzipien durch die komplement�
 
 ---
 
-### 5.3 Circle-Gateways & föderale Skalierung
+### 6.3 Circle-Gateways & föderale Skalierung
 
 Ein Circle ist in sich geschlossen und vollständig autonom. Das Internet ist keine Voraussetzung für dessen Funktion, sondern eine optionale Erweiterung. Die Verbindung zwischen Circles oder zum klassischen Web erfolgt ausschließlich über **Gateway-Peers**.
 
@@ -519,7 +589,7 @@ Ein Circle ist in sich geschlossen und vollständig autonom. Das Internet ist ke
 
 ---
 
-### 5.4 Konsens, Identität & Verifizierung
+### 6.4 Konsens, Identität & Verifizierung
 
 Im klassischen Internet wird Desinformation durch algorithmische Verstärkung, anonyme Quellen und zentrale Plattform-Kontrolle begünstigt. Das DAE ersetzt dieses Modell durch ein **neuartiges Consensus-Modell**, das auf Identitätsbekanntgabe, kryptographischer Verifikation und multi-peer Validierung basiert.
 
@@ -535,7 +605,7 @@ Wie im Referenzkonzept betont: *„Jeder weiß ein wenig, jeder muss nicht alles
 
 ---
 
-### 5.5 Autonomie & Graceful Degradation
+### 6.5 Autonomie & Graceful Degradation
 
 Ein echtes P2P-Ecosystem muss unter extremen Bedingungen funktionsfähig bleiben: Internetausfall, Zensur, Infrastrukturstörungen oder gezielte Angriffe auf einzelne Knoten. Das DAE adressiert dies durch **Graceful Degradation**:
 
@@ -604,7 +674,7 @@ Im nächsten Kapitel wird die gesellschaftliche und geopolitische Dringlichkeit 
 
 ---
 
-# 6. Gesellschaftliche Dringlichkeit & Handlungsaufforderung
+# 7. Gesellschaftliche Dringlichkeit & Handlungsaufforderung
 
 Die technische Machbarkeit echter Peer-to-Peer-Architekturen ist kein akademisches Nischenthema mehr. Sie trifft auf eine historische Konvergenz aus geopolitischer Fragmentierung, regulatorischem Druck, technologischer Reife und wachsendem gesellschaftlichem Misstrauen gegenüber zentralisierten Plattformen. Die Frage lautet nicht länger, *ob* dezentrale Infrastrukturen notwendig sind, sondern *wie schnell* sie operationalisiert werden können, um die digitale Souveränität von Einzelpersonen, Communities und kritischen Infrastrukturen zu sichern.
 
@@ -612,7 +682,7 @@ Dieses Kapitel beleuchtet die treibenden Kräfte, die echte P2P von einer techni
 
 ---
 
-### 6.1 Geopolitische Fragmentierung & Das Ende des einheitlichen Internets
+### 7.1 Geopolitische Fragmentierung & Das Ende des einheitlichen Internets
 
 Das Internet, einst als offener, grenzenloser Kommunikationsraum konzipiert, zerfällt zunehmend in kontrollierte Zonen. Nationale Firewalls, Datensouveränitäts-Gesetze (z. B. Data Localization in EU, Indien, China), der US CLOUD Act und die kommerzielle Monopolisierung von Cloud-Infrastruktur führen zu einem **digitalen Splinternet**. Rechenzentren werden zu geopolitischen Hebeln; Datenströme unterliegen extraterritorialen Zugriffsrechten und wirtschaftlichen Sanktionslogiken.
 
@@ -625,7 +695,7 @@ Dezentralisierung ist damit nicht nur ein technisches Design, sondern eine **geo
 
 ---
 
-### 6.2 Regulatorischer Druck & Compliance by Design
+### 7.2 Regulatorischer Druck & Compliance by Design
 
 Die europäische Regulierung (DSGVO, DSA, DMA, AI Act) und globale Datenschutzinitiativen zielen darauf ab, Nutzende vor Ausbeutung, Manipulation und intransparenter Datenverarbeitung zu schützen. Zentrale Plattformen reagieren mit steigenden Compliance-Kosten, komplexen Cookie-Bannern und oft wirkungslosen Einwilligungsmechanismen. Die Architektur selbst bleibt jedoch unverändert: Daten fließen zentral, werden aggregiert und bleiben für Dritte zugänglich.
 
@@ -641,7 +711,7 @@ Regulierung kann Architektur nicht ersetzen. Aber wenn Architektur Rechte techni
 
 ---
 
-### 6.3 Technologische Reife: Vom Experiment zur Produktivinfrastruktur
+### 7.3 Technologische Reife: Vom Experiment zur Produktivinfrastruktur
 
 Die notwendige Protokoll-Triade ist kein Forschungsprojekt mehr. Sie ist im Linux-Kernel verankert, von unabhängigen Sicherheitsforschern auditiert und in kritischen Infrastrukturen weltweit im Einsatz:
 - **`B.A.T.M.A.N. advanced`**: Kernel-native Layer-2-Integration, proaktives Routing, Hybrid-WLAN/Ethernet-Support.
@@ -661,7 +731,7 @@ Davon stehen schätzungsweise **~26.800 Millionen Prozessor-Kerne** im überdurc
 
 ---
 
-### 6.4 Gesellschaftliches Bewusstsein & Die Suche nach Authentizität
+### 7.4 Gesellschaftliches Bewusstsein & Die Suche nach Authentizität
 
 Die Ermüdung durch algorithmische Filterblasen, Desinformationskampagnen, pseudo-soziale Plattformen und den Verlust der digitalen Privatsphäre ist kein Randphänomen mehr. Sie ist ein Mainstream-Sentiment. Das klassische Internet hat sich zu einem **quasi-öffentlichen Raum** entwickelt, in dem persönliche Daten ohne explizite Autorisierung extrahiert, analysiert und kommerzialisiert werden. Anonymität und Pseudonymität haben direkte soziale Interaktion ersetzt; Verantwortung für Inhalte wird durch Plattform-Moderation simuliert.
 
@@ -675,7 +745,7 @@ Privatheit wird nicht durch Transparenz aufgehoben, sondern durch selektive, aut
 
 ---
 
-### 6.5 Handlungsaufforderung: Wer muss was tun?
+### 7.5 Handlungsaufforderung: Wer muss was tun?
 
 Die Transformation von einer extraktiven zu einer souveränen digitalen Infrastruktur erfordert koordinierte, aber dezentrale Aktion.
 
@@ -689,7 +759,7 @@ Die Transformation von einer extraktiven zu einer souveränen digitalen Infrastr
 
 ---
 
-### 6.6 Warum genau jetzt? Die Konvergenz der Notwendigkeit
+### 7.6 Warum genau jetzt? Die Konvergenz der Notwendigkeit
 
 Fünf Treiber bilden einen historischen Wendepunkt:
 1. **Technologische Reife**: Kernel-integrierte Protokolle, TPM 2.0, Container-Orchestrierung und GitOps sind produktionsstabil.
@@ -710,13 +780,13 @@ Im abschließenden Kapitel wird diese Erkenntnis synthetisiert, die Kernaussagen
 
 ---
 
-# 7. Fazit & Ausblick: Architektur als politische Entscheidung
+# 8. Fazit & Ausblick: Architektur als politische Entscheidung
 
 Die vorangegangenen Kapitel haben einen klaren, technisch fundierten und gesellschaftlich dringlichen Pfad aufgezeigt: Digitale Souveränität ist kein rechtlicher Verhandlungsgegenstand, sondern eine infrastrukturelle Eigenschaft. Solange Kommunikation, Datenspeicherung und Validierung über zentralisierte Rechenzentren oder applikatorische Vermittlungsdienste laufen, bleibt die Extraktion von Verhaltensdaten, die algorithmische Manipulation und die strukturelle Abhängigkeit von Anbietermonopolen systemimmanent. Echtes Peer-to-Peer auf OSI-Schicht 2 bis 4 eliminiert diese Grundvoraussetzungen nicht durch bessere AGBs oder Datenschutzversprechen, sondern durch Protokoll-Design, hardwaregestützte Kryptographie und kooperative Topologie.
 
 ---
 
-### 7.1 Synthese der Argumentation
+### 8.1 Synthese der Argumentation
 
 | Diagnose | Lösung | Technische Operationalisierung |
 |----------|--------|-------------------------------|
@@ -730,7 +800,7 @@ Die fünf Säulen digitaler Souveränität sind keine isolierten Versprechen. Si
 
 ---
 
-### 7.2 Die technologische Reife & Der historische Wendepunkt
+### 8.2 Die technologische Reife & Der historische Wendepunkt
 
 Die notwendige Protokoll-Triade ist kein akademisches Experiment mehr:
 - **`B.A.T.M.A.N. advanced`** ist direkt im Linux-Kernel verankert, unterstützt Hybrid-Mesh (WLAN + Ethernet) und benötigt keine proprietären Chipsätze.
@@ -741,7 +811,7 @@ Gleichzeitig steht eine globale, ungenutzte Rechenkapazität bereit. Wie die Ana
 
 ---
 
-### 7.3 Ausblick: Vom Nischenkonzept zur kritischen Infrastruktur
+### 8.3 Ausblick: Vom Nischenkonzept zur kritischen Infrastruktur
 
 Echtes Peer-to-Peer wird sich nicht durch Marketing, sondern durch Notwendigkeit durchsetzen. Fünf Entwicklungslinien zeichnen den Übergang vom experimentellen Setup zur kritischen Infrastruktur ab:
 
@@ -755,7 +825,7 @@ Das Decentralized Autonomous Ecosystem ist keine Utopie. Es ist eine präzise, r
 
 ---
 
-### 7.4 Abschließende These & Handlungsimpuls
+### 8.4 Abschließende These & Handlungsimpuls
 
 Die Architektur des Internets ist keine technische Neutralität. Sie ist das Ergebnis historischer Entscheidungen, ökonomischer Anreize und infrastruktureller Pfadabhängigkeiten. Dezentrale Peer-to-Peer-Infrastruktur ist die bewusste Entscheidung, diese Pfadabhängigkeit zu durchbrechen. Sie ist die Entscheidung für Souveränität, Resilienz und menschliche Würde im digitalen Zeitalter.
 
