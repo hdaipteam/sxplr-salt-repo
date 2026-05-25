@@ -873,7 +873,205 @@ Compliance ist im DAE kein nachträglicher Verwaltungsakt, sondern eine **inhär
 
 ---
 
-## 5.7 Hardening & Verteidigungsschichten
+## 5.7 Technische Operationalisierung von Informationsfreiheit, Transparenz & Agnotologie-Resistenz
+
+Die im Positionspapier (Kap. 4) dargelegten gesellschaftlichen und rechtlichen Prinzipien der Informationsfreiheit, Transparenz und Agnotologie-Resistenz werden im Decentralized Autonomous Ecosystem (DAE) nicht durch Richtlinien oder manuelle Prozesse gewährleistet, sondern durch eine **deterministische, protokollgesteuerte Architektur**. Dieses Kapitel übersetzt die konzeptionellen Anforderungen in technische Spezifikationen, Implementierungslogiken und betriebliche Abläufe. Der Fokus liegt auf der operationalen Trennung von Daten und Information, kryptographischer Provenenz, GitOps-basierter Konfigurationstransparenz, selektiver Offenlegung sowie automatisierter Erkennung agnotologischer Anomalien.
+
+---
+
+## 5.7.1 Architekturelle Grundprinzipien: Metadaten-First & Payload-Isolation
+
+Das DAE erzwingt Transparenz durch strikte logische und physische Trennung von **Payload (Daten)** und **Metadaten/Kontext (Information)**. Diese Trennung ist die technische Voraussetzung für `Compliance-by-Design`, forensische Nachvollziehbarkeit und Agnotologie-Resistenz.
+
+| Ebene | Technische Umsetzung | Protokoll/Stack-Zuordnung |
+|-------|---------------------|---------------------------|
+| **Payload-Speicher** | `/data/raw/` (verschlüsselt, OPAL 2.0, non-exportable ohne Authorization-Key) | Lokale NVMe, `p2plib`-CRDT-States |
+| **Metadaten-Speicher** | `/data/meta/` (JSON-LD/Schema.org, maschinenlesbar, indexierbar) | `p2plib`-Sync-Daemon, GraphQL/REST-Query-Interface |
+| **Sync-Logik** | Metadaten werden standardmäßig synchronisiert; Payloads nur bei expliziter Freigabe (`sync_payload: false`) | `WireGuard` (L3-Transport), `B.A.T.M.A.N.` (L2-Routing) |
+| **Indexierung** | Alle Query-, Filter- und Aggregationsoperationen arbeiten primär auf Metadaten-Ebene | `metadata_first_indexing: true` in Pillar-Konfiguration |
+
+> **Technische Konsequenz**: Information entsteht im DAE nicht durch Inhaltsextraktion, sondern durch **Metadaten-Anreicherung, Provenenz-Verifikation und konsensfähige Kontextualisierung**. Der Payload bleibt lokal geschützt; die Verarbeitungslogik ist offen.
+
+---
+
+## 5.7.2 Kryptographische Provenenz & Non-Repudiation
+
+Jeder kritische Datensatz, jede Konfigurationsänderung und jeder Validierungsentscheid wird hardwaregebunden signiert und in eine unveränderliche Verkettung eingebettet.
+
+| Mechanismus | Implementierung | Forensische Wirkung |
+|-------------|----------------|---------------------|
+| **TPM 2.0 Sealing** | ECC-Key-Pair (`curve25519/ed25519`) wird direkt im TPM generiert; `tpm2_unseal` nur zur Laufzeit bei validen PCR-Quotes | Keys verlassen niemals den Chip; Physischer Zugriff ≠ Key-Extraktion |
+| **Signatur-Workflow** | `tpm2_sign --hash=sha256 --key=0x81010001 <payload_hash>` → `author_tpm_pubkey` + `signature_blob` | Non-Repudiable Urheberschaft; eIDAS-konforme qualifizierte elektronische Signatur-Äquivalenz |
+| **Merkle-DAG-Struktur** | Jeder Node/State wird als `hash(payload + metadata + prev_hash + config_version)` verkettet | Immutabilität; nachträgliche Änderungen erzeugen neuen Branch, Origin bleibt forensisch rekonstruierbar |
+| **Timestamping (optional)** | `OP_RETURN`-Transaktion über lokalen Bitcoin-Node (Tor-geschützt, `~₿0.0001/Entry`) | Öffentlich verifizierbarer, unveränderlicher Zeitstempel für kritische Provenenzpunkte |
+
+---
+
+## 5.7.3 GitOps & Konfigurationstransparenz
+
+Informationsfreiheit operationalisiert sich im DAE durch **versionierte, signierte und öffentlich einsehbare Konfigurationslogik**. Keine Regel, keine Validierungslogik und keine Sync-Policy bleibt eine Blackbox.
+
+```yaml
+# Beispiel: Pillar-Definition für transparente Circle-Regeln
+transparency_rules:
+  validation_logic:
+    source_code_hash: "sha256:a1b2c3..."
+    version_tag: "consensus-v3.2"
+    circle_review: true
+    public_readme: "https://gateway.circle.local/rules/validation"
+  metadata_publish:
+    proactive_sync: true
+    schema_standard: "schema.org/Action & schema.org/ProvenanceActivity"
+    sync_interval: 300s
+    payload_exposure: false
+  audit_trail:
+    log_level: "info"
+    hash_anchoring: true
+    retention_days: 3650
+    export_format: "jsonl+sig"
+```
+
+**Betriebslogik:**
+- `salt-minion` bezieht States via `gitfs` aus einem signierten Repository.
+- Jeder Commit wird mit GPG/TPM signiert. `git log --show-signature` dokumentiert die Entstehungshistorie.
+- Änderungen an Validierungsregeln erfordern explizite Circle-Autorisierung (`min_approvals: 3`).
+- Bei Konfigurations-Drift (`salt-run state.show_state_changes`) wird automatisch ein Rollback auf den letzten validen Commit ausgelöst.
+
+---
+
+## 5.7.4 Circle-basierte Zugriffssteuerung & Selektive Disclosure
+
+Zugriff auf Informationen wird nicht über Rollenmodelle (RBAC/ABAC), sondern über **kryptographische Peering-Beziehungen** gesteuert. Das DAE implementiert selektive Offenlegung als standardisierte Export-Modes:
+
+| Disclosure-Mode | Inhalt | Use-Case |
+|-----------------|--------|----------|
+| `metadata_only` | Schema.org-Metadaten, Kontext-Felder, `payload_hash`, `review_status` | Citizen Science, Journalisten, öffentliche Transparenz |
+| `payload_hash_only` | Hash des Payloads, Signatur, TPM-Quote, Git-Config-Version | Forensische Prüfung, Integritätsverifikation ohne Inhaltspreisgabe |
+| `full_frozen_snapshot` | Verschlüsseltes Payload-Archiv + One-Time-Decryption-Key (OTDK) | Gerichtliche Beweissicherung, Anwaltsprüfung, Entschädigungsverfahren |
+
+**Gateway-Routing-Logik:**
+```mermaid
+flowchart LR
+    A["Lokaler Node<br/>(Circle-Mesh L2)"] --> B{"Autorisierung<br/>validiert?"}
+    B -->|Ja| C["Metadata-Export<br/>(JSON-LD, unverschlüsselt)"]
+    B -->|Nein| D["Block + Alert<br/>(log: unauthorized_access)]
+    C --> E["Public-Gateway<br/>(Caddy, HTTPS)]
+    E --> F["Inter-Circle-Sync<br/>(WireGuard L3 Overlay)]
+    
+    classDef step fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
+    class A,B,C,D,E,F step;
+```
+Payloads verlassen den lokalen Node **niemals ohne explizite Freigabe und kryptographische Zweckbindung**.
+
+---
+
+## 5.7.5 Agnotologie-Resistenz durch technische Gap-Detection
+
+Agnotologische Mechanismen (Selektion, Kontextentzug, Framing, nachträgliche Manipulation) werden im DAE nicht durch KI-Filter oder manuelle Moderation adressiert, sondern durch **automatisierte Anomalie-Erkennung auf Provenenz- und Kontextebene**.
+
+| Agnotologisches Risiko | Technische Detektion | Systemreaktion |
+|------------------------|---------------------|----------------|
+| **Fehlende Provenenz** | `provenance_gap: true` wenn `prev_hash` fehlt oder TPM-Signatur ungültig | Branch-Markierung `review: incomplete`, Circle-Alert |
+| **Kontextentzug** | `context_completeness_score < 0.8` (Felder: `temporal_context`, `geographic_scope`, `actor_role`, `causality_linked`) | Auto-Flag `context_gap`, Query-Filter markiert Eintrag |
+| **Narrative Dominanz** | `branch_divergence_ratio > 0.7` (asymmetrische Quellenverknüpfung) | Circle-Review-Trigger, parallele Branches bleiben erhalten |
+| **Nachträgliche Manipulation** | `immutability_violation: true` wenn `primary_source_hash ≠ cited_payload_hash` | `conflict_branch` erzeugt, Origin-Node unverändert |
+| **Unverifizierte Kausalität** | `causality_unlinked: true` (Maßnahme → Wirkung ohne dokumentierte Decision-Basis) | Validierungsstatus `review: disputed`, kein `consensus_reached` |
+
+Das System **löscht oder zensiert nicht**. Es markiert, versioniert und macht Anomalien maschinenlesbar nachvollziehbar. Die Historie bleibt vollständig rekonstruierbar.
+
+---
+
+## 5.7.6 Audit-Logging & Forensische Verwertbarkeit
+
+Audit-Logs im DAE sind lokal, verschlüsselt und kryptographisch verankert. Nur Hashes und Metadaten werden synchronisiert, um Metadaten-Lecks zu vermeiden.
+
+| Komponente | Funktion | Datenschutzkonformität |
+|------------|----------|------------------------|
+| **Loki (lokal)** | Aggregation von System-, Service- und Sync-Logs | Keine zentrale Log-Infrastruktur; Logs verbleiben auf NVMe-2 |
+| **Hash-Anchoring** | `sha256(log_chunk)` wird alle 6h via `p2plib` an autorisierte Peers gesynced | Integritätsnachweis ohne Payload-Exposition |
+| **TPM PCR-Quotes** | `tpm2_pcrread` bei Boot, Config-Change, Service-Restart | Hardware-verifizierter Systemstate; Drift-Erkennung |
+| **eIDAS-Compliance** | `qualified_electronic_signature_equiv: true` via TPM + GitOps + OP_RETURN | Gerichtsfeste Beweiskette, anerkannt in EU-Verfahren |
+
+**Query-Interface für Externe:**
+- Read-only API (`/audit/query`)
+- Filterbar nach `circle_id`, `timestamp`, `review_status`, `provenance_flag`
+- Payload-Zugriff nur mit OTDK + Circle-Autorisierung
+- Vollständiger Export als `ZIP + manifest.json + TPM-attestation.sig`
+
+---
+
+## 5.7.7 Implementierungs-Leitfaden & Referenz-States
+
+### 1. CRDT-Validation-Config (`pillar/nodes/circle-validation.yaml`)
+```yaml
+crdt_validation:
+  merge_strategy: "last-writer-wins-with-timestamp"
+  conflict_resolution: "manual_circle_review"
+  metadata_required_fields:
+    - source_type
+    - temporal_context
+    - geographic_scope
+    - review_status
+    - causality_linked
+  thresholds:
+    context_completeness: 0.8
+    min_signers: 3
+    max_sync_lag_s: 300
+```
+
+### 2. Systemd-Service für Proactive Metadata Sync
+```ini
+[Unit]
+Description=DAE Proactive Metadata Publisher
+After=p2plib.service wireguard.service
+
+[Service]
+ExecStart=/usr/local/bin/dae-meta-sync --schema schema.org --interval 300 --encrypt false
+Restart=on-failure
+User=dae-sync
+Group=dae
+
+[Install]
+WantedBy=multi-user.target
+```
+
+### 3. Salt-State für Audit-Rotation & Hash-Anchoring
+```yaml
+# salt/states/dae-audit.sls
+audit_log_rotation:
+  logrotate.managed:
+    - name: /var/log/dae/audit.log
+    - weekly
+    - rotate 52
+    - compress
+    - missingok
+    - postrotate: /usr/local/bin/dae-hash-anchor.sh
+
+audit_hash_anchor:
+  cron.present:
+    - name: /usr/local/bin/dae-hash-anchor.sh
+    - user: root
+    - minute: 0
+    - hour: */6
+    - require:
+      - pkg: python3-pycryptodome
+```
+
+---
+
+## 5.7.8 Integration & Querverweise zu anderen Kapiteln
+
+| Kapitel | Bezug & technische Synergie |
+|---------|-----------------------------|
+| **Kap. 2 (Protokoll-Stack)** | `B.A.T.M.A.N.` (L2) findet lokale Pfade; `WireGuard` (L3) verschlüsselt Metadata-Sync; `p2plib` (L5–7) orchestriert CRDT-Merge & Disclosure-Logik |
+| **Kap. 3 (Systemdesign)** | NVMe-Trennung (`/data/raw/` vs `/data/meta/`), TPM 2.0 Integration, 1:1 Sibling-Backup für Audit-Hashes |
+| **Kap. 4 (Anwendungs-Schicht)** | Competence Signature, Chat, BBS nutzen `p2plib`-Metadata-Sync; Circle-Validierung ersetzt zentrale Moderation |
+| **Kap. 5 (Sicherheit)** | TPM-Sealing, Zero-Trust-Container, Caddy-Hardening, Fail2ban schützen Audit-Pipeline & Disclosure-Endpoints |
+| **Kap. 6 (GitOps/Betrieb)** | `gitfs`-Provisionierung, `cs-wizard.py` generiert `transparency_rules`, CI/CD validiert `yamllint`/`salt-lint`/Schema-Konformität |
+
+---
+
+## 5.8 Hardening & Verteidigungsschichten
 
 Neben protokoll- und hardwarebasierten Sicherheitsmechanismen implementiert das DAE operative Verteidigungsschichten, um Angriffsflächen zu minimieren und Resilienz zu maximieren.
 
@@ -889,7 +1087,7 @@ Diese Schichten bilden ein **kohärentes Sicherheitsnetz**, das Angriffe bereits
 
 ---
 
-## 5.8 Ausblick auf Betrieb & Provisioning
+## 5.9 Ausblick auf Betrieb & Provisioning
 
 Die Sicherheitsarchitektur des DAE zeigt, dass digitale Souveränität und Datenschutz nicht durch Verträge oder Plattform-Policies gewährleistet werden, sondern durch eine Infrastruktur, die Extraktion, Manipulation und Fremdkontrolle **technisch unmöglich macht**. Hardware-gesicherte Keys, mehrschichtige Verschlüsselung, Circle-Autorisierung und Compliance-by-Design bilden das Fundament.
 
