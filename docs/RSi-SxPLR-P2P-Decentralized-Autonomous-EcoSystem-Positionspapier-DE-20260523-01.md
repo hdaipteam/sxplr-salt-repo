@@ -1,7 +1,7 @@
 # Positionspapier: Digitale Souveränität durch Echtes Peer-to-Peer
 ## Warum dezentrale Infrastrukturen die notwendige Antwort auf den Überwachungskapitalismus sind
 
-Paper of position v0.5 (FINAL DRAFT)
+Paper of position v0.5.1 (FINAL DRAFT)
 
 ---
 
@@ -9,8 +9,8 @@ Dokumenten-Information
 
 | Feld | Wert |
 |------|------|
-| **Dokument-ID** | `DAE-PP-2026-001-v1.0` |
-| **Version / Status** | 0.5 (FINAL DRAFT) |
+| **Dokument-ID** | `DAE-PP-2026-001-v0.5.1` |
+| **Version / Status** | 0.5.1 (FINAL DRAFT) |
 | **Datum** | 23. Mai 2026 |
 | **Autor** | Ralf Siebert (aka Maxim R. Garrtner) |
 | **Kontakt** | [maxim.r.garrtner@yandex.com](mailto:maxim.r.garrtner@yandex.com) |
@@ -19,9 +19,9 @@ Dokumenten-Information
 | **Primärer Fokus** | Begründung digitaler Souveränität durch echtes Peer-to-Peer auf OSI-Layer 2–4 als Antwort auf Überwachungskapitalismus & Agnotologie |
 | **Sekundärer Fokus** | Infrastrukturelle Voraussetzungen des Decentralized Autonomous Ecosystems (DAE) |
 | **Lizenz** | CC BY-SA 4.0 |
-| **Bezug** | Whitepaper: *„Decentralized Autonomous Ecosystem Architecture"* (`DAE-WP-2026-001-v1.0`) |
+| **Bezug** | Whitepaper: *„Decentralized Autonomous Ecosystem Architecture"* (`DAE-WP-2026-001-v0.5.1`) |
 | **Kernkonzepte** | Echtes P2P vs. Pseudo-P2P, Circle-Topologie & Gateways, Informationsfreiheit, Agnotologie-Resistenz, Daten vs. Information, Proactive Transparency, Merkle-DAG-Rekonstruktion |
-| **Zitierempfehlung** | Siebert, R. (2026). *Digitale Souveränität durch Echtes Peer-to-Peer* (Positionspapier v1.0). Verfügbar unter: [maxim.r.garrtner@yandex.com](mailto:maxim.r.garrtner@yandex.com) |
+| **Zitierempfehlung** | Siebert, R. (2026). *Digitale Souveränität durch Echtes Peer-to-Peer* (Positionspapier v0.5.1). Verfügbar unter: [maxim.r.garrtner@yandex.com](mailto:maxim.r.garrtner@yandex.com) |
 
 ---
 
@@ -39,8 +39,8 @@ Dieses Positionspapier begründet, warum **echtes Peer-to-Peer (P2P) auf OSI-Lay
 
 | Feld | Wert |
 |------|------|
-| **Dokument-ID** | `DAE-WP-2026-001-v1.0` |
-| **Version / Status** | 1.0 (FINAL DRAFT) |
+| **Dokument-ID** | `DAE-WP-2026-001-v0.5.1` |
+| **Version / Status** | 0.5.1 (FINAL DRAFT) |
 | **Datum** | 23. Mai 2026 |
 | **Autor** | Ralf Siebert (aka Maxim R. Garrtner) |
 | **Kontakt** | [maxim.r.garrtner@yandex.com](mailto:maxim.r.garrtner@yandex.com) |
@@ -49,10 +49,10 @@ Dieses Positionspapier begründet, warum **echtes Peer-to-Peer (P2P) auf OSI-Lay
 | **Primärer Fokus** | Technische Spezifikation, Betrieb & Provisionierung des Decentralized Autonomous Ecosystems (DAE) |
 | **Sekundärer Fokus** | Anwendungsbeispiel *Competence Signature* & historische Rekonstruktion via Merkle-DAG |
 | **Lizenz** | CC BY-SA 4.0 |
-| **Bezug** | Positionspapier: *„Digitale Souveränität durch Echtes Peer-to-Peer"* (`DAE-PP-2026-001-v1.0`) |
+| **Bezug** | Positionspapier: *„Digitale Souveränität durch Echtes Peer-to-Peer"* (`DAE-PP-2026-001-v0.5.1`) |
 | **Kernkonzepte** | `B.A.T.M.A.N. advanced` (L2), `WireGuard` (L3), `p2plib` (L5–7), TPM 2.0 Sealing, GitOps/SaltStack, Merkle-DAG, CRDT-Sync, Circle-Governance, Proactive Transparency |
 | **Hardware/OS-Referenz** | Lenovo ThinkStation P330 Tiny (lokal), OVH Kimsufi/VPS (öffentlich), DietPi/Debian 12 Bookworm |
-| **Zitierempfehlung** | Siebert, R. (2026). *Decentralized Autonomous Ecosystem Architecture* (Whitepaper v1.0). Verfügbar unter: [maxim.r.garrtner@yandex.com](mailto:maxim.r.garrtner@yandex.com) |
+| **Zitierempfehlung** | Siebert, R. (2026). *Decentralized Autonomous Ecosystem Architecture* (Whitepaper v0.5.1). Verfügbar unter: [maxim.r.garrtner@yandex.com](mailto:maxim.r.garrtner@yandex.com) |
 
 ---
 
