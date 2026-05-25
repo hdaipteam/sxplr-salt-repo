@@ -363,6 +363,72 @@ Im nächsten Kapitel wird gezeigt, wie diese Protokolle auf konkreter Hardware o
 
 ---
 
+## 2.7: Konsens-Definition: Daten vs. Information & operative Architektur
+
+Die technische Spezifikation des Decentralized Autonomous Ecosystems (DAE) erfordert eine präzise, implementierbare Abgrenzung zwischen Daten und Information. Während zentralisierte Systeme diese Begriffe oft synonym verwenden oder durch Applikationslogik vermischen, trennt das DAE sie **strikt nach Schichten, Provenenz und Validierungsstatus**. Diese Unterscheidung ist die Grundlage für CRDT-Synchronisation, TPM-basierte Non-Repudiation, GitOps-Drift-Detection und selektive juristische Disclosure.
+
+#### 2.7.1 State-of-the-Art-Mapping auf den DAE-Stack
+Die Definition wird aus multiplen Disziplinen abgeleitet und direkt auf die Protokoll- & Infrastruktur-Ebene des DAE übersetzt:
+
+| Disziplin | Daten-Charakteristik im DAE | Informations-Charakteristik im DAE | Technische Enabler |
+|-----------|----------------------------|-----------------------------------|-------------------|
+| **Informatik / CRDT-Theorie** | Unstrukturierte/semi-strukturierte Zustände, konfliktbehaftet vor Merge | Konvergierte, idempotente Zustände nach `p2plib`-Sync & Circle-Validierung | Yjs/Automerge-Logik, Hash-Verknüpfung, Branch-Merging |
+| **Recht / eIDAS & DSGVO** | Personenbezogene Rohdaten, unterliegen lokaler Hoheit & Verschlüsselung | Kontextualisierte, nachvollziehbare Aussagen mit Provenenz-Chain | `tpm2_sign`, `payload_hash`, `review_status`-Flags |
+| **Kryptographie / TPM 2.0** | Private Keys, Sealing-Policies, lokale Zertifikate | Attestierte, hardware-verifizierte Signaturen & Git-Config-Hashes | PCR-Quotes, `tpm2_unseal`, Non-Repudiable Payloads |
+| **Agnotologie / Transparenzforschung** | Rohmaterial, anfällig für Kontextentzug oder Framing | Validierte Zustände mit expliziten Metadaten, Code-Hashes & Audit-Logs | Schema.org/JSON-LD, Loki-Audit, `proactive_metadata_publish` |
+| **P2P-Architektur / OSI 2–7** | Lokale NVMe-Blöcke, verschlüsselte Frames/Pakete | Consens-basierte, maschinenlesbare Graph-Knoten mit Circle-Review | `B.A.T.M.A.N.` (L2), `WireGuard` (L3), `p2plib` (L5–7) |
+
+> 🔍 **Technische Implikation**: Der Übergang von Daten zu Information ist im DAE ein **deterministischer Prozess**, nicht ein subjektiver. Er wird durch Protokoll-Validierung, Metadaten-Anreicherung und Circle-Konsens automatisiert.
+
+#### 2.7.2 Formale Konsens-Definition
+Für alle Implementierungen, State-Files und Application-Integrations gilt:
+
+📦 **Daten (Raw State)**  
+Strukturierte oder unstrukturierte Byte-Sequenzen, CRDT-Zustände, Messwerte oder kryptographische Payloads, die ohne Kontext-Mapping keine semantische Handlungsrelevanz besitzen. Im DAE sind Daten per Default lokal persistiert (`NVMe-2`), hardware-verschlüsselt (`OPAL 2.0`) und unterliegen expliziter Sync-Freigabe. Daten sind neutral; ihre Interpretation erfolgt erst durch Validierungs-Logik.
+
+🌐 **Information (Validated Context)**  
+Daten, die durch Metadaten-Schema, Provenenz-Kette, Validierungsstatus (`review_status`) und Zweckbindung semantisch aufgelöst wurden. Information ist maschinenlesbar, konsensfähig (`circle_consensus: true`), architektonisch verifizierbar und unterliegt einer transparenten Entstehungshistorie. Im DAE gilt: Ein Datensatz wird erst dann als Information propagiert, wenn er ≥3 der folgenden Bedingungen erfüllt: `tpm_signed: true`, `metadata_complete: ≥80%`, `context_linked: true`, `consensus_reached: true`.
+
+#### 2.7.3 Operative Übersetzung in die DAE-Architektur
+Die Definition wird durch konkrete Infrastruktur-Komponenten operationalisiert:
+
+| Schicht | Daten-Implementierung | Informations-Implementierung | Technischer Mechanismus |
+|---------|----------------------|-----------------------------|------------------------|
+| **Speicherung** | `NVMe-2:/data/raw/`, verschlüsselte JSON/Blobs | `NVMe-2:/data/validated/`, CRDT-Merge-Logs, Schema.org-Metadaten | `p2plib`-CRDT-Sync, `metadata_first_indexing` |
+| **Identität & Signatur** | TPM-Private-Key (`0x81010001`), lokale Zertifikate | `author_tpm_pubkey`, `git_config_hash`, `attestation_quote` | `tpm2_sign`, `curve25519`, GitOps-Historie |
+| **Validierung** | Ungeprüfte Entries, `status: draft` | `review_status: circle_verified`, `min_signers: 3` | CRDT-Merge-Logic, Circle-Governance-States |
+| **Transparenz & Routing** | Verschlüsselte L2/L3-Pakete, selektive Disclosure | Maschinenlesbare Metadata-Payloads, `public_gateway_sync` | Caddy-Reverse-Proxy, JSON-LD-Pub, `proactive_metadata_pipeline` |
+| **Forensik & Compliance** | Rohdokumente, lokale Audit-Logs | `payload_hash` + `btc_timestamp` + `immutability_violation: false` | OP_RETURN, Loki-Hash-Sync, eIDAS-Validation-Profile |
+
+#### 2.7.4 Agnotologie-Resistenz durch technisches Design
+Informationslücken oder produziertes Nicht-Wissen werden im DAE nicht durch KI-Filter oder manuelle Moderation behoben, sondern durch **architektonische Gap-Detection & Provenenz-Verifikation**:
+
+| Agnotologisches Risiko | DAE-Gegenarchitektur | Implementierungs-Logik |
+|------------------------|----------------------|------------------------|
+| **Selektive Veröffentlichung** | `proactive_metadata_publish`-Daemon | Automatische Sync von Schema.org-Metadaten an Public-Gateways; Payload bleibt verschlüsselt |
+| **Blackbox-Logik** | Open-Logic-by-Design | Jeder Validierungs-Algorithmus hat `source_code_hash`, `version_tag`, `circle_review: true` |
+| **Kontextentzug** | `context_completeness_score` | Metadaten-Validation: `temporal_context`, `geographic_scope`, `actor_role` müssen ≥80% gefüllt sein |
+| **Nachträgliche Manipulation** | `immutability_violation`-Alert | `primary_source_hash ≠ cited_payload_hash` → Trigger `conflict_branch`, Circle-Review |
+| **Zentrale Kuratierung** | Decentralized Consensus-Routing | ≥3 autorisierte Peers müssen `consensus_signature` liefern; keine Single-Node-Override |
+
+#### 2.7.5 Implementierungs-Leitlinie für Entwickler & Administratoren
+Diese Definition ist **bindend für alle State-Files, Pillar-Konfigurationen und Application-Integrations**:
+1. **Strikte Trennung**: Payloads (`/data/raw/`) und Metadaten (`/data/meta/`) müssen physisch & logisch getrennt persistiert werden.
+2. **Metadata-First-Indexing**: Alle Query-, Filter- und Aggregations-Operationen arbeiten primär auf Metadaten-Ebene, nicht auf Payloads.
+3. **Validation-Gates**: Kein Datensatz darf `status: validated` erreichen, ohne TPM-Signatur, Metadaten-Vollständigkeit & Circle-Konsens.
+4. **Audit-Compliance**: `tpm2_pcrread` + Git-Commit-Historie müssen bei jeder State-Änderung logbar sein. Drift → Auto-Rollback.
+5. **Selective Disclosure**: Export-Funktionen müssen granular `metadata_only`, `payload_hash_only` oder `full_frozen_snapshot` unterstützen.
+
+#### 2.7.6 Fazit des Kapitels
+Die Trennung von Daten und Information ist kein semantisches Detail, sondern **die technische Voraussetzung für digitale Souveränität, forensische Verwertbarkeit und Agnotologie-Resistenz**. Im DAE wird diese Trennung durch drei Engineering-Prinzipien erzwungen:
+1. **Lokale Persistenz & Hardware-Sealing** für Daten
+2. **Metadaten-Anreicherung, Provenenz-Verifikation & Circle-Konsens** für Information
+3. **Proactive Transparency & Open-Logic** als Default-Verhalten
+
+Damit wird Information nicht durch Applikationslogik simuliert, sondern durch Protokoll-Design, kryptographische Verifikation und kooperative Validierung **architektonisch garantiert**.
+
+---
+
 # 3. Systemdesign & Infrastruktur
 
 Die Architektur eines Decentralized Autonomous Ecosystems (DAE) ist nur so robust wie die physische und logische Infrastruktur, auf der sie operiert. Während die Protokoll-Triade (`B.A.T.M.A.N. advanced`, `WireGuard`, `p2plib`) die kommunikative Souveränität definiert, stellt das Systemdesign sicher, dass diese Protokolle auf autonomen, voll ausgestatteten und hardware-gesicherten Knoten laufen. Im Gegensatz zu client-server-Modellen oder pseudo-dezentralen Architekturen, die Rollen fragmentieren und Thin-Clients erzwingen, folgt das DAE dem Prinzip der **physischen und logischen Vollständigkeit jedes Peers**.
