@@ -952,11 +952,11 @@ Zugriff auf Informationen wird nicht über Rollenmodelle (RBAC/ABAC), sondern ü
 **Gateway-Routing-Logik:**
 ```mermaid
 flowchart LR
-    A["Lokaler Node<br/>(Circle-Mesh L2)"] --> B{"Autorisierung<br/>validiert?"}
-    B -->|Ja| C["Metadata-Export<br/>(JSON-LD, unverschlüsselt)"]
-    B -->|Nein| D["Block + Alert<br/>(log: unauthorized_access)]
-    C --> E["Public-Gateway<br/>(Caddy, HTTPS)]
-    E --> F["Inter-Circle-Sync<br/>(WireGuard L3 Overlay)]
+    A["Lokaler Node\n(Circle-Mesh L2)"] --> B{"Autorisierung\nvalidiert?"}
+    B -->|Ja| C["Metadata-Export\n(JSON-LD, unverschlüsselt)"]
+    B -->|Nein| D["Block + Alert\n(log: unauthorized_access)"]
+    C --> E["Public-Gateway\n(Caddy, HTTPS)"]
+    E --> F["Inter-Circle-Sync\n(WireGuard L3 Overlay)"]
     
     classDef step fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
     class A,B,C,D,E,F step;
