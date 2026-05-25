@@ -112,7 +112,7 @@ Hier sind die beiden Kapitel, exakt auf die jeweilige Dokumentenarchitektur und 
 
 ---
 
-### 1.5: Grundlagen: Daten, Information & das Agnotologie-Paradigma
+### 1.5 Grundlagen: Daten, Information & das Agnotologie-Paradigma
 
 Die Debatte um digitale Souveränität, Transparenz und demokratische Aufklärung scheitert häufig an einem fundamentalen Begriffsdefizit: Die Gleichsetzung von Daten und Information. Solange diese Unterscheidung nicht klar getroffen wird, bleibt Datenschutz eine rechtliche Fiktion, Informationsfreiheit ein reaktiver Appell und historische Aufklärung ein nachträgliches Einfordern. Im Decentralized Autonomous Ecosystem (DAE) wird diese Trennung nicht semantisch, sondern **architektonisch operationalisiert**. Sie bildet das konzeptionelle Fundament, auf dem Datensouveränität, algorithmische Transparenz und Agnotologie-Resistenz aufbauen.
 
