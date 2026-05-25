@@ -708,7 +708,6 @@ Die Architektur des Internets ist keine technische Neutralität. Sie ist das Erg
 ---
 
 # ADDENDUM: Historische Rekonstruktion, Desinformation-Detektion & Aufklärung im DAE
-*(Einzufügen direkt nach Kapitel 7: Fazit & Ausblick des Positionspapiers)*
 
 ---
 
@@ -768,7 +767,9 @@ Das DAE ist damit nicht nur eine Antwort auf den Überwachungskapitalismus oder 
 
 ---
 
-📬 **Kontakt & Contribution**  
+
+
+**Kontakt & Contribution**  
 Dieses Positionspapier ist ein lebendes Dokument. Feedback, Forks, Diskussionen und Implementierungsbeiträge sind ausdrücklich erwünscht.
 
 **Autor**  
