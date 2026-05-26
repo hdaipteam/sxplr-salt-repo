@@ -59,9 +59,9 @@ Bei prädiktiven Betriebskosten von ca. **23 €/Monat pro Node-Paar** transform
 
 ---
 
-# 1. Einleitung & Problemstellung
+## 1. Einleitung & Problemstellung
 
-## 1.1 Historische Evolution der Netzwerk-Architekturen
+### 1.1 Historische Evolution der Netzwerk-Architekturen
 
 Die grundlegende Idee von Peer-to-Peer findet sich in den Anfängen der Vernetzung von Computern wieder: Zwei Rechner werden durch ein Kabel direkt verbunden. Vor rund 30 Jahren entstand daraus das Internet durch die Standardisierung von Protokollen, die unterschiedliche Computertypen, Betriebssysteme und Software-Produkte zu einem normalisierten, interoperablen Netzwerk zusammenschlossen [[PDF]].
 
@@ -79,11 +79,11 @@ Die konsequente Logik dieser Entwicklung ist die Entstehung einer **Client-Serve
 
 ---
 
-## 1.2 Die Diagnose: Überwachungskapitalismus als Architektur-Problem
+### 1.2 Die Diagnose: Überwachungskapitalismus als Architektur-Problem
 
 Der Überwachungskapitalismus, geprägt durch Shoshana Zuboff, beschreibt ein Wirtschaftssystem, das menschliche Erfahrung als kostenlosen Rohstoff für kommerzielle Extraktion, Vorhersage und Verhaltensbeeinflussung beansprucht. Diese Logik ist kein Nebenprodukt des Internets – sie ist **strukturell in seiner Architektur verankert**.
 
-### 1.2.1 Die vier Mechanismen der Extraktion
+#### 1.2.1 Die vier Mechanismen der Extraktion
 
 | Mechanismus | Umsetzung in zentralisierten Systemen | Konsequenz für Nutzende |
 |-------------|--------------------------------------|------------------------|
@@ -94,7 +94,7 @@ Der Überwachungskapitalismus, geprägt durch Shoshana Zuboff, beschreibt ein Wi
 
 Die Anonymität des Zugangs wird durch die **Transparenz des Verhaltens** kompensiert. Niemand muss wissen, wer Sie sind, solange das System präzise vorhersagen kann, was Sie als Nächstes tun werden. Dieser Prozess ist kein technischer Unfall, sondern ein strukturelles Merkmal der Client-Server-Infrastruktur.
 
-### 1.2.2 Das Versagen regulatorischer Ansätze
+#### 1.2.2 Das Versagen regulatorischer Ansätze
 
 Verträge, Nutzungsbedingungen und Datenschutzregulierungen (wie die DSGVO) versuchen, dieser Macht Grenzen zu setzen. Sie bleiben jedoch oft wirkungslos, wenn die technische Architektur selbst die Extraktion, Replikation und Fremdnutzung von Daten standardisiert. Datenhoheit wird zur Illusion, sobald die Infrastruktur physisch und logisch außerhalb der Reichweite der datenerzeugenden Person liegt.
 
@@ -102,7 +102,7 @@ Verträge, Nutzungsbedingungen und Datenschutzregulierungen (wie die DSGVO) vers
 
 ---
 
-## 1.3 Die Illusion applikatorischer Dezentralisierung
+### 1.3 Die Illusion applikatorischer Dezentralisierung
 
 Angesichts der wachsenden Kritik an zentralisierten Plattformen entstand eine neue Welle vermeintlich dezentraler Lösungen: **ActivityPub (Mastodon/Fediverse)**, **Matrix/Element**, **Nostr**, **IPFS** oder **Web3-Applikationen**. Diese Systeme werben mit Offenheit, Föderation, Nutzerkontrolle und Zensurresistenz.
 
@@ -114,7 +114,7 @@ Client → Server → (Server-zu-Server) → Server → Client
 
 Im Falle von ActivityPub beispielsweise tauschen Server auf Applikationsebene Daten aus; der Client ist niemals direkt mit einem anderen Client verbunden. Matrix nutzt Ende-zu-Ende-Verschlüsselung, bleibt aber auf zentrale Home-Server oder Relay-Dienste angewiesen, um Nachrichten zu speichern und weiterzuleiten.
 
-### 1.3.1 Definition: Pseudo-P2P vs. Echtes P2P
+#### 1.3.1 Definition: Pseudo-P2P vs. Echtes P2P
 
 | Merkmal | **Pseudo Peer-to-Peer** | **Echtes Peer-to-Peer** |
 |---------|------------------------|------------------------|
@@ -129,11 +129,11 @@ Diese Ansätze werden hier als **Pseudo-Peer-to-Peer** bezeichnet. Sie reduziere
 
 ---
 
-## 1.4 Das Paradigma des Echten Peer-to-Peer
+### 1.4 Das Paradigma des Echten Peer-to-Peer
 
 Echtes P2P nutzt die Netzwerktechnologie direkt auf der Ebene des **Transports (TCP/UDP, Layer 4)**, des **Internets (IP, Layer 3)** oder der **Sicherungsschicht (MAC-Adressen, Layer 2)**. Damit entfällt die Nutzung von Servern oder Vermittlungssystemen in Rechenzentren vollständig. Die Verbindung wird autonom, algorithmisch und hardwarenah etabliert.
 
-### 1.4.1 Das Circle-Prinzip & Identitätsbekanntgabe
+#### 1.4.1 Das Circle-Prinzip & Identitätsbekanntgabe
 
 Ein zentrales Merkmal echter P2P-Netzwerke ist die **Aufhebung der Anonymität zugunsten authentischer Sozialität**. Im klassischen Internet interagieren Teilnehmende pseudonym oder anonym in einem öffentlichen Raum. Echtes P2P ersetzt dieses Modell durch das **Circle-Konzept**:
 
@@ -144,7 +144,7 @@ Ein zentrales Merkmal echter P2P-Netzwerke ist die **Aufhebung der Anonymität z
 
 Dieses Modell stellt die **Verantwortung für Inhalte und Daten** wieder her. Desinformation wird durch ein neuartiges Konsens-Modell eingedämmt: Informationen werden nicht algorithmisch verstärkt, sondern durch peer-basierte Validierung und persönliche Verifikation gefiltert.
 
-### 1.4.2 Autonomie & Gateway-Struktur
+#### 1.4.2 Autonomie & Gateway-Struktur
 
 Echte P2P-Mesh-Netzwerke sind **inhärent autonom**. Sie benötigen keinen expliziten Zugang zum Internet, um zu funktionieren. Die Verbindung wird vollständig durch die angeschlossenen Geräte selbst hergestellt. Das Internet ist lediglich eine ergänzende Struktur, die über **Gateway-Peers** angebunden wird.
 
@@ -158,7 +158,7 @@ Echte P2P-Mesh-Netzwerke sind **inhärent autonom**. Sie benötigen keinen expli
 
 ---
 
-## 1.5 Das ungenutzte globale Potential
+### 1.5 Das ungenutzte globale Potential
 
 Eine Analyse der weltweit verfügbaren IT-Infrastruktur (Stand Dezember 2023) zeigt das enorme, bisher weitgehend ungenutzte Potenzial für echte P2P-Architekturen [[PDF]]:
 
@@ -181,7 +181,7 @@ Im Gegensatz zu Cloud-Modellen, die Rechenleistung zentral bündeln und extern v
 
 ---
 
-## 1.6 Motivation für das Decentralized Autonomous Ecosystem
+### 1.6 Motivation für das Decentralized Autonomous Ecosystem
 
 Die vorangegangene Diagnose macht deutlich: Der Überwachungskapitalismus ist kein bloßes Geschäftsmodell, sondern das direkte Ergebnis einer Infrastruktur, die Zentralisierung als Standard setzt. Die Wiederherstellung von Datensouveränität, authentischer Sozialität und resilienter Kommunikation erfordert daher keine bessere Applikation, sondern eine fundamentale Neugestaltung der Vernetzung selbst.
 
@@ -195,7 +195,7 @@ Als **exemplarische Anwendung** wird im Verlauf dieses Whitepapers die *Competen
 
 ---
 
-## 1.7 Aufbau des Kapitels & Ausblick
+### 1.7 Aufbau des Kapitels & Ausblick
 
 Dieses Kapitel hat die historische Evolution der Netzwerk-Architekturen nachgezeichnet, die strukturellen Schwächen zentralisierter Infrastrukturen diagnostiziert und das Paradigma echten Peer-to-Peer als technische und ethische Alternative begründet.
 
@@ -208,13 +208,13 @@ Das Ziel ist nicht die Beschreibung einer alternativen Plattform, sondern die Sp
 
 ---
 
-# 2. Architektur-Grundlagen & Protokoll-Stack
+## 2. Architektur-Grundlagen & Protokoll-Stack
 
 Die Diagnose zentralisierter Extraktionsmodelle und die Prinzipien echter Peer-to-Peer-Vernetzung bleiben abstrakt, solange sie nicht durch eine präzise, schichtenübergreifende Protokoll-Architektur operationalisiert werden. Das Decentralized Autonomous Ecosystem (DAE) nutzt nicht ein einzelnes Protokoll, sondern eine komplementäre Triade, die gezielt auf unterschiedlichen Ebenen des OSI-Referenzmodells (Open Systems Interconnection) arbeitet. Diese Schichtung ist kein technischer Overhead, sondern das strukturelle Fundament, das digitale Souveränität, Resilienz und Privatsphäre durch Design erzwingt.
 
 ---
 
-## 2.1 Das OSI-Modell als Fundament für echtes P2P
+### 2.1 Das OSI-Modell als Fundament für echtes P2P
 
 Das OSI-Layer-Modell unterteilt Netzwerkkommunikation in sieben definierte Schichten, wobei jede Schicht spezifische Funktionen erfüllt und Dienste für die darüberliegende Ebene bereitstellt. In der heutigen Internet-Architektur findet der Großteil der „Dezentralisierung" auf der **Anwendungsschicht (Layer 7)** statt. Applikationen wie ActivityPub, Matrix oder Web3-Frontends kommunizieren über Server, die als Vermittler fungieren. Der Client ist niemals direkt mit einem anderen Client verbunden; Daten werden relayt, gespeichert oder applikatorisch synchronisiert [[PDF]].
 
@@ -234,9 +234,9 @@ Echtes P2P durchbricht dieses Vermittlungsparadigma, indem es die Netzwerkkommun
 
 ---
 
-## 2.2 Die Protokoll-Triade im Detail
+### 2.2 Die Protokoll-Triade im Detail
 
-### 2.2.1 `B.A.T.M.A.N. advanced` (OSI Layer 2) – Das autonome lokale Nervensystem
+#### 2.2.1 `B.A.T.M.A.N. advanced` (OSI Layer 2) – Das autonome lokale Nervensystem
 
 `B.A.T.M.A.N. advanced` (Better Approach To Mobile Adhoc Networking) ist ein proaktives Routing-Protokoll, das direkt im Linux-Kernel integriert ist und auf der Sicherungsschicht operiert. Im Gegensatz zu proprietären WiFi-Mesh-Chipsätzen (wie sie historisch im OLPC-Projekt unter IEEE 802.11s zum Einsatz kamen) ist `B.A.T.M.A.N.` vollständig Open Source und hardware-agnostisch [[PDF]].
 
@@ -250,7 +250,7 @@ Echtes P2P durchbricht dieses Vermittlungsparadigma, indem es die Netzwerkkommun
 
 ---
 
-### 2.2.2 `WireGuard` (OSI Layer 3) – Das kryptographische Overlay
+#### 2.2.2 `WireGuard` (OSI Layer 3) – Das kryptographische Overlay
 
 Während `B.A.T.M.A.N.` lokale Pfade findet, adressiert `WireGuard` die Sicherheit des Datentransits über unsichere oder fremdverwaltete Netze. Es operiert auf der Vermittlungsschicht und nutzt moderne Kryptographie für authentifizierten, verschlüsselten Transit.
 
@@ -264,7 +264,7 @@ Während `B.A.T.M.A.N.` lokale Pfade findet, adressiert `WireGuard` die Sicherhe
 
 ---
 
-### 2.2.3 `p2plib` (OSI Layer 5–7) – Die applikatorische Direktkommunikation
+#### 2.2.3 `p2plib` (OSI Layer 5–7) – Die applikatorische Direktkommunikation
 
 Applikationen benötigen eine Schicht, die auf den gesicherten Netzwerkprotokollen aufsetzt, ohne wieder auf Server-Relays, zentrale APIs oder proprietäre Frameworks zurückzugreifen. `p2plib` (konzeptionell als moderne P2P-Kommunikationsbibliothek) schließt diese Lücke und implementiert die Anforderungen an echte Applikations-P2P: direkte End-to-End-Kanäle, dezentrale Dienstesuche und offline-fähige Synchronisation.
 
@@ -278,7 +278,7 @@ Applikationen benötigen eine Schicht, die auf den gesicherten Netzwerkprotokoll
 
 ---
 
-## 2.3 Die Multi-Layer-Souveränitätskette
+### 2.3 Die Multi-Layer-Souveränitätskette
 
 Die drei Protokolle sind keine Alternativen, sondern komplementäre Schichten, die gemeinsam eine souveräne Infrastruktur erzwingen. Keine einzelne Schicht ist allein ausreichend; erst ihr Zusammenspiel eliminiert strukturelle Abhängigkeiten.
 
@@ -323,7 +323,7 @@ flowchart TD
 
 ---
 
-## 2.4 Graceful Degradation & Resilienz durch Schichtung
+### 2.4 Graceful Degradation & Resilienz durch Schichtung
 
 Ein echtes P2P-Ecosystem muss unter extremen Bedingungen funktionsfähig bleiben: Internetausfall, Zensur, Infrastrukturstörungen oder gezielte Angriffe auf einzelne Knoten. Das DAE adressiert dies durch **Graceful Degradation**:
 
@@ -338,11 +338,11 @@ Resilienz ist hier kein Marketing-Begriff, sondern eine engineering-getriebene S
 
 ---
 
-## 2.5 Konsens-Definition: Daten vs. Information & operative Architektur
+### 2.5 Konsens-Definition: Daten vs. Information & operative Architektur
 
 Die technische Spezifikation des Decentralized Autonomous Ecosystems (DAE) erfordert eine präzise, implementierbare Abgrenzung zwischen Daten und Information. Während zentralisierte Systeme diese Begriffe oft synonym verwenden oder durch Applikationslogik vermischen, trennt das DAE sie **strikt nach Schichten, Provenenz und Validierungsstatus**. Diese Unterscheidung ist die Grundlage für CRDT-Synchronisation, TPM-basierte Non-Repudiation, GitOps-Drift-Detection und selektive juristische Disclosure.
 
-#### 2.5.1 State-of-the-Art-Mapping auf den DAE-Stack
+##### 2.5.1 State-of-the-Art-Mapping auf den DAE-Stack
 Die Definition wird aus multiplen Disziplinen abgeleitet und direkt auf die Protokoll- & Infrastruktur-Ebene des DAE übersetzt:
 
 | Disziplin | Daten-Charakteristik im DAE | Informations-Charakteristik im DAE | Technische Enabler |
@@ -355,7 +355,7 @@ Die Definition wird aus multiplen Disziplinen abgeleitet und direkt auf die Prot
 
 > 🔍 **Technische Implikation**: Der Übergang von Daten zu Information ist im DAE ein **deterministischer Prozess**, nicht ein subjektiver. Er wird durch Protokoll-Validierung, Metadaten-Anreicherung und Circle-Konsens automatisiert.
 
-#### 2.5.2 Formale Konsens-Definition
+##### 2.5.2 Formale Konsens-Definition
 Für alle Implementierungen, State-Files und Application-Integrations gilt:
 
 📦 **Daten (Raw State)**  
@@ -364,7 +364,7 @@ Strukturierte oder unstrukturierte Byte-Sequenzen, CRDT-Zustände, Messwerte ode
 🌐 **Information (Validated Context)**  
 Daten, die durch Metadaten-Schema, Provenenz-Kette, Validierungsstatus (`review_status`) und Zweckbindung semantisch aufgelöst wurden. Information ist maschinenlesbar, konsensfähig (`circle_consensus: true`), architektonisch verifizierbar und unterliegt einer transparenten Entstehungshistorie. Im DAE gilt: Ein Datensatz wird erst dann als Information propagiert, wenn er ≥3 der folgenden Bedingungen erfüllt: `tpm_signed: true`, `metadata_complete: ≥80%`, `context_linked: true`, `consensus_reached: true`.
 
-#### 2.5.3 Operative Übersetzung in die DAE-Architektur
+##### 2.5.3 Operative Übersetzung in die DAE-Architektur
 Die Definition wird durch konkrete Infrastruktur-Komponenten operationalisiert:
 
 | Schicht | Daten-Implementierung | Informations-Implementierung | Technischer Mechanismus |
@@ -375,7 +375,7 @@ Die Definition wird durch konkrete Infrastruktur-Komponenten operationalisiert:
 | **Transparenz & Routing** | Verschlüsselte L2/L3-Pakete, selektive Disclosure | Maschinenlesbare Metadata-Payloads, `public_gateway_sync` | Caddy-Reverse-Proxy, JSON-LD-Pub, `proactive_metadata_pipeline` |
 | **Forensik & Compliance** | Rohdokumente, lokale Audit-Logs | `payload_hash` + `btc_timestamp` + `immutability_violation: false` | OP_RETURN, Loki-Hash-Sync, eIDAS-Validation-Profile |
 
-#### 2.5.4 Agnotologie-Resistenz durch technisches Design
+##### 2.5.4 Agnotologie-Resistenz durch technisches Design
 Informationslücken oder produziertes Nicht-Wissen werden im DAE nicht durch KI-Filter oder manuelle Moderation behoben, sondern durch **architektonische Gap-Detection & Provenenz-Verifikation**:
 
 | Agnotologisches Risiko | DAE-Gegenarchitektur | Implementierungs-Logik |
@@ -386,7 +386,7 @@ Informationslücken oder produziertes Nicht-Wissen werden im DAE nicht durch KI-
 | **Nachträgliche Manipulation** | `immutability_violation`-Alert | `primary_source_hash ≠ cited_payload_hash` → Trigger `conflict_branch`, Circle-Review |
 | **Zentrale Kuratierung** | Decentralized Consensus-Routing | ≥3 autorisierte Peers müssen `consensus_signature` liefern; keine Single-Node-Override |
 
-#### 2.5.5 Implementierungs-Leitlinie für Entwickler & Administratoren
+##### 2.5.5 Implementierungs-Leitlinie für Entwickler & Administratoren
 Diese Definition ist **bindend für alle State-Files, Pillar-Konfigurationen und Application-Integrations**:
 1. **Strikte Trennung**: Payloads (`/data/raw/`) und Metadaten (`/data/meta/`) müssen physisch & logisch getrennt persistiert werden.
 2. **Metadata-First-Indexing**: Alle Query-, Filter- und Aggregations-Operationen arbeiten primär auf Metadaten-Ebene, nicht auf Payloads.
@@ -394,7 +394,7 @@ Diese Definition ist **bindend für alle State-Files, Pillar-Konfigurationen und
 4. **Audit-Compliance**: `tpm2_pcrread` + Git-Commit-Historie müssen bei jeder State-Änderung logbar sein. Drift → Auto-Rollback.
 5. **Selective Disclosure**: Export-Funktionen müssen granular `metadata_only`, `payload_hash_only` oder `full_frozen_snapshot` unterstützen.
 
-#### 2.5.6 Fazit des Kapitels
+##### 2.5.6 Fazit des Kapitels
 Die Trennung von Daten und Information ist kein semantisches Detail, sondern **die technische Voraussetzung für digitale Souveränität, forensische Verwertbarkeit und Agnotologie-Resistenz**. Im DAE wird diese Trennung durch drei Engineering-Prinzipien erzwungen:
 1. **Lokale Persistenz & Hardware-Sealing** für Daten
 2. **Metadaten-Anreicherung, Provenenz-Verifikation & Circle-Konsens** für Information
@@ -404,7 +404,7 @@ Damit wird Information nicht durch Applikationslogik simuliert, sondern durch Pr
 
 ---
 
-## 2.6 Das Gateway-Prinzip & Circle-Interkonnektivität
+### 2.6 Das Gateway-Prinzip & Circle-Interkonnektivität
 
 Ein Circle ist in sich geschlossen und vollständig autonom. Das Internet ist keine Voraussetzung für dessen Funktion, sondern eine optionale Erweiterung. Die Verbindung zwischen Circles oder zum klassischen Web erfolgt ausschließlich über **Gateway-Peers**.
 
@@ -421,7 +421,7 @@ Das Gateway-Prinzip transformiert das Internet von einem zentralen Kontrollraum 
 
 ---
 
-## 2.7 Ausblick auf die Implementierung
+### 2.7 Ausblick auf die Implementierung
 
 Die Protokoll-Triade (`B.A.T.M.A.N. advanced`, `WireGuard`, `p2plib`) bildet das technische Rückgrat des DAE. Sie eliminiert Vermittler auf Netzwerk- und Transportschicht, ersetzt anonymer Reichweite durch explizite Autorisierung und verwandelt ungenutzte Rechenkapazität in kooperative Infrastrukturen.
 
@@ -429,17 +429,17 @@ Im nächsten Kapitel wird gezeigt, wie diese Protokolle auf konkreter Hardware o
 
 ---
 
-# 3. Systemdesign & Infrastruktur
+## 3. Systemdesign & Infrastruktur
 
 Die Architektur eines Decentralized Autonomous Ecosystems (DAE) ist nur so robust wie die physische und logische Infrastruktur, auf der sie operiert. Während die Protokoll-Triade (`B.A.T.M.A.N. advanced`, `WireGuard`, `p2plib`) die kommunikative Souveränität definiert, stellt das Systemdesign sicher, dass diese Protokolle auf autonomen, voll ausgestatteten und hardware-gesicherten Knoten laufen. Im Gegensatz zu client-server-Modellen oder pseudo-dezentralen Architekturen, die Rollen fragmentieren und Thin-Clients erzwingen, folgt das DAE dem Prinzip der **physischen und logischen Vollständigkeit jedes Peers**.
 
 ---
 
-## 3.1 Hardware-Referenz & Physische Topologie
+### 3.1 Hardware-Referenz & Physische Topologie
 
 Das DAE ist hardware-agnostisch, benötigt jedoch für Referenzimplementierungen Geräte, die TPM 2.0, sufficient RAM/CPU für Container-Orchestrierung und NVMe-Speicherung unterstützen. Die folgende Referenzarchitektur basiert auf bewährten, kosteneffizienten Komponenten, die das Verhältnis von Leistung, Energieverbrauch und Datensouveränität optimieren.
 
-### 3.1.1 Lokaler Edge-Node: Lenovo ThinkStation P330 Tiny
+#### 3.1.1 Lokaler Edge-Node: Lenovo ThinkStation P330 Tiny
 | Komponente | Spezifikation | DAE-Relevanz |
 |------------|--------------|--------------|
 | **CPU** | Intel Core i9-9900T (8C/16T, 35W TDP) | Ausreichend für Parallelbetrieb von Mesh-Daemons, Container-Runtime und Validierungslogik |
@@ -449,7 +449,7 @@ Das DAE ist hardware-agnostisch, benötigt jedoch für Referenzimplementierungen
 | **Security** | TPM 2.0, Secure Boot, Intel vPro | Hardware-Root-of-Trust für Key-Sealing, Remote-Attestation, Drift-Detection |
 | **Power** | ~18 W idle / ~45 W peak | ~€30/Jahr Stromkosten; ideal für 24/7-Betrieb im lokalen Circle |
 
-### 3.1.2 Öffentlicher Sibling-Node: OVH Kimsufi KS-B / VPS
+#### 3.1.2 Öffentlicher Sibling-Node: OVH Kimsufi KS-B / VPS
 | Komponente | Spezifikation | DAE-Relevanz |
 |------------|--------------|--------------|
 | **CPU** | Intel Xeon E5-1620v2 (4C/8T) | Backup-Sync, Gateway-Relay, öffentliche HTTPS/ActivityPub-Termination |
@@ -461,7 +461,7 @@ Das DAE ist hardware-agnostisch, benötigt jedoch für Referenzimplementierungen
 
 ---
 
-## 3.2 Das Full-Stack-per-Node-Prinzip
+### 3.2 Das Full-Stack-per-Node-Prinzip
 
 Jeder Peer im DAE hostet einen **vollständigen, lokal autarken Anwendungs- und Infrastrukturstack**. Dieses Design eliminiert funktionale Abhängigkeiten, die in zentralisierten oder föderierten Modellen zwangsläufig entstehen.
 
@@ -480,11 +480,11 @@ Jeder Peer im DAE hostet einen **vollständigen, lokal autarken Anwendungs- und 
 
 ---
 
-## 3.3 1:1 Sibling-Paarung & Circle-Gateway-Architektur
+### 3.3 1:1 Sibling-Paarung & Circle-Gateway-Architektur
 
 Das DAE organisiert Peers in **Circles** (familiär, beruflich, geo-lokal, vereinsbasiert). Innerhalb eines Circle kennen sich die Eigentümer der Peers persönlich; Autorisierung ist explizit, kryptographisch verifiziert und jederzeit widerrufbar [[PDF]].
 
-### 3.3.1 Paarungslogik
+#### 3.3.1 Paarungslogik
 ```
 [Lokaler Node A] ←→ [Öffentlicher Sibling A]
        ↕                         ↕
@@ -494,7 +494,7 @@ Das DAE organisiert Peers in **Circles** (familiär, beruflich, geo-lokal, verei
 - **Gateway-Funktion**: Der öffentliche Node terminiert HTTPS, federiert ActivityPub, und relayt autorisierte Daten zu anderen Circles oder ins klassische Internet.
 - **Metadaten-Minimierung**: Gateways relayen keine Tracking-Telemetrie, keine unverschlüsselten Payloads und keine Applikations-Logs. Der Datenfluss bleibt granular steuerbar.
 
-### 3.3.2 Identitätsbekanntgabe & Autorisierung
+#### 3.3.2 Identitätsbekanntgabe & Autorisierung
 Im Gegensatz zum anonymisierten Internet, das persönliche Daten zentral speichert und ohne Kontrolle des Eigentümers nutzt [[PDF]], erzwingt das DAE:
 1. **Explizite Peering-Anfrage**: Jeder Node stellt eine kryptographische Autorisierungsanfrage.
 2. **Circle-Bestätigung**: Bestehende Mitglieder verifizieren die Identität (physisch, telefonisch, über vertrauenswürdige Introducer).
@@ -503,7 +503,7 @@ Im Gegensatz zum anonymisierten Internet, das persönliche Daten zentral speiche
 
 ---
 
-## 3.4 Datenfluss & Validierungskette im DAE
+### 3.4 Datenfluss & Validierungskette im DAE
 
 Ein Datenobjekt (z. B. Kompetenz-Nachweis, Forenbeitrag, Chat-Nachricht) durchläuft im DAE eine definierte, mehrstufige Validierungs- und Synchronisationskette:
 
@@ -555,7 +555,7 @@ sequenceDiagram
 
 ---
 
-## 3.5 Logische Topologie & Protokoll-Mapping
+### 3.5 Logische Topologie & Protokoll-Mapping
 
 Die folgende Mermaid-Visualisierung zeigt die physische und logische Anordnung der Nodes, der Circle-Meshes, der Sibling-Paare und der Gateway-Verbindungen.
 
@@ -605,15 +605,15 @@ flowchart TD
 
 ---
 
-## 3.6 Skalierung, Ressourcenallokation & Offline-Resilienz
+### 3.6 Skalierung, Ressourcenallokation & Offline-Resilienz
 
-### 3.6.1 Nutzung ungenutzter Rechenkapazität
+#### 3.6.1 Nutzung ungenutzter Rechenkapazität
 Eine Analyse der globalen IT-Infrastruktur (Stand Dezember 2023) zeigt, dass weltweit schätzungsweise **~26.800 Millionen Prozessor-Kerne** in Personal Computern, Mobilgeräten und Servern im überdurchschnittlichen Leerlauf verfügbar sind [[PDF]]. Das DAE transformiert dieses Potenzial von einer passiven Infrastruktur in eine aktive, kooperative Ressource:
 - **Edge-Compute**: Jeder Peer führt lokale Validierung, CRDT-Merge-Logik und Service-Hosting aus.
 - **Load-Balancing**: Arbeitslast wird dynamisch über autorisierte Peers verteilt; kein zentrales Scheduling.
 - **Ökonomie**: Predictable Kosten (~€23/Monat pro Paar) ersetzen nutzungsbasierte Cloud-Abrechnungen.
 
-### 3.6.2 Offline-First & Graceful Degradation
+#### 3.6.2 Offline-First & Graceful Degradation
 Das DAE ist nicht auf Internet-Konnektivität angewiesen. Bei Ausfall des WAN:
 1. `B.A.T.M.A.N.` bleibt im lokalen Circle aktiv; Routing adaptiert sich an verfügbare Links.
 2. `p2plib` speichert Zustandsänderungen lokal; CRDTs garantieren Konfliktfreiheit bei späterem Sync.
@@ -624,7 +624,7 @@ Diese Architektur macht das DAE nicht nur technisch robust, sondern auch geopoli
 
 ---
 
-## 3.7 Ausblick auf die Anwendungs-Schicht
+### 3.7 Ausblick auf die Anwendungs-Schicht
 
 Die physische und logische Infrastruktur ist nun definiert: autonome Nodes, 1:1 Sibling-Paarung, Circle-Meshes, Gateway-Federation und eine mehrschichtige Protokoll-Integration. Diese Basis ist applikations-agnostisch und kann beliebige Workloads hosten.
 
@@ -632,13 +632,13 @@ Im nächsten Kapitel wird gezeigt, wie konkrete Dienste auf dieser Infrastruktur
 
 ---
 
-# 4. Anwendungs-Schicht & Dienste
+## 4. Anwendungs-Schicht & Dienste
 
 Die Infrastruktur eines Decentralized Autonomous Ecosystems (DAE) ist per Definition **anwendungs-agnostisch**. Sie stellt keinen zentralen App-Store, keine plattformspezifischen APIs und keine serververmittelte Laufzeitumgebung bereit. Stattdessen definiert sie einen souveränen, hardwaregesicherten und protokollgesteuerten Runtime-Space, in dem beliebige Dienste isoliert, lokal und peer-zu-peer betrieben werden können. Die *Competence Signature* ist lediglich eine exemplarische Applikation, die demonstriert, wie Geschäftslogik, Validierung und Datensouveränität auf dieser Infrastruktur operationalisiert werden.
 
 ---
 
-## 4.1 Das Prinzip der Anwendungs-Agnostizität
+### 4.1 Das Prinzip der Anwendungs-Agnostizität
 
 Im klassischen Client-Server- oder Pseudo-P2P-Modell (Layer 7) sind Applikationen strukturell an Vermittlungsinstanzen gebunden: DNS-Server, API-Gateways, Identity-Provider oder föderierte Relay-Knoten. Jede Anwendung muss eigene Authentifizierungs-, Synchronisations- und Routing-Logik implementieren [[KB]]. Das DAE kehrt dieses Paradigma um:
 
@@ -654,7 +654,7 @@ Jeder Peer im DAE hostet denselben vollständigen Dienst-Stack. Es gibt keine �
 
 ---
 
-## 4.2 Exemplarische Anwendung: Competence Signature
+### 4.2 Exemplarische Anwendung: Competence Signature
 
 Die *Competence Signature* dient im Whitepaper als **Referenzimplementierung**, um zu zeigen, wie eine anspruchsvolle Validierungs-Applikation auf der DAE-Infrastruktur operiert. Sie ist keine Plattform, sondern ein lokaler Dienst mit folgenden Eigenschaften:
 
@@ -670,7 +670,7 @@ Die Anwendung nutzt ausschließlich die Protokoll-Triade des DAE. Sie benötigt 
 
 ---
 
-## 4.3 Der interoperable Dienst-Stack
+### 4.3 Der interoperable Dienst-Stack
 
 Neben der *Competence Signature* demonstriert der folgende Stack, wie verschiedene Anwendungsklassen dieselbe Infrastruktur nutzen, ohne sich gegenseitig zu blockieren oder zentrale Abhängigkeiten zu erzeugen:
 
@@ -686,7 +686,7 @@ Alle Dienste laufen in isolierten Containern, teilen sich dieselbe Netzwerkschni
 
 ---
 
-## 4.4 Protokoll-Integration auf Anwendungsebene
+### 4.4 Protokoll-Integration auf Anwendungsebene
 
 Applikationen im DAE kommunizieren nicht über HTTP-APIs an zentrale Endpunkte, sondern nutzen die **komplementäre Protokoll-Triade** als native Laufzeitumgebung:
 
@@ -738,7 +738,7 @@ Im Gegensatz zu Layer-7-Implementierungen, bei denen jede Anwendung eigene Versc
 
 ---
 
-## 4.5 Container-Architektur & Datenisolation
+### 4.5 Container-Architektur & Datenisolation
 
 Die physische und logische Trennung von Betriebssystem, Container-Laufzeit und Anwendungsdaten ist ein Kernprinzip des DAE. Sie verhindert lateralen Zugriff, minimiert Angriffsflächen und gewährleistet Compliance-by-Design.
 
@@ -759,7 +759,7 @@ Diese Architektur stellt sicher, dass selbst bei Kompromittierung eines einzelne
 
 ---
 
-## 4.6 Konsens, Validierung & kooperative Arbeitslastverteilung
+### 4.6 Konsens, Validierung & kooperative Arbeitslastverteilung
 
 Das DAE operationalisiert das im KB beschriebene Prinzip:  
 > *„Jeder weiß ein wenig, jeder muss nicht alles wissen, jeder gibt sein Wissen in die Kooperation."*
@@ -778,7 +778,7 @@ Konsens entsteht hier nicht durch algorithmische Amplifikation oder zentrale Mod
 
 ---
 
-## 4.7 Ausblick auf Sicherheit & Betrieb
+### 4.7 Ausblick auf Sicherheit & Betrieb
 
 Die Anwendungsschicht des DAE demonstriert, dass digitale Souveränität nicht durch bessere AGBs oder plattforminterne Datenschutz-Features erreicht wird, sondern durch eine Infrastruktur, die Extraktion, Manipulation und Fremdkontrolle **technisch unmöglich macht**. Dienste laufen isoliert, kommunizieren direkt, speichern lokal und synchronisieren nur auf explizite Autorisierung.
 
@@ -786,13 +786,13 @@ Im nächsten Kapitel wird gezeigt, wie diese Architektur durch eine mehrschichti
 
 ---
 
-# 5. Sicherheit, Zero-Trust & Datenschutz
+## 5. Sicherheit, Zero-Trust & Datenschutz
 
 Die Architektur eines Decentralized Autonomous Ecosystems (DAE) ist nicht darauf ausgelegt, Sicherheit nachträglich durch Firewalls, VPN-Gateways oder plattforminterne Datenschutzeinstellungen zu gewährleisten. Stattdessen wird Sicherheit **architektonisch erzwungen**. Jede Verbindung, jeder Datenzugriff und jede Zustandsänderung unterliegt einem Zero-Trust-Modell, das auf kryptographischer Identität, hardwaregebundenem Root-of-Trust und expliziter Circle-Autorisierung basiert. Im Gegensatz zum klassischen Internet, das persönliche Daten in anonymisierten, zentralen Rechenzentren speichert und ohne Kontrolle des Eigentümers Dritter zugänglich macht [[KB]], operationalisiert das DAE Privatheit und Integrität durch Design.
 
 ---
 
-## 5.1 Das Zero-Trust-Paradigma im DAE
+### 5.1 Das Zero-Trust-Paradigma im DAE
 
 Traditionelle Netzwerksicherheit basiert auf dem Perimeter-Modell: Innerhalb eines vertrauenswürdigen Netzwerks gelten Ressourcen als sicher, außerhalb als gefährlich. Diese Annahme ist im modernen Internet obsolet. Das DAE eliminiert das Konzept eines implizit vertrauenswürdigen Netzwerks vollständig.
 
@@ -807,11 +807,11 @@ Zero-Trust im DAE ist keine Software-Funktion, sondern eine **strukturelle Eigen
 
 ---
 
-## 5.2 Hardware-Root-of-Trust & TPM 2.0 Key-Lifecycle
+### 5.2 Hardware-Root-of-Trust & TPM 2.0 Key-Lifecycle
 
 Der Trusted Platform Module (TPM 2.0) bildet das unveränderliche Vertrauensanker des DAE. Private Keys verlassen niemals den Hardware-Chip. Sie werden nur zur Laufzeit für kryptographische Operationen entsiegelt und nach Gebrauch sofort wieder im geschützten Speicher abgelegt.
 
-### 5.2.1 Key-Lifecycle-Phasen
+#### 5.2.1 Key-Lifecycle-Phasen
 | Phase | Mechanismus | Sicherheitsgarantie |
 |-------|-------------|---------------------|
 | **Generierung** | ECC-Key-Pair (Curve25519/Ed25519) direkt im TPM erzeugt | Keys sind nie im RAM oder auf Disk im Plaintext |
@@ -827,11 +827,11 @@ Der Trusted Platform Module (TPM 2.0) bildet das unveränderliche Vertrauensanke
 
 ---
 
-## 5.2.2 TPM 2.0: Technische Spezifikation & DAE-Integration
+### 5.2.2 TPM 2.0: Technische Spezifikation & DAE-Integration
 
 Der Trusted Platform Module (TPM) 2.0 ist kein optionales Sicherheits-Add-on, sondern das **unveränderliche Vertrauensanker** des Decentralized Autonomous Ecosystems (DAE). Er operationalisiert die Prinzipien Non-Repudiation, Immutability und Hardware-basierte Access-Control durch kryptographische Primitive, die physisch vom Hauptprozessor isoliert sind. Dieser Abschnitt vertieft die TPM 2.0-Architektur, den Key-Lifecycle, PCR-basierte Systemattestation und die konkrete Integration in die DAE-Protokoll-Triade.
 
-### 5.2.2.1 TPM 2.0-Architektur & Kryptographische Primitive
+#### 5.2.2.1 TPM 2.0-Architektur & Kryptographische Primitive
 
 TPM 2.0 ist ein dedizierter Mikrocontroller (ISO/IEC 11889:2015), der kryptographische Operationen in einer abgeschotteten, manipulationssicheren Umgebung ausführt. Im DAE werden folgende Primitive genutzt:
 
@@ -853,7 +853,7 @@ TPM 2.0 ist ein dedizierter Mikrocontroller (ISO/IEC 11889:2015), der kryptograp
 
 ---
 
-### 5.2.2.2 Key-Lifecycle im DAE: Von der Generierung zur Revocation
+#### 5.2.2.2 Key-Lifecycle im DAE: Von der Generierung zur Revocation
 
 Der TPM-Key-Lifecycle im DAE folgt einem strikten, auditierbaren Prozess, der Datenhoheit und forensische Nachvollziehbarkeit gewährleistet:
 
@@ -896,7 +896,7 @@ sequenceDiagram
 
 ---
 
-### 5.2.2.3 PCR-Quotes & Systemattestation im DAE
+#### 5.2.2.3 PCR-Quotes & Systemattestation im DAE
 
 Platform Configuration Registers (PCRs) sind 24 hash-basierte Register im TPM, die den Systemzustand kryptographisch abbilden. Im DAE werden PCRs für **Drift-Detection**, **Remote-Attestation** und **Compliance-Nachweise** genutzt:
 
@@ -928,7 +928,7 @@ Platform Configuration Registers (PCRs) sind 24 hash-basierte Register im TPM, d
 
 ---
 
-### 5.2.2.4 Integration mit DAE-Protokollen & Diensten
+#### 5.2.2.4 Integration mit DAE-Protokollen & Diensten
 
 TPM 2.0 ist kein isoliertes Security-Modul, sondern tief in die DAE-Architektur integriert:
 
@@ -964,7 +964,7 @@ shred -u wg_priv.key
 
 ---
 
-### 5.2.2.5 Sicherheitsgarantien & Threat Model
+#### 5.2.2.5 Sicherheitsgarantien & Threat Model
 
 Das TPM 2.0 im DAE adressiert folgende Angriffsvektoren:
 
@@ -983,7 +983,7 @@ Das TPM 2.0 im DAE adressiert folgende Angriffsvektoren:
 
 ---
 
-### 5.2.2.6 Implementierungs-Leitfaden für Entwickler & Administratoren
+#### 5.2.2.6 Implementierungs-Leitfaden für Entwickler & Administratoren
 
 **Voraussetzungen:**
 - TPM 2.0-fähige Hardware (Intel PTT, AMD fTPM, discrete TPM-Chip)
@@ -1036,7 +1036,7 @@ tpm2_evictcontrol -c 0x81010001
 
 ---
 
-### 5.2.2.7 Fazit des Abschnitts
+#### 5.2.2.7 Fazit des Abschnitts
 
 TPM 2.0 ist im DAE nicht nur ein Security-Feature, sondern das **architektonische Fundament** für:
 - 🔐 **Non-Repudiation**: Hardware-gebundene Signaturen ersetzen vertrauensbasierte Identitäten.
@@ -1050,7 +1050,7 @@ Durch die tiefe Integration in WireGuard, p2plib, GitOps und die Anwendungs-Schi
 
 ---
 
-## 5.3 Verschlüsselungskaskade: Von Layer 2 bis Layer 7
+### 5.3 Verschlüsselungskaskade: Von Layer 2 bis Layer 7
 
 Sicherheit im DAE folgt dem **Defense-in-Depth-Prinzip** über mehrere OSI-Schichten. Selbst bei Kompromittierung einer Ebene bleibt die Integrität und Vertraulichkeit der Daten geschützt.
 
@@ -1075,7 +1075,7 @@ Diese Kaskade verhindert, dass ein einzelner Schwachpunkt (z. B. Router-Kompromi
 
 ---
 
-## 5.4 Circle-Autorisierung vs. Anonyme Plattformen
+### 5.4 Circle-Autorisierung vs. Anonyme Plattformen
 
 Das klassische Internet ist ein **implizit öffentlicher Raum**: Teilnehmer interagieren pseudonym oder anonym, persönliche Daten werden zentral gespeichert und ohne explizite Kontrolle des Eigentümers genutzt [[KB]]. Soziale Medien und Plattformen heben Privatheit durch Transparenz und algorithmische Verstärkung auf.
 
@@ -1091,7 +1091,7 @@ Gateways verbinden Circles föderiert, aber nur autorisierte, verschlüsselte Da
 
 ---
 
-## 5.5 Audit, Non-Repudiation & Verifizierung
+### 5.5 Audit, Non-Repudiation & Verifizierung
 
 Im DAE wird Vertrauen nicht zentral zugesprochen, sondern **dezentral verifiziert**. Die Kombination aus Hardware-Signierung, Multi-Peer-Konsens und transparenten Audit-Logs stellt sicher, dass Informationen sauber von Desinformation getrennt werden können [[KB]].
 
@@ -1107,7 +1107,7 @@ Konsens entsteht nicht durch algorithmische Filter oder Plattform-Moderation, so
 
 ---
 
-## 5.6 Compliance-by-Design (DSGVO/GDPR operationalisiert)
+### 5.6 Compliance-by-Design (DSGVO/GDPR operationalisiert)
 
 Datenschutzbestimmungen wie die DSGVO bleiben oft wirkungslos, wenn die technische Architektur die Extraktion und Fremdnutzung von Daten standardisiert. Das DAE löst dieses Dilemma, indem es regulatorische Anforderungen **architektonisch implementiert**:
 
@@ -1123,13 +1123,13 @@ Compliance ist im DAE kein nachträglicher Verwaltungsakt, sondern eine **inhär
 
 ---
 
-## 5.7 Technische Operationalisierung von Informationsfreiheit, Transparenz & Agnotologie-Resistenz
+### 5.7 Technische Operationalisierung von Informationsfreiheit, Transparenz & Agnotologie-Resistenz
 
 Die im Positionspapier (Kap. 4) dargelegten gesellschaftlichen und rechtlichen Prinzipien der Informationsfreiheit, Transparenz und Agnotologie-Resistenz werden im Decentralized Autonomous Ecosystem (DAE) nicht durch Richtlinien oder manuelle Prozesse gewährleistet, sondern durch eine **deterministische, protokollgesteuerte Architektur**. Dieses Kapitel übersetzt die konzeptionellen Anforderungen in technische Spezifikationen, Implementierungslogiken und betriebliche Abläufe. Der Fokus liegt auf der operationalen Trennung von Daten und Information, kryptographischer Provenenz, GitOps-basierter Konfigurationstransparenz, selektiver Offenlegung sowie automatisierter Erkennung agnotologischer Anomalien.
 
 ---
 
-## 5.7.1 Architekturelle Grundprinzipien: Metadaten-First & Payload-Isolation
+### 5.7.1 Architekturelle Grundprinzipien: Metadaten-First & Payload-Isolation
 
 Das DAE erzwingt Transparenz durch strikte logische und physische Trennung von **Payload (Daten)** und **Metadaten/Kontext (Information)**. Diese Trennung ist die technische Voraussetzung für `Compliance-by-Design`, forensische Nachvollziehbarkeit und Agnotologie-Resistenz.
 
@@ -1144,7 +1144,7 @@ Das DAE erzwingt Transparenz durch strikte logische und physische Trennung von *
 
 ---
 
-## 5.7.2 Kryptographische Provenenz & Non-Repudiation
+### 5.7.2 Kryptographische Provenenz & Non-Repudiation
 
 Jeder kritische Datensatz, jede Konfigurationsänderung und jeder Validierungsentscheid wird hardwaregebunden signiert und in eine unveränderliche Verkettung eingebettet.
 
@@ -1157,7 +1157,7 @@ Jeder kritische Datensatz, jede Konfigurationsänderung und jeder Validierungsen
 
 ---
 
-## 5.7.3 GitOps & Konfigurationstransparenz
+### 5.7.3 GitOps & Konfigurationstransparenz
 
 Informationsfreiheit operationalisiert sich im DAE durch **versionierte, signierte und öffentlich einsehbare Konfigurationslogik**. Keine Regel, keine Validierungslogik und keine Sync-Policy bleibt eine Blackbox.
 
@@ -1189,7 +1189,7 @@ transparency_rules:
 
 ---
 
-## 5.7.4 Circle-basierte Zugriffssteuerung & Selektive Disclosure
+### 5.7.4 Circle-basierte Zugriffssteuerung & Selektive Disclosure
 
 Zugriff auf Informationen wird nicht über Rollenmodelle (RBAC/ABAC), sondern über **kryptographische Peering-Beziehungen** gesteuert. Das DAE implementiert selektive Offenlegung als standardisierte Export-Modes:
 
@@ -1215,7 +1215,7 @@ Payloads verlassen den lokalen Node **niemals ohne explizite Freigabe und krypto
 
 ---
 
-## 5.7.5 Agnotologie-Resistenz durch technische Gap-Detection
+### 5.7.5 Agnotologie-Resistenz durch technische Gap-Detection
 
 Agnotologische Mechanismen (Selektion, Kontextentzug, Framing, nachträgliche Manipulation) werden im DAE nicht durch KI-Filter oder manuelle Moderation adressiert, sondern durch **automatisierte Anomalie-Erkennung auf Provenenz- und Kontextebene**.
 
@@ -1231,7 +1231,7 @@ Das System **löscht oder zensiert nicht**. Es markiert, versioniert und macht A
 
 ---
 
-## 5.7.6 Audit-Logging & Forensische Verwertbarkeit
+### 5.7.6 Audit-Logging & Forensische Verwertbarkeit
 
 Audit-Logs im DAE sind lokal, verschlüsselt und kryptographisch verankert. Nur Hashes und Metadaten werden synchronisiert, um Metadaten-Lecks zu vermeiden.
 
@@ -1250,9 +1250,9 @@ Audit-Logs im DAE sind lokal, verschlüsselt und kryptographisch verankert. Nur 
 
 ---
 
-## 5.7.7 Implementierungs-Leitfaden & Referenz-States
+### 5.7.7 Implementierungs-Leitfaden & Referenz-States
 
-### 1. CRDT-Validation-Config (`pillar/nodes/circle-validation.yaml`)
+#### 1. CRDT-Validation-Config (`pillar/nodes/circle-validation.yaml`)
 ```yaml
 crdt_validation:
   merge_strategy: "last-writer-wins-with-timestamp"
@@ -1269,7 +1269,7 @@ crdt_validation:
     max_sync_lag_s: 300
 ```
 
-### 2. Systemd-Service für Proactive Metadata Sync
+#### 2. Systemd-Service für Proactive Metadata Sync
 ```ini
 [Unit]
 Description=DAE Proactive Metadata Publisher
@@ -1285,7 +1285,7 @@ Group=dae
 WantedBy=multi-user.target
 ```
 
-### 3. Salt-State für Audit-Rotation & Hash-Anchoring
+#### 3. Salt-State für Audit-Rotation & Hash-Anchoring
 ```yaml
 # salt/states/dae-audit.sls
 audit_log_rotation:
@@ -1309,7 +1309,7 @@ audit_hash_anchor:
 
 ---
 
-## 5.7.8 Integration & Querverweise zu anderen Kapiteln
+### 5.7.8 Integration & Querverweise zu anderen Kapiteln
 
 | Kapitel | Bezug & technische Synergie |
 |---------|-----------------------------|
@@ -1321,7 +1321,7 @@ audit_hash_anchor:
 
 ---
 
-## 5.8 Hardening & Verteidigungsschichten
+### 5.8 Hardening & Verteidigungsschichten
 
 Neben protokoll- und hardwarebasierten Sicherheitsmechanismen implementiert das DAE operative Verteidigungsschichten, um Angriffsflächen zu minimieren und Resilienz zu maximieren.
 
@@ -1337,7 +1337,7 @@ Diese Schichten bilden ein **kohärentes Sicherheitsnetz**, das Angriffe bereits
 
 ---
 
-## 5.9 Ausblick auf Betrieb & Provisioning
+### 5.9 Ausblick auf Betrieb & Provisioning
 
 Die Sicherheitsarchitektur des DAE zeigt, dass digitale Souveränität und Datenschutz nicht durch Verträge oder Plattform-Policies gewährleistet werden, sondern durch eine Infrastruktur, die Extraktion, Manipulation und Fremdkontrolle **technisch unmöglich macht**. Hardware-gesicherte Keys, mehrschichtige Verschlüsselung, Circle-Autorisierung und Compliance-by-Design bilden das Fundament.
 
@@ -1345,13 +1345,13 @@ Im nächsten Kapitel wird gezeigt, wie diese Architektur operationalisiert wird:
 
 ---
 
-# 6. Betrieb, Provisioning & GitOps
+## 6. Betrieb, Provisioning & GitOps
 
 Der Betrieb eines Decentralized Autonomous Ecosystems (DAE) widerspricht fundamental den etablierten Praktiken zentralisierter Cloud-Infrastrukturen. Während traditionelle Systeme auf Provider-Konsolen, API-Gateways und manuelle Skript-Ausführung setzen, operationalisiert das DAE den Betrieb durch **GitOps, versionierte Infrastruktur-as-Code (IaC) und autonome Selbstheilung**. Die Provisionierung erfolgt nicht durch externe Orchestrierungs-Dienste, sondern durch einen dezentralen, auditierbaren und kryptographisch verifizierten Konfigurationskreislauf. Dieser Ansatz stellt sicher, dass Kontrolle, Transparenz und Reproduzierbarkeit niemals an Dritte delegiert werden.
 
 ---
 
-## 6.1 Das GitOps-Paradigma im DAE
+### 6.1 Das GitOps-Paradigma im DAE
 
 GitOps transformiert Infrastruktur-Konfiguration von einem operativen Akt in einen deklarativen, versionierten Zustand. Im DAE bedeutet dies:
 - **Konfiguration als Code**: Jede Netzwerkeinstellung, jedes Container-Layout und jede Circle-Regel ist in Git dokumentiert.
@@ -1363,7 +1363,7 @@ Im Gegensatz zu Cloud-Providern, bei denen Provisionierung über proprietäre AP
 
 ---
 
-## 6.2 SaltStack + GitHub GitFS: Versionierte Provisionierung
+### 6.2 SaltStack + GitHub GitFS: Versionierte Provisionierung
 
 SaltStack dient als Orchestrierungs-Engine des DAE. Durch die `gitfs`-Backend-Integration bezieht jeder Minion seine States und Pillars direkt aus einem Git-Repository, ohne dass ein zentraler Salt-Master betrieben werden muss. Dies eliminiert Single Points of Failure und ermöglicht vollständig dezentrale Provisionierung.
 
@@ -1408,7 +1408,7 @@ Der Workflow ist linear und deterministisch:
 
 ---
 
-## 6.3 Der `cs-wizard.py` CLI: Circle- & Node-Pair-Generierung
+### 6.3 Der `cs-wizard.py` CLI: Circle- & Node-Pair-Generierung
 
 Manuelle YAML-Erstellung ist fehleranfällig und skaliert schlecht. Der `cs-wizard.py` CLI automatisiert die Generierung von Circle-Definitionen, 1:1 Sibling-Paarungen und Service-Enablings, während er gleichzeitig Validierungsregeln durchsetzt.
 
@@ -1455,7 +1455,7 @@ Der Wizard operationalisiert das im KB beschriebene **Circle-Prinzip**: Explizit
 
 ---
 
-## 6.4 Pillar-Schema & Konfigurations-Management
+### 6.4 Pillar-Schema & Konfigurations-Management
 
 Pillars speichern node-spezifische, sensitivere Konfigurationen, die nicht im allgemeinen State-Tree liegen. Im DAE sind Pillars strikt nach **Circle, Pair und Rolle** strukturiert.
 
@@ -1475,7 +1475,7 @@ Pillars speichern node-spezifische, sensitivere Konfigurationen, die nicht im al
 
 ---
 
-## 6.5 CI/CD-Validation & Quality Gates
+### 6.5 CI/CD-Validation & Quality Gates
 
 Bevor Konfigurationen in die Live-Umgebung gelangen, durchlaufen sie automatisierte Quality Gates. Dies verhindert Syntaxfehler, Konfigurations-Drift und Sicherheitslücken, bevor sie auf die Nodes angewendet werden.
 
@@ -1508,7 +1508,7 @@ Nur bei erfolgreichem Durchlauf aller Gates wird ein Merge in `main` freigegeben
 
 ---
 
-## 6.6 Monitoring-Stack & Self-Healing-Drift-Detection
+### 6.6 Monitoring-Stack & Self-Healing-Drift-Detection
 
 Betriebssicherheit im DAE wird nicht durch externe SaaS-Monitoring-Tools gewährleistet, sondern durch einen lokal deployten, privacy-by-design PLG-Stack (Prometheus, Loki, Grafana) und autonome Heilungslogik.
 
@@ -1544,7 +1544,7 @@ Diese Architektur gewährleistet, dass das DAE nicht nur konfiguriert, sondern *
 
 ---
 
-## 6.7 Ausblick auf Ökonomie & Implementierungsleitfaden
+### 6.7 Ausblick auf Ökonomie & Implementierungsleitfaden
 
 Der Betrieb eines DAE ist durch GitOps, automatisierte Validierung und Self-Healing signifikant entlastet von manueller Administration. Konfiguration ist versioniert, reproduzierbar und auditierbar. Monitoring ist lokal, privacy-konform und auf Circle-Ebene begrenzt. Die Infrastruktur verwaltet sich selbst, während der menschliche Operator strategische Circle-Expansion und Service-Integration steuert.
 
@@ -1552,13 +1552,13 @@ Im nächsten Kapitel wird gezeigt, wie diese Architektur ökonomisch skaliert: D
 
 ---
 
-# 7. Ökonomie, Skalierung & Implementierungsleitfaden
+## 7. Ökonomie, Skalierung & Implementierungsleitfaden
 
 Die technische Architektur eines Decentralized Autonomous Ecosystems (DAE) ist nur dann nachhaltig, wenn sie ökonomisch tragfähig, skalierbar und operativ beherrschbar ist. Im Gegensatz zu Cloud-SaaS-Modellen, die nutzungsbasierte Abrechnungen, versteckte Datenexport-Gebühren und Vendor-Lock-in-Effekte etablieren, operationalisiert das DAE ein kooperatives, transparentes und vorhersagbares Betriebsmodell. Dieses Kapitel übersetzt die infrastrukturellen Prinzipien in konkrete Wirtschaftlichkeitsanalysen, einen strukturierten Implementierungsplan und operative Checklisten für den Produktivbetrieb.
 
 ---
 
-## 7.1 Ökonomisches Modell: Von der Extraktion zur kooperativen Wertschöpfung
+### 7.1 Ökonomisches Modell: Von der Extraktion zur kooperativen Wertschöpfung
 
 Zentrale Cloud-Infrastrukturen basieren auf einem extraktiven Geschäftsmodell: Rechenleistung, Speicher und Netzwerkkapazität werden als Produkt verkauft, während Nutzerdaten implizit zur Optimierung, Profilerstellung und Monetarisierung extrahiert werden. Das DAE kehrt diese Logik um durch das Prinzip der **kooperativen Arbeitslastverteilung**:
 
@@ -1568,7 +1568,7 @@ Im DAE wird keine Rechenleistung gekauft, sondern sie wird durch die Teilnehmer 
 
 ---
 
-## 7.2 Das ungenutzte globale Rechenpotenzial
+### 7.2 Das ungenutzte globale Rechenpotenzial
 
 Eine Analyse der weltweit verfügbaren IT-Infrastruktur (Stand Dezember 2023) zeigt das enorme, bisher weitgehend ungenutzte Potenzial für echte P2P-Architekturen [[KB]]:
 
@@ -1589,7 +1589,7 @@ Im Gegensatz zu Modellen, die Rechenleistung zentral bündeln und extern vermark
 
 ---
 
-## 7.3 Kostenstruktur & Predictable Betriebskosten (pro Node-Paar)
+### 7.3 Kostenstruktur & Predictable Betriebskosten (pro Node-Paar)
 
 Das ökonomische Fundament des DAE ist transparent, einmalig kalkulierbar und langfristig stabil. Die folgende Übersicht basiert auf Referenzhardware und realistischen Betriebsbedingungen in Deutschland/EU (Stand Mai 2026).
 
@@ -1609,7 +1609,7 @@ Im Vergleich dazu würde ein äquivalenter SaaS-Stack (WordPress + DB + Chat-Ser
 
 ---
 
-## 7.4 Implementierungsleitfaden: 4-Phasen-Plan
+### 7.4 Implementierungsleitfaden: 4-Phasen-Plan
 
 Der Übergang von der Konzeption zum produktiven DAE-Betrieb folgt einem strukturierten, iterativen Pfad. Jede Phase baut auf der vorherigen auf und schließt mit einer Validierungs-Gate.
 
@@ -1654,7 +1654,7 @@ Der Übergang von der Konzeption zum produktiven DAE-Betrieb folgt einem struktu
 
 ---
 
-## 7.6 Fallback-Szenarien & Resilienz-Strategien
+### 7.6 Fallback-Szenarien & Resilienz-Strategien
 
 Das DAE ist für Ausfälle, Kompromittierungen und Infrastrukturstörungen ausgelegt. Die folgende Matrix definiert automatische Reaktionen und manuelle Interventionspunkte.
 
@@ -1670,7 +1670,7 @@ Graceful Degradation ist kein optionales Feature, sondern **architektonisch vera
 
 ---
 
-## 7.7 Monitoring-Empfehlungen & Self-Healing-Optimierung
+### 7.7 Monitoring-Empfehlungen & Self-Healing-Optimierung
 
 Betriebssicherheit im DAE wird durch einen lokal deployten, privacy-by-design PLG-Stack gewährleistet. Externe SaaS-Monitoring-Tools werden bewusst vermieden, um Metadaten-Lecks zu verhindern.
 
@@ -1694,7 +1694,7 @@ Diese Architektur minimiert menschliche Intervention auf Ausnahmefälle und stel
 
 ---
 
-## 7.8 Ausblick auf Fazit & Handlungsaufforderung
+### 7.8 Ausblick auf Fazit & Handlungsaufforderung
 
 Die Ökonomie, Skalierung und Implementierung des DAE demonstrieren, dass digitale Souveränität nicht nur technisch machbar, sondern auch wirtschaftlich nachhaltig ist. Predictable Kosten, kooperatives Compute, automatisierte Provisionierung und resiliente Fallback-Strategien transformieren die Infrastruktur von einem experimentellen Setup in eine **produktionsreife, kritische Systemarchitektur**.
 
@@ -1702,13 +1702,13 @@ Im abschließenden Kapitel werden die technischen, ökonomischen und gesellschaf
 
 ---
 
-# 8. Fazit & Handlungsaufforderung
+## 8. Fazit & Handlungsaufforderung
 
 Die technische Architektur, das Betriebsmodell und die ökonomische Tragfähigkeit des Decentralized Autonomous Ecosystems (DAE) sind keine theoretischen Konstrukte. Sie sind die engineering-getriebene Antwort auf die strukturellen Schwächen zentralisierter Infrastrukturen und die applikatorischen Limitationen sogenannter Pseudo-P2P-Systeme. Solange Datenpakete physisch durch fremdverwaltete Rechenzentren fließen und Verbindungen über Layer-7-Relays vermittelt werden, bleibt digitale Souveränität eine vertragliche Fiktion. Das DAE operationalisiert sie als inhärente Systemeigenschaft.
 
 ---
 
-## 8.1 Synthese: Infrastruktur als politische Entscheidung
+### 8.1 Synthese: Infrastruktur als politische Entscheidung
 
 Die vorangegangenen Kapitel haben einen klaren Pfad aufgezeigt: **Digitale Souveränität wird nicht verhandelt, sie wird gebaut.** Das DAE eliminiert die Grundvoraussetzungen des Überwachungskapitalismus durch drei architektonische Hebel:
 
@@ -1722,7 +1722,7 @@ Die *Competence Signature* dient in diesem Whitepaper lediglich als exemplarisch
 
 ---
 
-## 8.2 Warum jetzt? Die Konvergenz von Reife, Notwendigkeit & Potenzial
+### 8.2 Warum jetzt? Die Konvergenz von Reife, Notwendigkeit & Potenzial
 
 Fünf historische Treiber bilden einen Wendepunkt, der echte Peer-to-Peer-Architekturen von einem Nischenkonzept zu einer kritischen Infrastruktur macht:
 
@@ -1736,7 +1736,7 @@ Wie im KB-Konzept betont: *„Jeder weiß ein wenig, jeder muss nicht alles wiss
 
 ---
 
-## 8.3 Handlungsaufforderung: Wer muss was tun?
+### 8.3 Handlungsaufforderung: Wer muss was tun?
 
 Die Transformation von einer extraktiven zu einer souveränen digitalen Infrastruktur erfordert koordinierte, aber dezentrale Aktion. Die folgende Matrix definiert konkrete Handlungsfelder:
 
@@ -1750,7 +1750,7 @@ Die Transformation von einer extraktiven zu einer souveränen digitalen Infrastr
 
 ---
 
-## 8.4 Ausblick: Vom Nischenkonzept zur kritischen Infrastruktur
+### 8.4 Ausblick: Vom Nischenkonzept zur kritischen Infrastruktur
 
 Echtes Peer-to-Peer wird sich nicht durch Marketing, sondern durch Notwendigkeit durchsetzen. Fünf Entwicklungslinien zeichnen den Übergang vom experimentellen Setup zur kritischen Infrastruktur ab:
 
@@ -1764,7 +1764,7 @@ Das Decentralized Autonomous Ecosystem ist keine Utopie. Es ist eine präzise, r
 
 ---
 
-## 8.5 Abschließende These
+### 8.5 Abschließende These
 
 Die Architektur des Internets ist keine technische Neutralität. Sie ist das Ergebnis historischer Entscheidungen, ökonomischer Anreize und infrastruktureller Pfadabhängigkeiten. Dezentrale Peer-to-Peer-Infrastruktur ist die bewusste Entscheidung, diese Pfadabhängigkeit zu durchbrechen. Sie ist die Entscheidung für Souveränität, Resilienz und menschliche Würde im digitalen Zeitalter.
 
@@ -1772,13 +1772,13 @@ Die Architektur des Internets ist keine technische Neutralität. Sie ist das Erg
 
 ---
 
-# 9. Technisches Glossar
+## 9. Technisches Glossar
 
 Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographischen Primitive und Architekturkonzepte des Decentralized Autonomous Ecosystems (DAE) aus technischer Perspektive. Alle Definitionen sind auf die spezifische Implementierungslogik des Whitepapers abgestimmt und operationalisieren die Terminologie für Infrastruktur-Architekten, Entwickler, Systemadministratoren und Compliance-Verantwortliche.
 
 ---
 
-## A
+### A
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -1790,7 +1790,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## B
+### B
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -1801,7 +1801,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## C
+### C
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -1820,7 +1820,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## D
+### D
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -1833,7 +1833,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## E
+### E
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -1844,7 +1844,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## F
+### F
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -1854,7 +1854,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## G
+### G
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -1865,7 +1865,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## H
+### H
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -1875,7 +1875,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## I
+### I
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -1886,7 +1886,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## K
+### K
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -1895,7 +1895,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## L
+### L
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -1904,7 +1904,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## M
+### M
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -1915,7 +1915,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## N
+### N
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -1926,7 +1926,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## O
+### O
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -1937,7 +1937,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## P
+### P
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -1952,7 +1952,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## Q
+### Q
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -1960,7 +1960,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## R
+### R
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -1969,7 +1969,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## S
+### S
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -1985,7 +1985,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## T
+### T
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -1995,7 +1995,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## U
+### U
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -2003,7 +2003,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## V
+### V
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -2012,7 +2012,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## W
+### W
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -2020,7 +2020,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## Z
+### Z
 
 | Begriff | Definition im DAE-Kontext |
 |---------|---------------------------|
@@ -2028,13 +2028,13 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-# 10. Referenzen & Quellenverzeichnis
+## 10. Referenzen & Quellenverzeichnis
 
 Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und historische Grundlage des Whitepapers. Sie sind nach Kategorien sortiert, um eine zielgerichtete Vertiefung zu ermöglichen. Alle Verweise entsprechen dem Stand der Diskussion und den im Text integrierten Erkenntnissen.
 
 ---
 
-## A. Primärliteratur & Theoretische Grundlagen
+### A. Primärliteratur & Theoretische Grundlagen
 
 | Quelle | Referenz | Relevanz für das Positionspapier |
 |--------|----------|----------------------------------|
@@ -2047,7 +2047,7 @@ Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und hi
 
 ---
 
-## B. Technische Spezifikationen & Protokolle
+### B. Technische Spezifikationen & Protokolle
 
 | Quelle / Standard | Referenz | Relevanz für das Positionspapier |
 |-------------------|----------|----------------------------------|
@@ -2064,7 +2064,7 @@ Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und hi
 
 ---
 
-## C. Rechtliche & Normative Rahmenwerke
+### C. Rechtliche & Normative Rahmenwerke
 
 | Norm / Gesetz | Referenz | Operative Übersetzung im Positionspapier |
 |---------------|----------|------------------------------------------|
@@ -2076,7 +2076,7 @@ Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und hi
 
 ---
 
-## D. Projektdokumentation, Historie & Kontextquellen
+### D. Projektdokumentation, Historie & Kontextquellen
 
 | Quelle | Referenz | Einbindung ins Positionspapier |
 |--------|----------|-------------------------------|
@@ -2089,7 +2089,7 @@ Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und hi
 
 ---
 
-## E. Wissenschaftliche Quellen zu Agnotologie & Transparenz
+### E. Wissenschaftliche Quellen zu Agnotologie & Transparenz
 
 | Quelle | Referenz | Relevanz für das Positionspapier |
 |--------|----------|----------------------------------|
@@ -2101,7 +2101,7 @@ Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und hi
 
 ---
 
-## F. Hardware- & Betriebsreferenzen
+### F. Hardware- & Betriebsreferenzen
 
 | Quelle / Produkt | Referenz | Relevanz für das Positionspapier |
 |------------------|----------|----------------------------------|
