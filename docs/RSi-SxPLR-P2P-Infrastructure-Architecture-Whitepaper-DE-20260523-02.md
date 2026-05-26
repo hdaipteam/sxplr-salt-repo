@@ -2030,53 +2030,96 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 # 10. Referenzen & Quellenverzeichnis
 
-Die nachfolgenden Quellen bilden die technische, rechtliche, wissenschaftliche und konzeptionelle Grundlage des Decentralized Autonomous Ecosystems. Sie sind nach Domänen kategorisiert, um eine zielgerichtete Vertiefung für Architekten, Entwickler, Compliance-Verantwortliche und Forschende zu ermöglichen.
+Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und historische Grundlage des Positionspapiers. Sie sind nach Kategorien sortiert, um eine zielgerichtete Vertiefung zu ermöglichen. Alle Verweise entsprechen dem Stand der Diskussion und den im Text integrierten Erkenntnissen.
 
-### 📘 A. Protokolle, Spezifikationen & Technische Standards
-| Quelle / Standard | Referenz | Relevanz für das DAE |
-|-------------------|----------|----------------------|
-| **B.A.T.M.A.N. advanced** | https://www.open-mesh.org/ ; Linux Kernel `net/batman-adv/` | Kernel-native L2-Mesh-Routing, proaktive OGMs, Hybrid-WLAN/Ethernet |
-| **WireGuard** | Donenfeld, J. (2016–2024) / https://www.wireguard.com/ ; RFC 9198 (2022) | Stateless L3-Overlay, Curve25519/ChaCha20-Poly1305, NAT-Durchdringung |
-| **CRDT-Theory** | Shapiro, M. et al. (2011). *A Comprehensive Study of CRDTs* | Konfliktfreie Zustandsreplikation, Merge-Logik, Offline-First-Konsens |
-| **Merkle-DAG / Blockchain-Prinzipien** | Merkle, R. (1987). *A Digital Signature Based on a Conventional Encryption Function* | Hash-verkettete Provenenz, verzweigte Narrative, Immutabilität ohne PoW |
-| **TPM 2.0 Specification** | Trusted Computing Group (2019). *TPM Library Specification v2.0* | Hardware-Root-of-Trust, Sealing/Unsealing, PCR-Attestation, Key-Lifecycle |
-| **p2plib (konzeptionell)** | DAE-Designprinzipien, CRDT-Integration, libsodium E2E | Service-Discovery ohne DNS, Offline-First-Sync, Applikations-Agnostik |
-| **OSI-Modell** | ISO/IEC 7498-1:1994. *Open Systems Interconnection* | Referenzrahmen für L2–4-Architektur, Schichtentrennung, Security-by-Design |
+---
 
-### ⚖️ B. Rechtliche & Normative Rahmenwerke
-| Norm / Gesetz | Referenz | Operative Übersetzung im DAE |
-|---------------|----------|------------------------------|
-| **DSGVO (EU) 2016/679** | Art. 4, 5, 17, 20 | Datenminimierung, Löschrecht, Portabilität durch lokale Persistenz & selektive Disclosure |
-| **Informationsfreiheitsgesetze** | IFG §1, UIG §2, VIG §1 (DE) | Proaktive Metadaten-Publikation, maschinenlesbare Entscheidungsgrundlagen |
-| **eIDAS-Verordnung (EU) 910/2014** | Art. 3, 25, 26 | TPM-basierte Non-Repudiation, forensische Beweiskette, qualifizierte Signatur-Äquivalenz |
-| **ISO/IEC 2382:2015** | *Information Technology Vocabulary* | Standardisierte Terminologie für Daten, Information, Provenenz, Validierung |
+## A. Primärliteratur & Theoretische Grundlagen
 
-### 📜 C. Wissenschaftliche & Theoretische Grundlagen
-| Quelle | Referenz | Relevanz für das DAE |
-|--------|----------|----------------------|
-| **Zuboff, S.** | *The Age of Surveillance Capitalism* (2019) | Diagnose extraktiver Datenökonomien; Legitimation architektonischer Souveränität |
-| **Proctor, R. N. / McGoey, L.** | *Agnotology: A Missing Epistemology* (2008/2012) | Theoretischer Rahmen für produziertes Nicht-Wissen; Basis für Transparenz-Architektur |
-| **Bates, M. J.** | *Information, Knowledge, and the DIKW Hierarchy* (2005) | Begriffliche Trennung Daten/Information; Fundament für Metadata-First-Indexing |
-| **Shannon, C. & Weaver, W.** | *The Mathematical Theory of Communication* (1948) | Informationstheoretische Grundlage; Unterscheidung syntaktischer Daten vs. semantischer Information |
-| **Oreskes, N. & Conway, E.** | *Merchants of Doubt* (2010) | Analyse strategischer Intransparenz; motiviert Proactive-Transparency-by-Design |
+| Quelle | Referenz | Relevanz für das Positionspapier |
+|--------|----------|----------------------------------|
+| **Zuboff, S.** | *The Age of Surveillance Capitalism* (2019), PublicAffairs | Grundlegende Diagnose extraktiver Datenökonomien; legitimiert die Notwendigkeit architektonischer Souveränität statt regulatorischer Appelle |
+| **Proctor, R. N.** | *Agnotology: A Missing Epistemology* (2008), in: *Agnotology: The Making and Unmaking of Ignorance*, Stanford University Press | Theoretischer Rahmen für produziertes Nicht-Wissen; Basis für Transparenz- & Validierungsarchitekturen im DAE |
+| **McGoey, L.** | *The Strategic Uses of Agnotology* (2012), in: *Agnotology*, Stanford University Press | Analyse institutioneller Intransparenz; motiviert Proactive-Transparency-by-Design als Gegenarchitektur |
+| **Bates, M. J.** | *Information, Knowledge, and the DIKW Hierarchy* (2005), in: *Encyclopedia of Library and Information Science* | Begriffliche Trennung Daten/Information; Fundament für Metadaten-First-Architektur und operative Übersetzung im DAE |
+| **Shannon, C. & Weaver, W.** | *The Mathematical Theory of Communication* (1948), University of Illinois Press | Informationstheoretische Grundlage; Unterscheidung syntaktischer Daten vs. semantischer Information |
+| **Oreskes, N. & Conway, E.** | *Merchants of Doubt* (2010), Bloomsbury Press | Analyse strategischer Intransparenz; motiviert Proactive-Transparency-by-Design und Circle-basierte Validierung |
 
-### 🌐 D. Projektdokumentation, Historie & Kontextquellen
-| Quelle | Referenz | Einbindung ins DAE |
-|--------|----------|---------------------|
-| **Anatomie eines Peer to Peer Netzwerks** | R. Siebert / M. R. Garrtner (2023/2026) | Ursprungsidee, Circle-Prinzip, globale Rechenkapazitätsanalyse, Agnotologie-Bezug |
-| **OLPC-Projekt** | Negroponte, N. et al. (2005–2008) | Historischer Kontext für Mesh-Netzwerke, Lessons Learned zu proprietären Chipsätzen |
-| **ActivityPub W3C Recommendation** | W3C (2018) | Abgrenzung Pseudo-P2P (Layer 7), Föderation vs. echte Direktverbindung |
-| **IPFS / Nostr Dokumentation** | Protocol Whitepapers & RFCs | Vergleich applikatorischer Dezentralisierung, Limitationen, Sicherheitsnachrüstungen |
-| **Competence Signature Kontext** | DAE-Use-Case-Dokumentation | Exemplarische Validierungs-Applikation, TPM-Signierung, Multi-Peer-Konsens |
+---
 
-### 🛠️ E. Software, Orchestrierung & Betriebstools
-| Tool / Framework | Referenz | Rolle im DAE |
-|------------------|----------|--------------|
-| **SaltStack GitFS** | https://docs.saltproject.io/en/latest/ref/file_server/all/salt.fileserver.gitfs.html | Versionierte State-/Pillar-Provisionierung, dezentrale Konvergenz |
-| **Docker Compose** | https://docs.docker.com/compose/ | Container-Isolation, Zero-Trust-Richtlinien, Read-only Root-FS |
-| **Caddy Reverse Proxy** | https://caddyserver.com/ | Auto-HTTPS, HSTS/CSP-Hardening, Rate-Limiting, Circle-scoped Routing |
-| **Restic Backup** | https://restic.readthedocs.io/ | TPM-gesiegelte Repo-Keys, bidirektionale Sync, verschlüsselte Snapshots |
-| **Prometheus / Loki / Grafana** | CNCF Stack | Lokales PLG-Monitoring, Drift-Detection, Circle-only Dashboards |
+## B. Technische Spezifikationen & Protokolle
+
+| Quelle / Standard | Referenz | Relevanz für das Positionspapier |
+|-------------------|----------|----------------------------------|
+| **B.A.T.M.A.N. advanced** | https://www.open-mesh.org/ ; Linux Kernel `net/batman-adv/` | Kernel-native Layer-2-Mesh-Routing, proaktive OGMs, Hybrid-WLAN/Ethernet; Fundament für autonome Circle-Netzwerke |
+| **WireGuard** | Donenfeld, J. (2016–2024) / https://www.wireguard.com/ ; RFC 9198 (2022) | Stateless L3-Overlay, Curve25519/ChaCha20-Poly1305, NAT-Durchdringung; sichere Transit-Schicht ohne zentrale CAs |
+| **p2plib (konzeptionell)** | DAE-Designprinzipien, CRDT-Integration, libsodium E2E | Service-Discovery ohne DNS, Offline-First-Sync, Applikations-Agnostik; Brücke zwischen Protokoll-Stack und Anwendungslogik |
+| **CRDT-Theory** | Shapiro, M. et al. (2011). *A Comprehensive Study of CRDTs*, INRIA Research Report | Konfliktfreie Zustandsreplikation, Merge-Logik, Offline-First-Konsens; Grundlage für dezentrale Datenkonsistenz ohne zentrale Sequenzierung |
+| **Merkle-DAG** | Merkle, R. (1987). *A Digital Signature Based on a Conventional Encryption Function*, CRYPTO '87 | Hash-verkettete Provenenz, verzweigte Narrative, Immutabilität ohne PoW; Fundament für historische Rekonstruktion und forensische Nachvollziehbarkeit |
+| **TPM 2.0 Specification** | Trusted Computing Group (2019). *TPM Library Specification v2.0*, https://trustedcomputinggroup.org/ | Hardware-Root-of-Trust, Sealing/Unsealing, PCR-Attestation; operative Grundlage für Non-Repudiation und Compliance-by-Design |
+| **GitOps & SaltStack GitFS** | Weaveworks (2017); SaltStack Docs, https://docs.saltproject.io/ | Versionierte Provisionierung, State-Konvergenz, Auditierbarkeit; operationalisiert Transparenz als Default-Verhalten |
+| **OSI-Modell** | ISO/IEC 7498-1:1994. *Open Systems Interconnection* | Referenzrahmen für Layer-2–4-Architektur, Schichtentrennung, Security-by-Design; Fundament für echtes P2P vs. Pseudo-P2P-Abgrenzung |
+| **libsodium** | https://libsodium.gitbook.io/ | Moderne, auditierte Kryptographie-Bibliothek für E2E-Payload-Verschlüsselung; Defense-in-Depth auf Applikationsebene |
+| **Schema.org / JSON-LD** | https://schema.org/ ; https://json-ld.org/ | Standardisierte Metadaten-Schemata für maschinenlesbare Annotation; Basis für Context-First-Indexing und Proactive Metadata Publication |
+
+---
+
+## C. Rechtliche & Normative Rahmenwerke
+
+| Norm / Gesetz | Referenz | Operative Übersetzung im Positionspapier |
+|---------------|----------|------------------------------------------|
+| **DSGVO (EU) 2016/679** | Art. 4, 5, 17, 20, 25, 32 | Datenminimierung, Löschrecht, Portabilität, Privacy-by-Design durch lokale Persistenz, TPM-Sealing & selektive Disclosure |
+| **Informationsfreiheitsgesetz (IFG) / UIG / VIG** | §1 IFG, §2 UIG, §1 VIG (DE) | Proaktive Metadaten-Publikation, maschinenlesbare Entscheidungsgrundlagen, Circle-Governance als demokratisches Steuerungselement |
+| **eIDAS-Verordnung (EU) 910/2014** | Art. 3, 25, 26 | TPM-basierte Non-Repudiation, forensische Beweiskette, qualifizierte Signatur-Äquivalenz via `tpm2_sign` + GitOps-Provenienz |
+| **ISO/IEC 2382:2015** | *Information Technology Vocabulary* | Standardisierte Terminologie für Daten, Information, Provenenz, Validierung; Fundament für konsensfähige Begriffsdefinitionen im DAE |
+| **CLOUD Act (US) / FISA** | 18 U.S.C. § 2713; 50 U.S.C. § 1801 et seq. | Begründung für lokale Datenhoheit und Jurisdiktion beim Peer-Eigentümer; Argument für Circle-basierte Autonomie statt Cloud-Abhängigkeit |
+
+---
+
+## D. Projektdokumentation, Historie & Kontextquellen
+
+| Quelle | Referenz | Einbindung ins Positionspapier |
+|--------|----------|-------------------------------|
+| **Anatomie eines Peer to Peer Netzwerks** | R. Siebert / M. R. Garrtner (2023/2026), internes Knowledge Base-Dokument | Ursprungsidee, Circle-Prinzip, globale Rechenkapazitätsanalyse, Agnotologie-Bezug; konzeptionelles Fundament des DAE |
+| **OLPC-Projekt (One Laptop per Child)** | Negroponte, N. et al. (2005–2008), https://wiki.laptop.org/ | Historischer Kontext für Mesh-Netzwerke, Lessons Learned zu proprietären Chipsätzen; Motivation für Open-Source-Hardware-Agnostik |
+| **Bitcoin Whitepaper** | Nakamoto, S. (2008). *Bitcoin: A Peer-to-Peer Electronic Cash System* | Strukturelle Prinzipien (Hash-Chains, dezentrale Validierung) ohne PoW/Token-Logik; Inspiration für Merkle-DAG und OP_RETURN-Timestamping |
+| **ActivityPub W3C Recommendation** | W3C (2018). *ActivityPub: A decentralized social networking protocol* | Abgrenzung Pseudo-P2P (Layer 7), Föderation vs. echte Direktverbindung; Begründung für Layer-2–4-Fokus im DAE |
+| **IPFS / Nostr Dokumentation** | Protocol Whitepapers & RFCs, https://ipfs.tech/ ; https://nostr.com/ | Vergleich applikatorischer Dezentralisierung, Limitationen, Sicherheitsnachrüstungen; Argument für infrastrukturelle statt applikatorische Souveränität |
+| **Competence Signature Kontext** | DAE-Use-Case-Dokumentation (intern) | Exemplarische Validierungs-Applikation, TPM-Signierung, Multi-Peer-Konsens; Demonstrator für operative Übersetzung der DAE-Prinzipien |
+
+---
+
+## E. Wissenschaftliche Quellen zu Agnotologie & Transparenz
+
+| Quelle | Referenz | Relevanz für das Positionspapier |
+|--------|----------|----------------------------------|
+| **Proctor, R. N. & Schiebinger, L. (Eds.)** | *Agnotology: The Making and Unmaking of Ignorance* (2008), Stanford University Press | Umfassende Einführung in die Disziplin; theoretische Basis für die Analyse staatlicher und institutioneller Intransparenzmechanismen |
+| **McGoey, L.** | *No Such Thing as a Free Gift: The Gates Foundation and the Price of Philanthropy* (2015), Verso Books | Fallstudie zu strategischer Wissensproduktion; untermauert die Notwendigkeit von Proactive Transparency-by-Design |
+| **Mirowski, P.** | *Science-Mart: Privatizing American Science* (2011), Harvard University Press | Analyse der Kommerzialisierung von Wissen; motiviert kooperative, gemeinwohlorientierte Infrastrukturmodelle im DAE |
+| **Benkler, Y.** | *The Wealth of Networks* (2006), Yale University Press | Theoretische Grundlage für Commons-basierte Peer-Production; Fundament für das Circle-Prinzip und kooperative Arbeitslastverteilung |
+| **Lessig, L.** | *Code: And Other Laws of Cyberspace* (1999/2006), Basic Books | "Code is Law"-These; begründet die Notwendigkeit, Souveränität durch Architektur statt durch Regulation zu operationalisieren |
+
+---
+
+## F. Hardware- & Betriebsreferenzen
+
+| Quelle / Produkt | Referenz | Relevanz für das Positionspapier |
+|------------------|----------|----------------------------------|
+| **Lenovo ThinkStation P330 Tiny** | https://www.lenovo.com/ | Referenzhardware für lokale Edge-Nodes: TPM 2.0, NVMe-OPAL 2.0, geringe TDP; operationalisiert Full-Stack-Autonomie auf Consumer-Hardware |
+| **OVH Kimsufi / VPS** | https://www.ovhcloud.com/ | Referenz für öffentliche Sibling-Nodes: predictable Kosten, Anti-DDoS, unmetered Traffic; ermöglicht resiliente Gateway-Funktion ohne Vendor-Lock-in |
+| **DietPi / Debian 12 Bookworm** | https://dietpi.com/ ; https://www.debian.org/ | Minimal-OS mit TPM-Support, Kernel-Integration für `batman-adv`/`wireguard`; Fundament für reproduzierbare, auditable Node-Provisionierung |
+| **Docker Compose** | https://docs.docker.com/compose/ | Container-Isolation, Zero-Trust-Richtlinien, Read-only Root-FS; operationalisiert Defense-in-Depth auf Applikationsebene |
+| **Caddy Reverse Proxy** | https://caddyserver.com/ | Auto-HTTPS, HSTS/CSP-Hardening, Rate-Limiting; sichert Public-Gateways ohne komplexe Konfiguration |
+| **Restic Backup** | https://restic.readthedocs.io/ | TPM-gesiegelte Repo-Keys, bidirektionale Sync, verschlüsselte Snapshots; operationalisiert Disaster-Recovery ohne Cloud-Abhängigkeit |
+| **Prometheus / Loki / Grafana** | https://prometheus.io/ ; https://grafana.com/ | Lokal deployter PLG-Stack für Privacy-by-Design Monitoring; ermöglicht Circle-only Dashboards ohne Metadaten-Lecks |
+
+---
+
+📌 **Hinweis zur Zitierweise**
+- Alle Quellen sind nach Relevanz für die Argumentationslinie des Positionspapiers ausgewählt.
+- Technische Spezifikationen verweisen auf offizielle Dokumentation oder RFCs, um Reproduzierbarkeit zu gewährleisten.
+- Wissenschaftliche Quellen stützen die gesellschaftlich-politische Begründung digitaler Souveränität.
+- Bei Bedarf können DOI-Links, permanente URLs oder GitHub-Repository-Referenzen als separate Anlage bereitgestellt werden.
 
 ---
 
