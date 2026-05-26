@@ -5,7 +5,7 @@
 
 ---
 
-Dokumenten-Information
+**Dokumenten-Information**
 
 | Feld | Wert |
 |------|------|
