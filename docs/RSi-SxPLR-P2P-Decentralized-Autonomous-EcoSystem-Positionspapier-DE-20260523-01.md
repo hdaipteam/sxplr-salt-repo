@@ -100,40 +100,24 @@ Echte digitale Souveränität erfordert daher einen Paradigmenwechsel: weg von a
 
 Erst auf dieser Ebene wird Privatsphäre nicht durch AGBs versprochen, sondern durch Protokoll-Design erzwungen. Die folgende Diagnose macht deutlich: Der Überwachungskapitalismus ist kein bloßes Geschäftsmodell, sondern das direkte Ergebnis einer Infrastruktur, die Zentralisierung als Standard setzt. Die Wiederherstellung von Datensouveränität, authentischer Sozialität und resilienter Kommunikation erfordert daher keine bessere Applikation, sondern eine fundamentale Neugestaltung der Vernetzung selbst.
 
-Im nächsten Kapitel wird dargelegt, wie **echtes Peer-to-Peer auf OSI-Layer 2 bis 4** diese Architektur nicht nur theoretisch, sondern praktisch, technisch und protokollbasiert operationalisierbar macht.
-
----
-
-Hier sind die beiden Kapitel, exakt auf die jeweilige Dokumentenarchitektur und den stilistischen Duktus zugeschnitten. Beide übernehmen die inhaltliche Substanz der zuvor erarbeiteten Grundlagen-Definition, übersetzen sie jedoch gezielt in die argumentative Logik des Positionspapiers (gesellschaftlich-politisch) bzw. die technische Spezifikation des Whitepapers (architektonisch-operativ).
-
 ---
 
 ### 1.5 Grundlagen: Daten, Information & das Agnotologie-Paradigma
 
 Die Debatte um digitale Souveränität, Transparenz und demokratische Aufklärung scheitert häufig an einem fundamentalen Begriffsdefizit: Die Gleichsetzung von Daten und Information. Solange diese Unterscheidung nicht klar getroffen wird, bleibt Datenschutz eine rechtliche Fiktion, Informationsfreiheit ein reaktiver Appell und historische Aufklärung ein nachträgliches Einfordern. Im Decentralized Autonomous Ecosystem (DAE) wird diese Trennung nicht semantisch, sondern **architektonisch operationalisiert**. Sie bildet das konzeptionelle Fundament, auf dem Datensouveränität, algorithmische Transparenz und Agnotologie-Resistenz aufbauen. Daten bleiben lokal, verschlüsselt und hardwaregesiegelt; Information entsteht erst durch Validierung, Kontextualisierung und nachvollziehbare Provenienz.
 
-#### 1.5.1.1 State-of-the-Art: Konvergenz technischer, rechtlicher & gesellschaftlicher Perspektiven
+---
+
+#### 1.5.1 State-of-the-Art: Konvergenz technischer, rechtlicher & gesellschaftlicher Perspektiven
 Eine Analyse aktueller Forschungs- und Praxisstandards (2024–2026) zeigt, dass technische, rechtliche und sozio-technische Disziplinen unabhängig voneinander zu derselben Schlussfolgerung kommen:
 
-| Perspektive | Definition „Daten" | Definition „Information" | Kernimplikation für Souveränität |
-|-------------|-------------------|--------------------------|----------------------------------|
-| **Informatik & Informationstheorie** | Unverarbeitete, syntaktische Einheiten (Bits, Messwerte, CRDT-States). Bedeutung entsteht erst durch Interpretation. | Daten + Kontext + Zweck = semantisch aufgelöste, handlungsrelevante Aussage. (DIKW-Modell) | Daten sind neutral; Information erfordert Validierung & Kontext |
-| **Rechtlich (DSGVO / IFG / eIDAS)** | Jede Information, die sich auf eine identifizierbare Person bezieht. Art. 4 DSGVO. | Aufbereitete, nachvollziehbare Aussage mit Entscheidungsrelevanz; unterliegt Zugriffsrechten (IFG, UIG). | Schutzgut vs. Zugriffsrecht: Beide müssen architektonisch koexistieren |
-| **Dezentrale Systeme & Kryptographie** | Kryptographisch signierte Zustände, lokale Speicher-Blocks, Hashes. | Validierter, konsensbasierter Zustand mit Metadaten, Provenenz-Kette & transparenter Entstehungslogik. | Provenenz & Konsens machen aus Daten verifizierbare Information |
-| **Agnotologie & Transparenzforschung** | Rohmaterial, das durch Selektion, Framing oder Unterdrückung bewusst verändert werden kann. | Daten, deren Entstehungsprozess, Kontext & Validierungsregeln öffentlich nachvollziehbar sind. | Fehlt Transparenz, entsteht produktives Nicht-Wissen |
-| **Sozio-technische P2P-Architektur** | Lokale, verschlüsselte Einträge auf autorisierten Nodes. Subjektiv, kontextarm, kryptographisch bindend. | Durch Circle-Validierung, Metadaten-Schema & Open-Logic verifizierte, maschinenlesbare Aussage. | Information entsteht dezentral, nicht durch zentrale Kuratierung |
-
-> 🔍 **Erkenntnis**: Der Unterschied liegt nicht im Inhalt, sondern in **Provenenz, Validierung und Transparenz des Entstehungsprozesses**. Daten sind das Material. Information ist das verifizierte, kontextualisierte Ergebnis.
-
-#### 1.5.1.2 Alternative Darstellung: State-of-the-Art-Analyse (2024–2026)
-
-| Perspektive | Definition „Daten" | Definition „Information" | Quellen & Referenzen |
-|-------------|-------------------|--------------------------|----------------------|
-| **Informatik & Informationstheorie** | Unverarbeitete, syntaktische Einheiten (Bits, Zeichen, Messwerte, CRDT-States). Bedeutung entsteht erst durch Interpretation. | Daten + Kontext + Zweck = semantisch aufgelöste, handlungsrelevante Aussage. (DIKW-Modell: Data → Information → Knowledge → Wisdom) | ISO/IEC 2382:2015, Shannon/Weaver (1948), Bates (2005) |
-| **Rechtlich (DSGVO / IFG / eIDAS)** | Personenbezogene Daten: Jede Information, die sich auf eine identifizierte/identifizierbare natürliche Person bezieht. Art. 4 DSGVO. | Aufbereitete, nachvollziehbare Aussage mit Entscheidungsrelevanz. Unterliegt Informationsfreiheitsgesetzen (IFG, UIG, VIG) als Zugriffsrecht. | DSGVO Art. 4/5, IFG §1, eIDAS VO (EU) 910/2014 |
-| **Dezentrale Systeme & Kryptographie** | Kryptographisch signierte Zustände, Hashes, Payloads, lokale Speicher-Blocks. Neutral, unverändert, nachweisbar. | Validierter, konsensbasierter Zustand mit Metadaten, Provenienz-Kette und transparenter Entstehungslogik. | CRDT-Theory (Shapiro et al.), TPM 2.0 Spec, GitOps-Prinzipien |
-| **Agnotologie & Transparenzforschung** | Rohmaterial, das durch Selektion, Framing oder Unterdrückung bewusst verändert oder vorenthalten werden kann. | Daten, deren Entstehungsprozess, Kontext und Validierungsregeln öffentlich nachvollziehbar sind. Fehlt Transparenz, entsteht produktives Nicht-Wissen. | Proctor (2008), McGoey (2012), Oreskes/Conway (2010) |
-| **Sozio-technische P2P-Architektur** | Lokale, verschlüsselte Einträge auf autorisierten Nodes. Subjektiv, kontextarm, aber kryptographisch bindend. | Durch Circle-Validierung, Metadaten-Schema und Open-Logic verifizierte, maschinenlesbare und menschlich interpretierbare Aussage. | KB „Anatomie eines Peer to Peer Netzwerks", DAE-Designprinzipien |
+| Perspektive | Definition „Daten" | Definition „Information" | Kernimplikation für Souveränität | Quellen & Referenzen |
+|-------------|-------------------|--------------------------|----------------------------------|-----------------------|
+| **Informatik & Informationstheorie** | Unverarbeitete, syntaktische Einheiten (Bits, Messwerte, CRDT-States). Bedeutung entsteht erst durch Interpretation. | Daten + Kontext + Zweck = semantisch aufgelöste, handlungsrelevante Aussage. (DIKW-Modell) | Daten sind neutral; Information erfordert Validierung & Kontext | ISO/IEC 2382:2015, Shannon/Weaver (1948), Bates (2005) |
+| **Rechtlich (DSGVO / IFG / eIDAS)** | Jede Information, die sich auf eine identifizierbare Person bezieht. Art. 4 DSGVO. | Aufbereitete, nachvollziehbare Aussage mit Entscheidungsrelevanz; unterliegt Zugriffsrechten (IFG, UIG). | Schutzgut vs. Zugriffsrecht: Beide müssen architektonisch koexistieren | DSGVO Art. 4/5, IFG §1, eIDAS VO (EU) 910/2014 |
+| **Dezentrale Systeme & Kryptographie** | Kryptographisch signierte Zustände, lokale Speicher-Blocks, Hashes. | Validierter, konsensbasierter Zustand mit Metadaten, Provenenz-Kette & transparenter Entstehungslogik. | Provenenz & Konsens machen aus Daten verifizierbare Information | CRDT-Theory (Shapiro et al.), TPM 2.0 Spec, GitOps-Prinzipien |
+| **Agnotologie & Transparenzforschung** | Rohmaterial, das durch Selektion, Framing oder Unterdrückung bewusst verändert werden kann. | Daten, deren Entstehungsprozess, Kontext & Validierungsregeln öffentlich nachvollziehbar sind. | Fehlt Transparenz, entsteht produktives Nicht-Wissen | Proctor (2008), McGoey (2012), Oreskes/Conway (2010) |
+| **Sozio-technische P2P-Architektur** | Lokale, verschlüsselte Einträge auf autorisierten Nodes. Subjektiv, kontextarm, kryptographisch bindend. | Durch Circle-Validierung, Metadaten-Schema & Open-Logic verifizierte, maschinenlesbare Aussage. | Information entsteht dezentral, nicht durch zentrale Kuratierung | KB „Anatomie eines Peer to Peer Netzwerks", DAE-Designprinzipien |
 
 > 🔍 **Erkenntnis**: Im State of the Art konvergieren technische, rechtliche und gesellschaftliche Definitionen darauf, dass **Daten das Material sind, Information das verifizierte, kontextualisierte Ergebnis**. Der Unterschied liegt nicht im Inhalt, sondern in **Provenienz, Validierung und Transparenz des Entstehungsprozesses**.
 
@@ -634,22 +618,22 @@ Autonomie ist hier kein Marketing-Begriff, sondern eine engineering-getriebene S
 ```mermaid
 flowchart TD
     subgraph CircleA["Circle A (Lokal)"]
-        N1(("Node A1<br/>P330 Tiny"))
-        N2(("Node A2<br/>P330 Tiny"))
+        N1(("Node A1\nP330 Tiny"))
+        N2(("Node A2\nP330 Tiny"))
         N1 <-->|"B.A.T.M.A.N. L2"| N2
     end
 
     subgraph CircleB["Circle B (Lokal)"]
-        N3(("Node B1<br/>P330 Tiny"))
-        N4(("Node B2<br/>P330 Tiny"))
+        N3(("Node B1\nP330 Tiny"))
+        N4(("Node B2\nP330 Tiny"))
         N3 <-->|"B.A.T.M.A.N. L2"| N4
     end
 
-    GW1(("Gateway A<br/>Sibling VPS"))
-    GW2(("Gateway B<br/>Sibling VPS"))
-    BTC((Bitcoin<br/>Timestamping))
-    TOR((Tor<br/>Privacy))
-    WEB((Internet<br/>Public))
+    GW1(("Gateway A\nSibling VPS"))
+    GW2(("Gateway B\nSibling VPS"))
+    BTC((Bitcoin\nTimestamping))
+    TOR((Tor\jPrivacy))
+    WEB((Internet\nPublic))
 
     %% Sibling-Pairing
     N1 <-->|"WireGuard L3 + p2plib L5-7"| GW1
