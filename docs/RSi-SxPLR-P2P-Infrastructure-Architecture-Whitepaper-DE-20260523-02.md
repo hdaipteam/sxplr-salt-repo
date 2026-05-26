@@ -508,17 +508,44 @@ Im Gegensatz zum anonymisierten Internet, das persönliche Daten zentral speiche
 Ein Datenobjekt (z. B. Kompetenz-Nachweis, Forenbeitrag, Chat-Nachricht) durchläuft im DAE eine definierte, mehrstufige Validierungs- und Synchronisationskette:
 
 ```mermaid
-flowchart LR
-    A["Erstellung & Lokale Speicherung<br/>(NVMe-2, Local-Only)"] --> B["TPM-Signierung<br/>(Hardware-Root-of-Trust)"]
-    B --> C["p2plib CRDT-Sync<br/>(Offline-First, Zustandserfassung)"]
-    C --> D["Lokale Circle-Validierung<br/>(≥3 autorisierte Peers)"]
-    D --> E["WireGuard Overlay +<br/>B.A.T.M.A.N. Routing"]
-    E --> F["Sibling-Backup &<br/>Public-Termination"]
-    F --> G["Inter-Circle-Federation<br/>(Gateway-zu-Gateway)"]
-    G --> H["Dezentrale Persistenz<br/>(CRDT-Konsens, Optional: BTC-Timestamp)"]
+sequenceDiagram
+    autonumber
+    participant U as Nutzer:in
+    participant LN as Lokaler Node\n(P330 Tiny)
+    participant TPM as TPM 2.0\n(Hardware)
+    participant CRDT as p2plib\n(CRDT-Sync)
+    participant Circle as Circle-Peers\n(≥3 autorisiert)
+    participant PN as Public Node\n(Kimsufi/VPS)
+    participant BTC as Bitcoin Node\n(Tor-geschützt)
 
-    classDef step fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
-    class A,B,C,D,E,F,G,H step;
+    Note over U,LN: Phase 1: Lokale Erfassung & Signierung
+    U->>LN: 1. Erfasse Kompetenz-Nachweis\n(Lokal, NVMe-2)
+    LN->>TPM: 2. Signiere Payload\n(tpm2_sign, Curve25519)
+    TPM-->>LN: 3. Rückgabe: signature_blob\n+ author_tpm_pubkey
+    LN->>LN: 4. Speichere lokal:\n{payload_hash, metadata, signature}
+
+    Note over LN,Circle: Phase 2: Circle-Validierung
+    LN->>CRDT: 5. Initiiere CRDT-Sync\n(Offline-First, p2plib)
+    CRDT->>Circle: 6. Broadcast: Validierungsanfrage\n(review_status: pending)
+    Circle->>Circle: 7. Unabhängige Prüfung\n(Signatur, Metadaten, Kontext)
+    Circle-->>CRDT: 8. Rückmeldung: consensus_signature\n(≥3 Peers bestätigen)
+    CRDT-->>LN: 9. Merge: review_status: circle_verified
+
+    Note over LN,PN: Phase 3: Sibling-Replikation
+    LN->>PN: 10. WireGuard-Overlay:\nVerschlüsselter Sync zu Public Node
+    PN->>PN: 11. Speichere Replica\n(Bidirektional, CRDT-konfliktfrei)
+    PN-->>LN: 12. Bestätigung: sync_complete
+
+    Note over PN,BTC: Phase 4: Optional – Timestamping
+    PN->>BTC: 13. OP_RETURN-Transaktion\n(Tor-geschützt, ~₿0.0001)
+    BTC-->>PN: 14. txid + Block-Height\n(Unveränderlicher Zeitstempel)
+
+    Note over U,PN: Phase 5: Selektive Offenlegung
+    U->>LN: 15. Anfrage: Export für Anwalt/Gericht
+    LN->>LN: 16. Generiere full_frozen_snapshot\n(Verschlüsselt + OTDK)
+    LN-->>U: 17. Übergabe: ZIP + manifest.json + TPM.attestation.sig
+
+    Note right of U: Ergebnis: Forensisch verwertbare,\nTPM-gesicherte, Circle-validierte Beweiskette
 ```
 
 **Protokoll-Zuordnung:**
