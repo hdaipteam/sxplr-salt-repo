@@ -632,7 +632,7 @@ flowchart TD
     GW1(("Gateway A\nSibling VPS"))
     GW2(("Gateway B\nSibling VPS"))
     BTC((Bitcoin\nTimestamping))
-    TOR((Tor\jPrivacy))
+    TOR((Tor\nPrivacy))
     WEB((Internet\nPublic))
 
     %% Sibling-Pairing
