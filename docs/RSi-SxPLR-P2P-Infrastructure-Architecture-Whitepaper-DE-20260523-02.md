@@ -2125,7 +2125,7 @@ Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und hi
 
 ## 11. Addendum
 
-### 11.1 Tiefenanalyse: Freifunk & FunkFeuer Wien im Kontext des Decentralized Autonomous Ecosystems (DAE)
+### 11.1 Netzwerk Infrastruktur: Freifunk & FunkFeuer Wien im Kontext des Decentralized Autonomous Ecosystems (DAE)
 
 Basierend auf der Recherche zu Freifunk und spezifisch zu FunkFeuer Wien präsentiere ich hier eine umfassende Analyse der technischen Architektur, der konzeptionellen Schnittstellen und der Integrationspotenziale mit dem DAE.
 
@@ -2356,6 +2356,204 @@ Die technische Analyse zeigt:
 Starten Sie mit **Szenario A (Overlay-Container)**, um schnell Validierung zu erreichen ohne Freifunk-Infrastruktur zu verändern. Parallel dazu können hybride Firmware-Entwicklungen (Szenario B) für Communities mit höherem technischem Reifegrad vorbereitet werden.
 
 > *"Freifunk baut die Straßen. Das DAE baut die Fahrzeuge, die darauf fahren – mit eigenem Navigationssystem, eigenem Kraftstoff und eigener Verkehrsordnung. Beides zusammen ergibt eine Infrastruktur, die nicht nur verbindet, sondern auch souverän macht."*
+
+---
+
+# 11.2 Authentifizierung: Mobile Authentication & Authorization App – Blueprint für dezentrale Souveränität
+
+Dieses Addendum spezifiziert die Konzeption einer mobilen Authentifizierungs- und Autorisierungs-App für das Decentralized Autonomous Ecosystem (DAE). Die App basiert auf der bewährten, Open-Source-Architektur der deutschen Corona-Warn-App (CWA), ersetzt jedoch die epidemiologische Warnfunktion durch eine generische, anwendungagnostische Infrastruktur für digitale Souveränität. Neben den technischen P2P-Features werden explizit Aspekte der Nachhaltigkeit, der Nachnutzung öffentlich geförderter Entwicklungen und der Resilienz dezentraler App-Entwicklung adressiert. Die App dient als **Blueprint** für zukünftige dezentrale Mobile-Clients im DAE-Ökosystem.
+
+---
+
+## 11.2.1 Konzeptioneller Ursprung: Von der Corona-Warn-App zum DAE-Auth-Blueprint
+
+Die Corona-Warn-App (CWA) demonstrierte erfolgreich, wie eine mobile App **dezentrale, privatsphärenerhaltende Authentifizierung** operationalisieren kann. Ihre Kernarchitektur – basierend auf dem DP-3T-Protokoll, dem Google/Apple Exposure Notification Framework (ENF) und einer strikten lokalen Datenhaltung – bietet wertvolle Lessons Learned für das DAE:
+
+| CWA-Prinzip | Übertragung auf DAE-Auth-App | Technischer Mehrwert |
+|-------------|------------------------------|---------------------|
+| **Lokale Datenhaltung** | Alle sensitiven Daten verbleiben auf dem Gerät; Sync nur via expliziter Freigabe | ✅ Entspricht DAE-Prinzip der lokalen Datenhoheit; operationalisiert via SQLCipher + TPM-Sealing |
+| **Token-basierte Autorisierung** | Registration-Token → Circle-Identifier; Submission-TAN → One-Time-Disclosure-Token (OTDK) | ✅ Adaptierbar für Circle-Peering und selektive Datenfreigabe ohne zentrale Identity-Provider |
+| **Offline-First-Sync** | Risk-Berechnung funktioniert offline; Diagnosis-Key-Fetch asynchron | ✅ CRDT-basierte Zustandsreplikation via `p2plib` ermöglicht Offline-First-Circle-Validierung |
+| **Privacy-by-Design** | Ephemeral Identifiers, dezentrale Speicherung, lokales Matching | ✅ Übertragbar auf DAE: Ephemeral Session-Keys, TPM-bound Keys, Circle-scoped Validation |
+| **Open-Source-Entwicklung** | Vollständiger Code öffentlich, Community-Audits, transparente Entwicklung | ✅ Blueprint-Charakter: Nachnutzung, Forking, Weiterentwicklung durch Dritte ermöglicht |
+
+**Kerninnovation der DAE-Auth-App**:  
+Statt epidemiologischer Kontaktverfolgung operationalisiert die App **digitale Souveränität**:
+- Authentifizierung via TPM/Secure Enclave + Circle-Peering
+- Autorisierung für Zugriff auf eigene DAE-Daten (Competence Signature, Chat, BBS, etc.)
+- Synchronisation von Zuständen zwischen Mobile-App und lokalem Node-Komplex via `p2plib`-CRDT
+- Selektive Disclosure für juristische, administrative oder kooperative Use Cases
+
+---
+
+## 11.2.2 Technische Architektur: P2P-Features & DAE-Integration
+
+### 11.2.2.1 Schichtenmodell der DAE-Auth-App
+
+```
+[DAE Mobile App]
+├─ Authentication Layer
+│  ├─ TPM/Secure Enclave Proxy (Curve25519/Ed25519 Key-Gen, tpm2_sign-Äquivalent)
+│  ├─ Circle-Peer-Manager (p2plib-based Service Discovery, Peer-Request-Handling)
+│  └─ Token-Handler (Registration-Token → Circle-Identifier, OTDK-Generierung)
+├─ Data Layer
+│  ├─ Encrypted Local Storage (SQLCipher + TPM-Sealed Keys, Room/Core Data)
+│  ├─ CRDT-Sync-Engine (p2plib-Bindings, Offline-First-State-Merge)
+│  └─ Metadata-Index (Schema.org/JSON-LD für Proactive Transparency)
+├─ Network Layer
+│  ├─ WireGuard Client (L3-Overlay für authentifizierten Transit)
+│  ├─ B.A.T.M.A.N. Client (optional: L2-Mesh für lokale Circles)
+│  └─ Caddy Reverse Proxy (HTTPS-Termination für Public-Gateway)
+└─ Application Layer
+   ├─ Competence Signature Client (exemplarischer Use Case)
+   ├─ Generic Auth-Interface (OAuth2/OpenID-Connect-Adapter für Drittanbieter)
+   └─ Admin Interface (Circle-Governance, Key-Rotation, Audit-Logs)
+```
+
+### 11.2.2.2 Authentifizierungs- & Autorisierungs-Workflow
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant U as Nutzer:in
+    participant M as DAE Mobile App
+    participant T as TPM / Secure Enclave
+    participant C as Circle-Gateway (Sibling-Node)
+    participant N as Lokaler Node-Komplex
+
+    Note over U,M: Phase 1: App-Initialisierung
+    U->>M: 1. App starten, Circle-ID eingeben
+    M->>T: 2. ECC-Key-Pair generieren (Curve25519)
+    T-->>M: 3. Public Key + PCR-Quote (Hardware-Attestation)
+    
+    Note over M,C: Phase 2: Circle-Peering
+    M->>C: 4. POST /circle/peer-request {pubkey, circle_id, pcr_quote}
+    C->>C: 5. Circle-Validierung (≥3 bestehende Peers bestätigen)
+    alt Validierung erfolgreich
+        C->>M: 6. Circle-Authorization-Token (CAT, kurzlebig)
+        M->>T: 7. CAT via TPM signieren → Circle-Session-Key
+        T-->>M: 8. Signierter Session-Key (ephemeral)
+    else Validierung fehlgeschlagen
+        C-->>M: 9. Fehler: review: rejected
+    end
+    
+    Note over M,N: Phase 3: Daten-Sync mit lokalem Node
+    M->>N: 10. WireGuard-Handshake mit Circle-Session-Key
+    N->>M: 11. CRDT-State-Sync (offline-first, verschlüsselt)
+    M->>N: 12. Metadata-Update (Schema.org/JSON-LD, unverschlüsselt)
+    
+    Note over U,M: Phase 4: Selektive Datenfreigabe
+    U->>M: 13. Daten exportieren (z. B. für Anwalt/Gericht)
+    M->>T: 14. Generate OTDK (One-Time-Decryption-Key) via TPM
+    T-->>M: 15. OTDK + TPM-Attestation-Signatur
+    M->>U: 16. Export: ZIP + manifest.json + TPM.attestation.sig
+```
+
+**Technische Details des Workflows:**
+- **Schritt 2**: Key-Generierung erfolgt ausschließlich innerhalb des TPM/Secure Enclave; Private Key verlässt niemals den Chip.
+- **Schritt 4**: Peering-Anfrage enthält `pcr_quote` für Remote-Attestation des Systemstates (Secure Boot, Kernel-Hash, Config-Integrität).
+- **Schritt 5**: Circle-Validierung erfordert ≥3 bestehende Peers; Konsens wird via CRDT-Merge protokolliert.
+- **Schritt 7-8**: Session-Key ist ephemeral (24h TTL), signiert via `tpm2_sign`-Äquivalent; verhindert Replay-Angriffe.
+- **Schritt 11**: CRDT-Sync nutzt `p2plib`-Merge-Logik; Konflikte werden lokal gelöst, keine zentrale Sequenzierung.
+- **Schritt 14-16**: OTDK ermöglicht selektive Entschlüsselung; TPM-Attestation stellt forensische Verwertbarkeit sicher.
+
+---
+
+## 11.2.3 Nachhaltigkeit & Nachnutzung: Blueprint-Charakter der App
+
+Die DAE-Auth-App ist nicht als isolierte Lösung konzipiert, sondern als **wiederverwendbarer Blueprint** für dezentrale Mobile-Clients. Dies operationalisiert drei Nachhaltigkeits-Dimensionen:
+
+### 11.2.3.1 Technische Nachhaltigkeit: Nachnutzung herausragender Konzepte
+
+| Konzept | Ursprung | Nachnutzung im DAE-Blueprint |
+|---------|----------|-----------------------------|
+| **DP-3T-Protokoll** | Epidemiologische Kontaktverfolgung | Adaptiert für Circle-Peering: Ephemeral Identifiers → Session-Keys, lokale Speicherung → TPM-Sealing |
+| **ENF-Abstraktion** | Google/Apple Exposure Notification | Ersetzt durch eigene `p2plib`-Integration für volle Open-Source-Kontrolle und Hardware-agnostische Deployment |
+| **SQLCipher + Room/Core Data** | Lokale, verschlüsselte Datenspeicherung | Direkt adaptiert; erweitert um TPM-Sealed Keys für Hardware-bound Encryption |
+| **Periodic Polling + Local Caching** | Effiziente Background-Sync-Logik | Übertragen auf `p2plib`-Heartbeat + CRDT-Cache für Offline-First-Circle-Validierung |
+
+**Vorteil**: Statt "Rad neu erfinden" werden bewährte, auditierte Konzepte adaptiert – reduziert Entwicklungsrisiko, erhöht Sicherheitsniveau.
+
+### 11.2.3.2 Ökonomische Nachhaltigkeit: Nachnutzung öffentlich geförderter Entwicklung
+
+Die Corona-Warn-App wurde mit öffentlichen Mitteln entwickelt; ihr Code steht unter Apache 2.0-Lizenz. Die DAE-Auth-App operationalisiert die **ethische Verpflichtung zur Nachnutzung**:
+
+- ✅ **Forking erlaubt**: Vollständiger Source Code öffentlich; Forking, Modifikation, Weiterverteilung explizit gestattet.
+- ✅ **Kein Vendor-Lock-in**: Keine proprietären SDKs; alle Abhängigkeiten sind Open-Source (WireGuard, libsodium, SQLCipher).
+- ✅ **Modulare Architektur**: Authentication-, Data-, Network-Layer sind entkoppelt; einzelne Komponenten können unabhängig ersetzt oder erweitert werden.
+- ✅ **Dokumentation als First-Class-Citizen**: API-Spezifikationen, Architektur-Diagramme und Deployment-Guides sind integraler Bestandteil des Repositories.
+
+> *"Öffentlich geförderte Software soll öffentliches Gut bleiben. Die DAE-Auth-App ist kein Closed-Source-Produkt, sondern ein Blueprint, den Communities, NGOs und Unternehmen adaptieren, erweitern und in eigene Souveränitäts-Infrastrukturen integrieren können."*
+
+### 11.2.3.3 Entwickler-Resilienz: Dezentrale App-Entwicklung ohne zentrale Abhängigkeiten
+
+Die Entwicklung dezentraler Apps scheitert oft an zentralen Abhängigkeiten (App-Stores, Identity-Provider, Build-Pipelines). Die DAE-Auth-App adressiert dies durch:
+
+| Herausforderung | DAE-Lösung | Operativer Nutzen |
+|----------------|------------|-------------------|
+| **App-Store-Abhängigkeit** | F-Droid-First-Strategie + sideloadable APK/IPA | Distribution unabhängig von Google/Apple; direkte Installation via Circle-Gateway möglich |
+| **Build-Pipeline-Zentralisierung** | Reproducible Builds + dezentrale CI/CD (Gitea + Drone) | Jeder Developer kann Builds verifizieren; kein Single Point of Build-Trust |
+| **Dependency-Management** | Vendored Dependencies + SBOM (Software Bill of Materials) | Keine Runtime-Downloads; alle Libraries im Repository; Supply-Chain-Transparenz via CycloneDX |
+| **Testing ohne zentrale Infrastruktur** | Local-First-Testing + Mock-Circle-Environment | Entwicklung und Testing funktionieren offline; keine Cloud-Abhängigkeit für CI |
+
+---
+
+## 11.2.4 Implementierungs-Leitfaden: Vom Blueprint zur produktiven App
+
+### 11.2.4.1 Technische Stack-Empfehlungen
+
+| Schicht | Technologie | Begründung |
+|---------|-------------|------------|
+| **Mobile Framework** | Kotlin Multiplatform (Android/iOS) oder Flutter | Code-Sharing zwischen Plattformen; native Performance für TPM/Secure Enclave-Integration |
+| **Lokale Datenbank** | SQLCipher + Room (Android) / Core Data + SQLCipher (iOS) | 256-bit AES-Verschlüsselung; kompatibel mit CWA-Architektur; TPM-Sealed Keys für Master-Encryption-Key |
+| **TPM/Secure-Enclave-Integration** | Android Keystore + JNI-Bridge zu `tpm2-tools` / iOS Secure Enclave via CryptoTokenKit | Hardware-bound Key-Verwaltung; PCR-Attestation für System-Integritätsprüfung |
+| **Netzwerk-Stack** | WireGuard-Android/iOS + `p2plib` (Kotlin/Swift Bindings) | Kernel-native Verschlüsselung; NAT-Durchdringung; CRDT-Sync via `p2plib` |
+| **Metadata-Handling** | JSON-LD + Schema.org-Parsing-Bibliothek | Maschinenlesbare Provenienz; kompatibel mit DAE-Proactive-Transparency-Pipeline |
+| **CRDT-Engine** | Yjs (Kotlin/Swift Bindings) oder Automerge | Konfliktfreie Offline-First-Synchronisation; kompatibel mit DAE-Protokoll-Triade |
+
+### 11.2.4.2 Security- & Privacy-Checkliste für DAE-Auth-App
+
+- [ ] **Keine zentrale Authentifizierung**: Circle-Peering via TPM-Attestation + Multi-Peer-Konsens; kein OAuth2-Provider als Single Point of Failure
+- [ ] **Lokale Datenhoheit**: Alle sensitiven Daten verschlüsselt auf Device-Storage; kein Cloud-Backup ohne explizite Freigabe + OTDK
+- [ ] **Hardware-bound Keys**: Private Keys verlassen niemals TPM/Secure Enclave; Signierung via `tpm2_sign`-Äquivalent / Secure Enclave API
+- [ ] **Ephemeral Session-Keys**: Kurzlebige Keys für Circle-Peering; automatische Rotation alle 24h; Replay-Schutz via Nonce
+- [ ] **Selective Disclosure**: Granulare Export-Modes (`metadata_only`, `payload_hash_only`, `full_frozen_snapshot`) mit OTDK + TPM-Attestation
+- [ ] **Offline-First Design**: Alle Kernfunktionen (Auth, Validierung, CRDT-Merge) funktionieren ohne Internet; Sync asynchron bei Reconnect
+- [ ] **Proactive Metadata Publication**: Schema.org-Metadaten werden automatisch an Public-Gateway gesynced; Payload bleibt verschlüsselt
+- [ ] **Audit-Logging**: Alle Auth-Events, Key-Operations und Sync-Vorgänge werden lokal geloggt; nur Hashes werden via `p2plib` synchronisiert
+
+### 11.2.4.3 Blueprint-Modularität: Komponenten für adaptive Weiterentwicklung
+
+Die App ist als **modularer Blueprint** konzipiert, der selektiv adaptiert werden kann:
+
+```
+dae-auth-blueprint/
+├─ authentication/          # Circle-Peering, Token-Handling, TPM-Integration
+├─ data/                   # SQLCipher-Storage, CRDT-Sync-Engine, Metadata-Index
+├─ network/                # WireGuard-Client, p2plib-Bindings, Caddy-Adapter
+├─ application/            # Competence-Signature-Client, Generic-Auth-Interface
+├─ docs/                   # API-Specs, Architektur-Diagramme, Deployment-Guides
+├─ scripts/                # Reproducible-Build-Skripte, SBOM-Generierung, CI/CD-Config
+└─ tests/                  # Local-First-Tests, Mock-Circle-Environment, Security-Audits
+```
+
+**Adaptions-Szenarien:**
+- **NGO-Use-Case**: Nur `authentication/` + `data/` adaptieren für dezentrale Identitätsverwaltung in Krisenregionen.
+- **Unternehmens-Use-Case**: `network/` + `application/` erweitern für interne, Circle-basierte Collaboration-Tools.
+- **Forschungs-Use-Case**: `data/` + `docs/` nutzen für dezentrale, privacy-erhaltende Datensammlung in sozialen Studien.
+
+---
+
+## 11.2.5 Fazit: Blueprint für dezentrale Souveränität
+
+Die DAE-Auth-App ist mehr als eine mobile Authentifizierungslösung. Sie ist ein **technischer, ökonomischer und ethischer Blueprint** für dezentrale Software-Entwicklung:
+
+- 🔧 **Technisch**: Adaptiert bewährte CWA-Architektur für DAE-Protokoll-Triade; operationalisiert TPM-Sealing, CRDT-Sync und Circle-Peering.
+- ♻️ **Nachhaltig**: Nachnutzung öffentlich geförderter Konzepte; modulare Architektur ermöglicht adaptive Weiterentwicklung ohne Vendor-Lock-in.
+- 🛡️ **Resilient**: Dezentrale Build-Pipelines, F-Droid-First-Distribution und Offline-First-Testing eliminieren zentrale Abhängigkeiten.
+- 🌐 **Skalierbar**: Blueprint-Modularität ermöglicht Adaptation für NGOs, Unternehmen, Forschung und Communities.
+
+> *"Die Corona-Warn-App bewies: Privacy und Usability sind kein Widerspruch. Die DAE-Auth-App erweitert dieses Prinzip – von Gesundheits-Tracking zu umfassender digitaler Souveränität. Sie ist kein Closed-Source-Produkt, sondern ein Blueprint, den Communities adaptieren, erweitern und in eigene Souveränitäts-Infrastrukturen integrieren können."*
 
 ---
 
