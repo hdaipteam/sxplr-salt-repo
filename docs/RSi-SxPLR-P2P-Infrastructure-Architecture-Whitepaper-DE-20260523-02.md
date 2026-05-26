@@ -2028,13 +2028,13 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-## 10. Referenzen & Quellenverzeichnis
+# 10. Referenzen & Quellenverzeichnisses 
 
-Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und historische Grundlage des Whitepapers. Sie sind nach Kategorien sortiert, um eine zielgerichtete Vertiefung zu ermöglichen. Alle Verweise entsprechen dem Stand der Diskussion und den im Text integrierten Erkenntnissen.
+Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und historische Grundlage des Positionspapiers. Sie sind nach Kategorien sortiert, um eine zielgerichtete Vertiefung zu ermöglichen. Alle Verweise entsprechen dem Stand der Diskussion und den im Text integrierten Erkenntnissen.
 
 ---
 
-### A. Primärliteratur & Theoretische Grundlagen
+## A. Primärliteratur & Theoretische Grundlagen
 
 | Quelle | Referenz | Relevanz für das Positionspapier |
 |--------|----------|----------------------------------|
@@ -2044,10 +2044,12 @@ Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und hi
 | **Bates, M. J.** | *Information, Knowledge, and the DIKW Hierarchy* (2005), in: *Encyclopedia of Library and Information Science* | Begriffliche Trennung Daten/Information; Fundament für Metadaten-First-Architektur und operative Übersetzung im DAE |
 | **Shannon, C. & Weaver, W.** | *The Mathematical Theory of Communication* (1948), University of Illinois Press | Informationstheoretische Grundlage; Unterscheidung syntaktischer Daten vs. semantischer Information |
 | **Oreskes, N. & Conway, E.** | *Merchants of Doubt* (2010), Bloomsbury Press | Analyse strategischer Intransparenz; motiviert Proactive-Transparency-by-Design und Circle-basierte Validierung |
+| **Benkler, Y.** | *The Wealth of Networks* (2006), Yale University Press | Theoretische Grundlage für Commons-basierte Peer-Production; Fundament für das Circle-Prinzip und kooperative Arbeitslastverteilung |
+| **Lessig, L.** | *Code: And Other Laws of Cyberspace* (1999/2006), Basic Books | "Code is Law"-These; begründet die Notwendigkeit, Souveränität durch Architektur statt durch Regulation zu operationalisieren |
 
 ---
 
-### B. Technische Spezifikationen & Protokolle
+## B. Technische Spezifikationen & Protokolle
 
 | Quelle / Standard | Referenz | Relevanz für das Positionspapier |
 |-------------------|----------|----------------------------------|
@@ -2064,7 +2066,7 @@ Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und hi
 
 ---
 
-### C. Rechtliche & Normative Rahmenwerke
+## C. Rechtliche & Normative Rahmenwerke
 
 | Norm / Gesetz | Referenz | Operative Übersetzung im Positionspapier |
 |---------------|----------|------------------------------------------|
@@ -2076,7 +2078,7 @@ Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und hi
 
 ---
 
-### D. Projektdokumentation, Historie & Kontextquellen
+## D. Projektdokumentation, Historie & Kontextquellen
 
 | Quelle | Referenz | Einbindung ins Positionspapier |
 |--------|----------|-------------------------------|
@@ -2085,23 +2087,24 @@ Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und hi
 | **Bitcoin Whitepaper** | Nakamoto, S. (2008). *Bitcoin: A Peer-to-Peer Electronic Cash System* | Strukturelle Prinzipien (Hash-Chains, dezentrale Validierung) ohne PoW/Token-Logik; Inspiration für Merkle-DAG und OP_RETURN-Timestamping |
 | **ActivityPub W3C Recommendation** | W3C (2018). *ActivityPub: A decentralized social networking protocol* | Abgrenzung Pseudo-P2P (Layer 7), Föderation vs. echte Direktverbindung; Begründung für Layer-2–4-Fokus im DAE |
 | **IPFS / Nostr Dokumentation** | Protocol Whitepapers & RFCs, https://ipfs.tech/ ; https://nostr.com/ | Vergleich applikatorischer Dezentralisierung, Limitationen, Sicherheitsnachrüstungen; Argument für infrastrukturelle statt applikatorische Souveränität |
+| **Corona-Warn-App (CWA) Architektur** | https://github.com/corona-warn-app ; DP-3T Protocol Whitepaper | Bewährte Privacy-by-Design-Architektur für mobile Authentifizierung; Basis für DAE-Auth-App Blueprint |
 | **Competence Signature Kontext** | DAE-Use-Case-Dokumentation (intern) | Exemplarische Validierungs-Applikation, TPM-Signierung, Multi-Peer-Konsens; Demonstrator für operative Übersetzung der DAE-Prinzipien |
+| **Freifunk / FunkFeuer Wien** | https://freifunk.net/ ; https://funkfeuer.at/ | Praxiserprobte Community-Mesh-Architektur; Lessons Learned für Circle-Topologie und Gateway-Integration im DAE |
+| **Gosuslugi / ESIA (Russland)** | https://gosuslugi.ru/ ; TCG-Attestation Docs | Analyse zentralisierter Biometrie-Authentifizierung; kritische Abgrenzung für dezentrale, Circle-basierte Autorisierung im DAE |
 
 ---
 
-### E. Wissenschaftliche Quellen zu Agnotologie & Transparenz
+## E. Wissenschaftliche Quellen zu Agnotologie & Transparenz
 
 | Quelle | Referenz | Relevanz für das Positionspapier |
 |--------|----------|----------------------------------|
 | **Proctor, R. N. & Schiebinger, L. (Eds.)** | *Agnotology: The Making and Unmaking of Ignorance* (2008), Stanford University Press | Umfassende Einführung in die Disziplin; theoretische Basis für die Analyse staatlicher und institutioneller Intransparenzmechanismen |
 | **McGoey, L.** | *No Such Thing as a Free Gift: The Gates Foundation and the Price of Philanthropy* (2015), Verso Books | Fallstudie zu strategischer Wissensproduktion; untermauert die Notwendigkeit von Proactive Transparency-by-Design |
 | **Mirowski, P.** | *Science-Mart: Privatizing American Science* (2011), Harvard University Press | Analyse der Kommerzialisierung von Wissen; motiviert kooperative, gemeinwohlorientierte Infrastrukturmodelle im DAE |
-| **Benkler, Y.** | *The Wealth of Networks* (2006), Yale University Press | Theoretische Grundlage für Commons-basierte Peer-Production; Fundament für das Circle-Prinzip und kooperative Arbeitslastverteilung |
-| **Lessig, L.** | *Code: And Other Laws of Cyberspace* (1999/2006), Basic Books | "Code is Law"-These; begründet die Notwendigkeit, Souveränität durch Architektur statt durch Regulation zu operationalisieren |
 
 ---
 
-### F. Hardware- & Betriebsreferenzen
+## F. Hardware- & Betriebsreferenzen
 
 | Quelle / Produkt | Referenz | Relevanz für das Positionspapier |
 |------------------|----------|----------------------------------|
