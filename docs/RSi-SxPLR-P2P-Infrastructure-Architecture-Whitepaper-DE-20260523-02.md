@@ -2028,13 +2028,13 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 ---
 
-# 10. Referenzen & Quellenverzeichnisses 
+## 10. Referenzen & Quellenverzeichnisses 
 
 Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und historische Grundlage des Positionspapiers. Sie sind nach Kategorien sortiert, um eine zielgerichtete Vertiefung zu ermöglichen. Alle Verweise entsprechen dem Stand der Diskussion und den im Text integrierten Erkenntnissen.
 
 ---
 
-## A. Primärliteratur & Theoretische Grundlagen
+### A. Primärliteratur & Theoretische Grundlagen
 
 | Quelle | Referenz | Relevanz für das Positionspapier |
 |--------|----------|----------------------------------|
@@ -2049,7 +2049,7 @@ Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und hi
 
 ---
 
-## B. Technische Spezifikationen & Protokolle
+### B. Technische Spezifikationen & Protokolle
 
 | Quelle / Standard | Referenz | Relevanz für das Positionspapier |
 |-------------------|----------|----------------------------------|
@@ -2066,7 +2066,7 @@ Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und hi
 
 ---
 
-## C. Rechtliche & Normative Rahmenwerke
+### C. Rechtliche & Normative Rahmenwerke
 
 | Norm / Gesetz | Referenz | Operative Übersetzung im Positionspapier |
 |---------------|----------|------------------------------------------|
@@ -2078,7 +2078,7 @@ Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und hi
 
 ---
 
-## D. Projektdokumentation, Historie & Kontextquellen
+### D. Projektdokumentation, Historie & Kontextquellen
 
 | Quelle | Referenz | Einbindung ins Positionspapier |
 |--------|----------|-------------------------------|
@@ -2094,7 +2094,7 @@ Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und hi
 
 ---
 
-## E. Wissenschaftliche Quellen zu Agnotologie & Transparenz
+### E. Wissenschaftliche Quellen zu Agnotologie & Transparenz
 
 | Quelle | Referenz | Relevanz für das Positionspapier |
 |--------|----------|----------------------------------|
@@ -2104,7 +2104,7 @@ Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und hi
 
 ---
 
-## F. Hardware- & Betriebsreferenzen
+### F. Hardware- & Betriebsreferenzen
 
 | Quelle / Produkt | Referenz | Relevanz für das Positionspapier |
 |------------------|----------|----------------------------------|
@@ -2148,7 +2148,7 @@ Freifunk ist eine nicht-kommerzielle, gemeinnützige Initiative zum Aufbau freie
 | **Gateway-Struktur** | Linux-Server mit batman-adv, fastd/WireGuard, DHCP/DNS | Brücke zwischen lokalem Mesh und Internet; DHCP/DNS-Server für Mesh-Clients |
 | **Node-Information** | respondd / mesh-announce | Publikation von Node-Status, Statistiken und Metadaten für Karten und Monitoring |
 
-##### 1.2 FunkFeuer Wien: Spezifika der Wiener Implementation
+##### 11.1.1.2 FunkFeuer Wien: Spezifika der Wiener Implementation
 
 FunkFeuer.at ist ein freies Wireless-Mesh-Community-Netzwerk in Wien und weiteren österreichischen Standorten. Besonderheiten:
 
@@ -2240,7 +2240,7 @@ dae_gateway:
 
 ---
 
-#### 11.1.4. Integrations-Szenarien: Schrittweise Annäherung
+#### 11.1.4 Integrations-Szenarien: Schrittweise Annäherung
 
 ##### Szenario A: Freifunk als physische Transport-Schicht für DAE
 
@@ -2324,7 +2324,7 @@ WireGuard Overlay (L3) + p2plib (L5-7) + CRDT-Sync
 
 ---
 
-#### 11.1.5. Empfohlene Roadmap für die Integration
+#### 11.1.5 Empfohlene Roadmap für die Integration
 
 ##### Phase 1: Proof-of-Concept (3 Monate)
 - [ ] DAE-Container-Image für OpenWrt/Gluon erstellen (Docker/Podman)
@@ -2362,13 +2362,13 @@ Starten Sie mit **Szenario A (Overlay-Container)**, um schnell Validierung zu er
 
 ---
 
-# 11.2 Authentifizierung: Mobile Authentication & Authorization App – Blueprint für dezentrale Souveränität
+### 11.2 Authentifizierung: Mobile Authentication & Authorization App – Blueprint für dezentrale Souveränität
 
 Dieses Addendum spezifiziert die Konzeption einer mobilen Authentifizierungs- und Autorisierungs-App für das Decentralized Autonomous Ecosystem (DAE). Die App basiert auf der bewährten, Open-Source-Architektur der deutschen Corona-Warn-App (CWA), ersetzt jedoch die epidemiologische Warnfunktion durch eine generische, anwendungagnostische Infrastruktur für digitale Souveränität. Neben den technischen P2P-Features werden explizit Aspekte der Nachhaltigkeit, der Nachnutzung öffentlich geförderter Entwicklungen und der Resilienz dezentraler App-Entwicklung adressiert. Die App dient als **Blueprint** für zukünftige dezentrale Mobile-Clients im DAE-Ökosystem.
 
 ---
 
-## 11.2.1 Konzeptioneller Ursprung: Von der Corona-Warn-App zum DAE-Auth-Blueprint
+#### 11.2.1 Konzeptioneller Ursprung: Von der Corona-Warn-App zum DAE-Auth-Blueprint
 
 Die Corona-Warn-App (CWA) demonstrierte erfolgreich, wie eine mobile App **dezentrale, privatsphärenerhaltende Authentifizierung** operationalisieren kann. Ihre Kernarchitektur – basierend auf dem DP-3T-Protokoll, dem Google/Apple Exposure Notification Framework (ENF) und einer strikten lokalen Datenhaltung – bietet wertvolle Lessons Learned für das DAE:
 
@@ -2389,9 +2389,9 @@ Statt epidemiologischer Kontaktverfolgung operationalisiert die App **digitale S
 
 ---
 
-## 11.2.2 Technische Architektur: P2P-Features & DAE-Integration
+#### 11.2.2 Technische Architektur: P2P-Features & DAE-Integration
 
-### 11.2.2.1 Schichtenmodell der DAE-Auth-App
+##### 11.2.2.1 Schichtenmodell der DAE-Auth-App
 
 ```
 [DAE Mobile App]
@@ -2413,7 +2413,7 @@ Statt epidemiologischer Kontaktverfolgung operationalisiert die App **digitale S
    └─ Admin Interface (Circle-Governance, Key-Rotation, Audit-Logs)
 ```
 
-### 11.2.2.2 Authentifizierungs- & Autorisierungs-Workflow
+##### 11.2.2.2 Authentifizierungs- & Autorisierungs-Workflow
 
 ```mermaid
 sequenceDiagram
@@ -2462,11 +2462,11 @@ sequenceDiagram
 
 ---
 
-## 11.2.3 Nachhaltigkeit & Nachnutzung: Blueprint-Charakter der App
+#### 11.2.3 Nachhaltigkeit & Nachnutzung: Blueprint-Charakter der App
 
 Die DAE-Auth-App ist nicht als isolierte Lösung konzipiert, sondern als **wiederverwendbarer Blueprint** für dezentrale Mobile-Clients. Dies operationalisiert drei Nachhaltigkeits-Dimensionen:
 
-### 11.2.3.1 Technische Nachhaltigkeit: Nachnutzung herausragender Konzepte
+##### 11.2.3.1 Technische Nachhaltigkeit: Nachnutzung herausragender Konzepte
 
 | Konzept | Ursprung | Nachnutzung im DAE-Blueprint |
 |---------|----------|-----------------------------|
@@ -2477,7 +2477,7 @@ Die DAE-Auth-App ist nicht als isolierte Lösung konzipiert, sondern als **wiede
 
 **Vorteil**: Statt "Rad neu erfinden" werden bewährte, auditierte Konzepte adaptiert – reduziert Entwicklungsrisiko, erhöht Sicherheitsniveau.
 
-### 11.2.3.2 Ökonomische Nachhaltigkeit: Nachnutzung öffentlich geförderter Entwicklung
+##### 11.2.3.2 Ökonomische Nachhaltigkeit: Nachnutzung öffentlich geförderter Entwicklung
 
 Die Corona-Warn-App wurde mit öffentlichen Mitteln entwickelt; ihr Code steht unter Apache 2.0-Lizenz. Die DAE-Auth-App operationalisiert die **ethische Verpflichtung zur Nachnutzung**:
 
@@ -2488,7 +2488,7 @@ Die Corona-Warn-App wurde mit öffentlichen Mitteln entwickelt; ihr Code steht u
 
 > *"Öffentlich geförderte Software soll öffentliches Gut bleiben. Die DAE-Auth-App ist kein Closed-Source-Produkt, sondern ein Blueprint, den Communities, NGOs und Unternehmen adaptieren, erweitern und in eigene Souveränitäts-Infrastrukturen integrieren können."*
 
-### 11.2.3.3 Entwickler-Resilienz: Dezentrale App-Entwicklung ohne zentrale Abhängigkeiten
+##### 11.2.3.3 Entwickler-Resilienz: Dezentrale App-Entwicklung ohne zentrale Abhängigkeiten
 
 Die Entwicklung dezentraler Apps scheitert oft an zentralen Abhängigkeiten (App-Stores, Identity-Provider, Build-Pipelines). Die DAE-Auth-App adressiert dies durch:
 
@@ -2501,9 +2501,9 @@ Die Entwicklung dezentraler Apps scheitert oft an zentralen Abhängigkeiten (App
 
 ---
 
-## 11.2.4 Implementierungs-Leitfaden: Vom Blueprint zur produktiven App
+#### 11.2.4 Implementierungs-Leitfaden: Vom Blueprint zur produktiven App
 
-### 11.2.4.1 Technische Stack-Empfehlungen
+##### 11.2.4.1 Technische Stack-Empfehlungen
 
 | Schicht | Technologie | Begründung |
 |---------|-------------|------------|
@@ -2514,7 +2514,7 @@ Die Entwicklung dezentraler Apps scheitert oft an zentralen Abhängigkeiten (App
 | **Metadata-Handling** | JSON-LD + Schema.org-Parsing-Bibliothek | Maschinenlesbare Provenienz; kompatibel mit DAE-Proactive-Transparency-Pipeline |
 | **CRDT-Engine** | Yjs (Kotlin/Swift Bindings) oder Automerge | Konfliktfreie Offline-First-Synchronisation; kompatibel mit DAE-Protokoll-Triade |
 
-### 11.2.4.2 Security- & Privacy-Checkliste für DAE-Auth-App
+##### 11.2.4.2 Security- & Privacy-Checkliste für DAE-Auth-App
 
 - [ ] **Keine zentrale Authentifizierung**: Circle-Peering via TPM-Attestation + Multi-Peer-Konsens; kein OAuth2-Provider als Single Point of Failure
 - [ ] **Lokale Datenhoheit**: Alle sensitiven Daten verschlüsselt auf Device-Storage; kein Cloud-Backup ohne explizite Freigabe + OTDK
@@ -2525,7 +2525,7 @@ Die Entwicklung dezentraler Apps scheitert oft an zentralen Abhängigkeiten (App
 - [ ] **Proactive Metadata Publication**: Schema.org-Metadaten werden automatisch an Public-Gateway gesynced; Payload bleibt verschlüsselt
 - [ ] **Audit-Logging**: Alle Auth-Events, Key-Operations und Sync-Vorgänge werden lokal geloggt; nur Hashes werden via `p2plib` synchronisiert
 
-### 11.2.4.3 Blueprint-Modularität: Komponenten für adaptive Weiterentwicklung
+##### 11.2.4.3 Blueprint-Modularität: Komponenten für adaptive Weiterentwicklung
 
 Die App ist als **modularer Blueprint** konzipiert, der selektiv adaptiert werden kann:
 
@@ -2547,19 +2547,19 @@ dae-auth-blueprint/
 
 ---
 
-# 11.2.5 Analyse Gosuslugi/ESIA: Zentrale Biometrie-Authentifizierung & Übertragbarkeit auf das DAE
+### 11.2.5 Analyse Gosuslugi/ESIA: Zentrale Biometrie-Authentifizierung & Übertragbarkeit auf das DAE
 
 Das russische Staatsportal **Gosuslugi** (Госуслуги) implementiert ein flächendeckendes, zentralisiertes Authentifizierungssystem für natürliche Personen, das biometrische Verifizierung, staatliche Identitätsprüfung und App-basierte Dienstnutzung in einer integrierten Architektur vereint. Dieses System bietet wertvolle Lessons Learned – sowohl für die technische Umsetzung als auch für die kritische Abgrenzung dezentraler Souveränitätsarchitekturen.
 
-## 11.2.5.1 Technische Architektur von Gosuslugi/ESIA
+#### 11.2.5.1 Technische Architektur von Gosuslugi/ESIA
 
-Das Authentifizierungs-Ökosystem von Gosuslugi basiert auf drei Kernkomponenten [[34]][[29]]:
+Das Authentifizierungs-Ökosystem von Gosuslugi basiert auf drei Kernkomponenten:
 
 | Komponente | Funktion | Technische Umsetzung |
 |------------|----------|---------------------|
-| **ESIA** (Единая система идентификации и аутентификации) | Zentrale Identitäts- und Authentifizierungs-Infrastruktur für Bürger, Organisationen und staatliche IT-Systeme | OAuth 2.0 / OpenID Connect-basierte Token-Authentifizierung; API-Gateway für Inter-System-Integration [[22]][[25]] |
-| **EBS** (Единая биометрическая система) | Staatliche Biometrie-Verifizierung (Gesicht, Stimme) für Transaktionen mit hoher Vertrauensstufe | Mobile App "Gosuslugi Biometria" zur Erfassung; Server-seitige Template-Erstellung; Kryptographische Mittel gemäß Gesetz №572-FZ [[11]][[15]] |
-| **МФЦ / "Ein-Fenster"-Administration** | Physische Verifizierungsstellen für initiale Identitätsprüfung (Ausweisabgleich, Biometrie-Erfassung) | Zentrale Registrierung mit anschließender App-Freischaltung; "One-Window"-Prinzip für alle staatlichen Dienste [[2]][[47]] |
+| **ESIA** (Единая система идентификации и аутентификации) | Zentrale Identitäts- und Authentifizierungs-Infrastruktur für Bürger, Organisationen und staatliche IT-Systeme | OAuth 2.0 / OpenID Connect-basierte Token-Authentifizierung; API-Gateway für Inter-System-Integration |
+| **EBS** (Единая биометрическая система) | Staatliche Biometrie-Verifizierung (Gesicht, Stimme) für Transaktionen mit hoher Vertrauensstufe | Mobile App "Gosuslugi Biometria" zur Erfassung; Server-seitige Template-Erstellung; Kryptographische Mittel gemäß Gesetz №572-FZ |
+| **МФЦ / "Ein-Fenster"-Administration** | Physische Verifizierungsstellen für initiale Identitätsprüfung (Ausweisabgleich, Biometrie-Erfassung) | Zentrale Registrierung mit anschließender App-Freischaltung; "One-Window"-Prinzip für alle staatlichen Dienste |
 
 **Authentifizierungs-Workflow:**
 ```mermaid
@@ -2590,34 +2590,34 @@ sequenceDiagram
 ```
 
 **Technische Merkmale:**
-- ✅ **Zentrale Token-Authentifizierung**: ESIA stellt OAuth 2.0 / OpenID Connect-kompatible Tokens für alle integrierten Dienste bereit [[29]][[22]].
-- ✅ **Biometrische Zweitfaktor-Authentifizierung**: EBS ermöglicht Face/Voice-Verifizierung für Transaktionen mit erhöhtem Vertrauensbedarf [[11]][[15]].
-- ✅ **API-basierte Integration**: Drittsysteme können über definierte API-Schnittstellen direkt mit Gosuslugi interagieren, ohne Nutzer:innen umzuleiten [[22]][[25]].
-- ✅ **"One-Window"-Prinzip**: Einmalige physische Verifizierung im МФЦ ermöglicht Zugriff auf alle staatlichen Dienste via App [[2]][[47]].
+- ✅ **Zentrale Token-Authentifizierung**: ESIA stellt OAuth 2.0 / OpenID Connect-kompatible Tokens für alle integrierten Dienste bereit.
+- ✅ **Biometrische Zweitfaktor-Authentifizierung**: EBS ermöglicht Face/Voice-Verifizierung für Transaktionen mit erhöhtem Vertrauensbedarf.
+- ✅ **API-basierte Integration**: Drittsysteme können über definierte API-Schnittstellen direkt mit Gosuslugi interagieren, ohne Nutzer:innen umzuleiten.
+- ✅ **"One-Window"-Prinzip**: Einmalige physische Verifizierung im МФЦ ermöglicht Zugriff auf alle staatlichen Dienste via App.
 
 ---
 
-## 11.2.5.2 Kritische Würdigung: Zentralisierung vs. Dezentrale Souveränität
+#### 11.2.5.2 Kritische Würdigung: Zentralisierung vs. Dezentrale Souveränität
 
 Während Gosuslugi technisch ausgereifte Authentifizierungsmechanismen bietet, steht die Architektur im fundamentalen Widerspruch zu den Souveränitätsprinzipien des DAE:
 
 | Merkmal | Gosuslugi/ESIA | DAE-Auth-App | Bewertung |
 |---------|---------------|--------------|-----------|
 | **Identitäts-Management** | Zentralisiert (ESIA als Single Source of Truth) | Dezentral (Circle-basierte Peering-Beziehungen) | 🔴 DAE vermeidet Single Point of Control |
-| **Biometrie-Speicherung** | Server-seitige Template-Speicherung in staatlicher EBS [[11]] | Lokale, TPM-gesiegelte Biometrie-Referenzen; kein zentraler Biometrie-Server | ✅ DAE operationalisiert Privacy-by-Design |
+| **Biometrie-Speicherung** | Server-seitige Template-Speicherung in staatlicher EBS | Lokale, TPM-gesiegelte Biometrie-Referenzen; kein zentraler Biometrie-Server | ✅ DAE operationalisiert Privacy-by-Design |
 | **Verifizierungs-Workflow** | Einmalige physische Prüfung im МФЦ; anschließende App-Nutzung | Kontinuierliche, Circle-basierte Autorisierung; jederzeit widerrufbar | ✅ DAE bietet höhere Granularität & Widerrufbarkeit |
-| **API-Integration** | Zentrale API-Gateways mit staatlicher Zugriffskontrolle [[22]] | Dezentrale `p2plib`-Service-Discovery ohne zentrale Registry | ✅ DAE eliminiert API-Abhängigkeiten |
+| **API-Integration** | Zentrale API-Gateways mit staatlicher Zugriffskontrolle | Dezentrale `p2plib`-Service-Discovery ohne zentrale Registry | ✅ DAE eliminiert API-Abhängigkeiten |
 | **Datenschutz & Jurisdiktion** | Daten unterliegen russischem Staatsrecht; extraterritoriale Zugriffsrisiken | Daten verbleiben lokal beim Peer-Eigentümer; lokales Recht gilt | ✅ DAE operationalisiert Compliance-by-Design |
 
 > *"Gosuslugi demonstriert technische Machbarkeit zentraler Biometrie-Authentifizierung. Das DAE transformiert diese Erkenntnisse in eine dezentrale Architektur, die Souveränität nicht durch staatliche Garantie, sondern durch technische Zwangsläufigkeit operationalisiert."*
 
 ---
 
-## 11.2.5.3 Übertragbare Konzepte für die DAE-Auth-App
+#### 11.2.5.3 Übertragbare Konzepte für die DAE-Auth-App
 
 Trotz der architektonischen Gegensätze lassen sich ausgewählte technische Prinzipien von Gosuslugi adaptieren – stets unter Wahrung der DAE-Kernprinzipien (Dezentralität, lokale Datenhoheit, Circle-Governance):
 
-### Adaptierbare Mechanismen
+##### Adaptierbare Mechanismen
 
 | Gosuslugi-Konzept | DAE-Adaption | Technische Umsetzung im DAE |
 |-------------------|--------------|---------------------------|
@@ -2627,7 +2627,7 @@ Trotz der architektonischen Gegensätze lassen sich ausgewählte technische Prin
 | **Token-basierte Zugriffskontrolle** | Ephemeral Session-Tokens für Circle-Autorisierung | Kurzlebige ECC-Keys, signiert via `tpm2_sign`; automatische Rotation alle 24h; Replay-Schutz via Nonce |
 | **Mobile-First-Erfassung** | Mobile App als primäres Interface für Circle-Management | Kotlin/Swift-native App mit direktem TPM/Secure-Enclave-Zugriff; Offline-First-CRDT-Sync via `p2plib` |
 
-### Nicht adaptierbare Elemente (aus Souveränitätsgründen)
+##### Nicht adaptierbare Elemente (aus Souveränitätsgründen)
 
 | Gosuslugi-Element | Begründung für Nicht-Adaption | DAE-Alternative |
 |-------------------|-------------------------------|----------------|
@@ -2638,7 +2638,7 @@ Trotz der architektonischen Gegensätze lassen sich ausgewählte technische Prin
 
 ---
 
-## 11.2.5.4 Implementierungs-Empfehlungen für biometrische Faktoren im DAE
+#### 11.2.5.4 Implementierungs-Empfehlungen für biometrische Faktoren im DAE
 
 Falls biometrische Authentifizierung als optionaler Faktor in der DAE-Auth-App implementiert werden soll, gelten folgende strikte Richtlinien:
 
@@ -2671,7 +2671,7 @@ biometric_auth:
 
 ---
 
-## 11.2.5.5 Fazit der Gosuslugi-Analyse
+#### 11.2.5.5 Fazit der Gosuslugi-Analyse
 
 Gosuslugi/ESIA demonstriert eindrucksvoll, wie biometrische Authentifizierung, API-Integration und "One-Window"-Administration technisch operationalisiert werden können. Für das DAE sind jedoch nicht die technischen Details, sondern die **architektonischen Prinzipien** entscheidend:
 
@@ -2682,7 +2682,7 @@ Gosuslugi/ESIA demonstriert eindrucksvoll, wie biometrische Authentifizierung, A
 
 ---
 
-# 11.2.6 Fazit des Addendums: Blueprint für dezentrale, biometrie-fähige Souveränität
+### 11.2.6 Fazit des Addendums: Blueprint für dezentrale, biometrie-fähige Souveränität
 
 Die DAE-Auth-App ist mehr als eine mobile Authentifizierungslösung. Sie ist ein **technischer, ethischer und architektonischer Blueprint** für dezentrale Software-Entwicklung im Spannungsfeld zwischen Usability, Privacy und Souveränität.
 
