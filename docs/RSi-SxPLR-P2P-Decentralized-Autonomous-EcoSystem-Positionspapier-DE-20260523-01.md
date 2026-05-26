@@ -10,18 +10,14 @@ Dokumenten-Information
 | Feld | Wert |
 |------|------|
 | **Dokument-ID** | `DAE-PP-2026-001-v0.5.1` |
-| **Version / Status** | 0.5.1 (DRAFT) |
+| **Version** | 0.5.1 (DRAFT) |
 | **Datum** | 23. Mai 2026 |
 | **Autor** | Ralf Siebert (aka Maxim R. Garrtner) |
 | **Kontakt** | [maxim.r.garrtner@yandex.com](mailto:maxim.r.garrtner@yandex.com) |
 | **Klassifikation** | Konzeptionell / Öffentlich / Gesellschaftlich-Politisch |
-| **Zielgruppe** | Zivilgesellschaft, Politik, NGOs, Datenschutzbeauftragte, IT-Entscheider, Forschung |
-| **Primärer Fokus** | Begründung digitaler Souveränität durch echtes Peer-to-Peer auf OSI-Layer 2–4 als Antwort auf Überwachungskapitalismus & Agnotologie |
-| **Sekundärer Fokus** | Infrastrukturelle Voraussetzungen des Decentralized Autonomous Ecosystems (DAE) |
 | **Lizenz** | CC BY-SA 4.0 |
+| **Sprache** | Deutsch |
 | **Bezug** | Whitepaper: *„Decentralized Autonomous Ecosystem Architecture"* (`DAE-WP-2026-001-v0.5.2`) |
-| **Kernkonzepte** | Echtes P2P vs. Pseudo-P2P, Circle-Topologie & Gateways, Informationsfreiheit, Agnotologie-Resistenz, Daten vs. Information, Proactive Transparency, Merkle-DAG-Rekonstruktion |
-| **Zitierempfehlung** | Siebert, R. (2026). *Digitale Souveränität durch Echtes Peer-to-Peer* (Positionspapier v0.5.1). Verfügbar unter: [maxim.r.garrtner@yandex.com](mailto:maxim.r.garrtner@yandex.com) |
 
 ---
 
