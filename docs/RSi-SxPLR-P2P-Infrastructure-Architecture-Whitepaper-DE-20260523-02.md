@@ -513,7 +513,7 @@ sequenceDiagram
     participant U as Nutzer:in
     participant LN as Lokaler Node\n(P330 Tiny)
     participant TPM as TPM 2.0\n(Hardware)
-    participant CRDT as p2plib\n(CRDT-Sync)
+    participant P2P as p2plib\n(CRDT-Sync)
     participant Circle as Circle-Peers\n(≥3 autorisiert)
     participant PN as Public Node\n(Kimsufi/VPS)
     participant BTC as Bitcoin Node\n(Tor-geschützt)
@@ -525,11 +525,11 @@ sequenceDiagram
     LN->>LN: 4. Speichere lokal:\n{payload_hash, metadata, signature}
 
     Note over LN,Circle: Phase 2: Circle-Validierung
-    LN->>CRDT: 5. Initiiere CRDT-Sync\n(Offline-First, p2plib)
-    CRDT->>Circle: 6. Broadcast: Validierungsanfrage\n(review_status: pending)
+    LN->>P2P: 5. Initiiere CRDT-Sync\n(Offline-First, p2plib)
+    P2P->>Circle: 6. Broadcast: Validierungsanfrage\n(review_status: pending)
     Circle->>Circle: 7. Unabhängige Prüfung\n(Signatur, Metadaten, Kontext)
-    Circle-->>CRDT: 8. Rückmeldung: consensus_signature\n(≥3 Peers bestätigen)
-    CRDT-->>LN: 9. Merge: review_status: circle_verified
+    Circle-->>P2P: 8. Rückmeldung: consensus_signature\n(≥3 Peers bestätigen)
+    P2P-->>LN: 9. Merge: review_status: circle_verified
 
     Note over LN,PN: Phase 3: Sibling-Replikation
     LN->>PN: 10. WireGuard-Overlay:\nVerschlüsselter Sync zu Public Node
@@ -863,7 +863,7 @@ sequenceDiagram
     participant U as User/Admin
     participant TPM as TPM 2.0 Chip
     participant OS as OS / SaltStack
-    participant APP as Application (p2plib/WireGuard)
+    participant APP as Application\n(p2plib/WireGuard)
 
     Note over U,TPM: Phase 1: Initialisierung & Primary Key
     U->>TPM: 1. tpm2_createprimary -C o -G ecc\n--hash-alg=sha256 --key-alg=ecc256
@@ -2421,7 +2421,7 @@ sequenceDiagram
     participant U as Nutzer:in
     participant M as DAE Mobile App
     participant T as TPM / Secure Enclave
-    participant C as Circle-Gateway (Sibling-Node)
+    participant C as Circle-Gateway\n(Sibling-Node)
     participant N as Lokaler Node-Komplex
 
     Note over U,M: Phase 1: App-Initialisierung
@@ -2566,7 +2566,7 @@ Das Authentifizierungs-Ökosystem von Gosuslugi basiert auf drei Kernkomponenten
 sequenceDiagram
     autonumber
     participant U as Bürger:in
-    participant MFC as МФЦ "Ein Fenster"
+    participant MFC as MFC (Ein Fenster)
     participant ESIA as ESIA-Backend
     participant EBS as EBS (Biometrie)
     participant APP as Gosuslugi-App
@@ -2582,7 +2582,7 @@ sequenceDiagram
     EBS-->>APP: 6. Bestätigung: Biometrie registriert
     
     Note over U,APP: Phase 3: Laufende Authentifizierung
-    U->>APP: 7. Dienstnutzung anfordern (z. B. Vertrag, Behördengang)
+    U->>APP: 7. Dienstnutzung anfordern (z. B. Vertrag)
     APP->>EBS: 8. Biometrische Verifizierung (Live-Face/Voice)
     EBS-->>APP: 9. Verifizierung erfolgreich
     APP->>ESIA: 10. Token-Anfrage mit Biometrie-Nachweis
