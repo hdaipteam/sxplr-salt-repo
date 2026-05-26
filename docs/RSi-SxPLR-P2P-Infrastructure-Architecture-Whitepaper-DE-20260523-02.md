@@ -2131,9 +2131,9 @@ Basierend auf der Recherche zu Freifunk und spezifisch zu FunkFeuer Wien präsen
 
 ---
 
-#### 1. Freifunk: Technische Architektur & Prinzipien im Überblick
+#### 11.1.1. Freifunk: Technische Architektur & Prinzipien im Überblick
 
-##### 1.1 Grundlegende Architektur
+##### 11.1.1.1 Grundlegende Architektur
 
 Freifunk ist eine nicht-kommerzielle, gemeinnützige Initiative zum Aufbau freier Funknetzwerke. Die technische Basis bildet ein **dezentrales Mesh-Netzwerk**, das auf folgenden Kernkomponenten aufbaut:
 
@@ -2156,9 +2156,9 @@ FunkFeuer.at ist ein freies Wireless-Mesh-Community-Netzwerk in Wien und weitere
 
 ---
 
-#### 2. Konzeptionelle Schnittstellen: Freifunk ↔ DAE
+#### 11.1.2. Konzeptionelle Schnittstellen: Freifunk ↔ DAE
 
-##### 2.1 Gemeinsamkeiten & Synergien
+##### 11.1.2.1 Gemeinsamkeiten & Synergien
 
 | Merkmal | Freifunk | DAE | Synergie-Potenzial |
 |---------|----------|-----|-------------------|
@@ -2168,7 +2168,7 @@ FunkFeuer.at ist ein freies Wireless-Mesh-Community-Netzwerk in Wien und weitere
 | **Gateway-Architektur** | VPN-Tunnel zu Gateways für Internet-Zugang | 1:1 Sibling-Pairing mit öffentlichem Gateway-Node | ✅ Konzeptuell identisch; DAE erweitert um TPM-Security und CRDT-Sync |
 | **Community-Governance** | Lokale Communities mit autonomen Entscheidungen | Circle-basierte Governance mit expliziter Autorisierung | ✅ Freifunk-Community-Struktur kann als organisatorisches Vorbild für DAE-Circles dienen |
 
-##### 2.2 Unterschiedliche Schwerpunkte & Ergänzungsbedarf
+##### 11.1.2.2 Unterschiedliche Schwerpunkte & Ergänzungsbedarf
 
 | Aspekt | Freifunk | DAE | Integrations-Herausforderung |
 |--------|----------|-----|-----------------------------|
@@ -2180,11 +2180,11 @@ FunkFeuer.at ist ein freies Wireless-Mesh-Community-Netzwerk in Wien und weitere
 
 ---
 
-#### 3. Technologie-Integration: Was muss zusätzlich aufgebaut werden?
+#### 11.1.3. Technologie-Integration: Was muss zusätzlich aufgebaut werden?
 
 Um Freifunk-Infrastruktur als physische Basis für das DAE zu nutzen, sind folgende technologische Erweiterungen notwendig:
 
-##### 3.1 Hardware-Erweiterungen pro Node
+##### 11.1.3.1 Hardware-Erweiterungen pro Node
 
 | Komponente | Anforderung | Begründung |
 |------------|-------------|------------|
@@ -2193,7 +2193,7 @@ Um Freifunk-Infrastruktur als physische Basis für das DAE zu nutzen, sind folge
 | **RAM/CPU** | ≥4 GB RAM, ≥4 CPU-Cores für Container-Runtime + Mesh-Daemons | Ausreichend Ressourcen für Docker, `p2plib`, Validierungslogik parallel zum Mesh-Routing |
 | **Dual-NIC oder VLAN-fähiger Switch** | Separate Interfaces für Mesh (bat0) und Service-Netz (br-services) | Logische Trennung von Mesh-Traffic und Applikations-Traffic für Zero-Trust-Isolation |
 
-##### 3.2 Software-Erweiterungen auf Gluon-Basis
+##### 11.1.3.2 Software-Erweiterungen auf Gluon-Basis
 
 | Schicht | Komponente | Implementierungsansatz |
 |---------|------------|------------------------|
@@ -2203,7 +2203,7 @@ Um Freifunk-Infrastruktur als physische Basis für das DAE zu nutzen, sind folge
 | **Autorisierungs-Workflow** | Circle-Peering-Manager mit TPM-Integration | Separate Daemon für Peering-Anfragen, TPM-basierte Key-Registrierung, ACL-Updates im batman-adv |
 | **Audit-Logging** | Loki-Agent oder systemd-journald mit Hash-Anchoring | Lokale Log-Persistenz + periodische Hash-Sync via `p2plib` zu autorisierten Peers |
 
-##### 3.3 Gateway-Erweiterungen für DAE-Kompatibilität
+##### 11.1.3.3 Gateway-Erweiterungen für DAE-Kompatibilität
 
 Freifunk-Gateways müssen für DAE-Integration um folgende Funktionen erweitert werden:
 
@@ -2237,7 +2237,7 @@ dae_gateway:
 
 ---
 
-#### 4. Integrations-Szenarien: Schrittweise Annäherung
+#### 11.1.4. Integrations-Szenarien: Schrittweise Annäherung
 
 ##### Szenario A: Freifunk als physische Transport-Schicht für DAE
 
@@ -2321,7 +2321,7 @@ WireGuard Overlay (L3) + p2plib (L5-7) + CRDT-Sync
 
 ---
 
-#### 5. Empfohlene Roadmap für die Integration
+#### 11.1.5. Empfohlene Roadmap für die Integration
 
 ##### Phase 1: Proof-of-Concept (3 Monate)
 - [ ] DAE-Container-Image für OpenWrt/Gluon erstellen (Docker/Podman)
@@ -2343,7 +2343,7 @@ WireGuard Overlay (L3) + p2plib (L5-7) + CRDT-Sync
 
 ---
 
-#### 6. Fazit: Freifunk als physische Basis, DAE als logische Souveränitätsschicht
+#### 11.1.6. Fazit: Freifunk als physische Basis, DAE als logische Souveränitätsschicht
 
 Freifunk und das Decentralized Autonomous Ecosystem teilen eine gemeinsame Vision: **dezentrale, community-getragene Infrastrukturen, die digitale Souveränität durch Technik statt durch Verträge operationalisieren**. 
 
