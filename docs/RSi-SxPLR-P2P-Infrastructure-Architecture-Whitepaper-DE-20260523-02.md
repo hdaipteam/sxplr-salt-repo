@@ -1774,30 +1774,257 @@ Die Architektur des Internets ist keine technische Neutralität. Sie ist das Erg
 
 # 9. Technisches Glossar
 
-Dieses Glossar definiert die zentralen Begriffe, Protokolle und Architekturkonzepte des Decentralized Autonomous Ecosystems (DAE) aus technischer Perspektive. Alle Definitionen sind auf die spezifische Implementierungslogik des Whitepapers abgestimmt und ersetzen keine lexikalischen Standarddefinitionen, sondern operationalisieren die Terminologie für Infrastruktur-Architekten, Entwickler und Systemadministratoren.
+Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographischen Primitive und Architekturkonzepte des Decentralized Autonomous Ecosystems (DAE) aus technischer Perspektive. Alle Definitionen sind auf die spezifische Implementierungslogik des Whitepapers abgestimmt und operationalisieren die Terminologie für Infrastruktur-Architekten, Entwickler, Systemadministratoren und Compliance-Verantwortliche.
 
-| Begriff | Technische Definition im DAE-Kontext |
-|---------|--------------------------------------|
+---
+
+## A
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
+| **Agnotologie** | Wissenschaftliche Disziplin, die sich mit der gezielten Erzeugung, Verzögerung oder Fragmentierung von Nicht-Wissen beschäftigt. Im DAE dient die Analyse agnotologischer Mechanismen als Grundlage für Transparenz- und Validierungsarchitekturen. |
+| **API Service Providing** | Infrastrukturmodell (ab ~2015), bei dem Applikationen über programmatische Schnittstellen (APIs) angebunden werden. Daten fließen über fremde Endpunkte, was intransparente Weiterverarbeitung ermöglicht. |
+| **Attestation (Remote)** | Kryptographischer Nachweis des Systemzustands via TPM-PCR-Quotes. Ermöglicht die Fernverifikation, dass ein Node unverändert und vertrauenswürdig ist. |
+| **Audit-Logging** | Protokollierung von Systemereignissen, Konfigurationsänderungen und Zugriffen. Im DAE lokal auf NVMe-2, verschlüsselt, mit Hash-Anchoring für Integritätsnachweis. |
+| **Authorisierung (explizite)** | Gegenseitige, kryptographisch verifizierte Bestätigung einer Peer-Verbindung. Im DAE erfordert sie ≥3 Circle-Mitglieder, ist jederzeit widerrufbar und TPM-gesiegelt. |
+
+---
+
+## B
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
 | **B.A.T.M.A.N. advanced** | Proaktives Layer-2-Routing-Protokoll (Linux-Kernel-Modul `batman-adv`). Nutzt MAC-Adress-basierte Originator Messages (OGMs) und Transmission-Quality (TQ)-Metriken für autonomes Mesh-Routing über WLAN/Ethernet. |
-| **Circle-Prinzip / Circle-Topologie** | Sozio-technische Gruppierungsstruktur, in der Peers über explizite, kryptographisch verifizierte Peering-Beziehungen autorisiert werden. Technisch umgesetzt durch ACL-basierte Mesh-Filter, TPM-gesiegelte Key-Registrierung und Circle-scoped CRDT-Namespaces. |
-| **Compliance-by-Design** | Architektonische Implementierung regulatorischer Anforderungen (DSGVO, eIDAS, IFG) durch lokale Datenpersistenz, TPM-basierte Non-Repudiation, automatische Drift-Rollbacks und selektive Disclosure-Pipelines. |
-| **CRDT (Conflict-Free Replicated Data Types)** | Mathematisch definierte, kommutative/assoziative/idempotente Datenstrukturen für offline-fähige, konfliktfreie Zustandsreplikation zwischen autorisierten Peers. Im DAE ersetzt CRDT-Merge-Logik zentrale Sequenzierung und Quorum-Server. |
-| **DAE (Decentralized Autonomous Ecosystem)** | Applikationsagnostische, protokollgesteuerte Infrastruktur, die Datensouveränität, Transparenz und Resilienz durch echte P2P-Vernetzung (OSI L2–4), Circle-Governance und hardwaregesicherte Kryptographie technisch erzwingt. |
-| **Echtes Peer-to-Peer** | Vernetzungsarchitektur auf OSI-Layer 2–4 (MAC/IP/Transport), die serverbasierte Vermittlungsinstanzen eliminiert. Verbindungen werden über kryptographische Identitäten, Crypto-Key-Routing und proaktives Mesh-Routing autonom etabliert. |
-| **GitOps** | Betriebsparadigma, bei dem Infrastruktur-States, Circle-Policies und Validierungsregeln als versionierter, signierter Code in einem Git-Repository verwaltet werden. SaltStack-Minions pullen via `gitfs` und konvergieren automatisch zum deklarierten Soll-Zustand. |
-| **Graceful Degradation** | Architektonische Eigenschaft, bei der Teilausfälle (WAN-Down, Node-Crash, TPM-Seal-Fehler) nicht zum Totalausfall führen. CRDT-Puffering, BATMAN-Multi-Path-Routing und WireGuard-Keepalives gewährleisten Offline-First-Betrieb. |
-| **Merkle-DAG (Directed Acyclic Graph)** | Hash-verkettete, verzweigte Datenstruktur zur Abbildung von Quellenprovenenz, Interpretations-Branches und CRDT-Merge-Historien. Gewährleistet Immutabilität der Primärdaten bei gleichzeitiger Versionierbarkeit von Kontextlayern. |
-| **Metadata-First-Indexing** | Query-, Filter- und Aggregationslogik, die primär auf Schema.org/JSON-LD-Metadaten operiert, nicht auf Payload-Inhalten. Ermöglicht Proactive Transparency-by-Design ohne personenbezogene Datenexposition. |
-| **Non-Repudiation** | Technische Unabstreitbarkeit von Signaturen, Zustandsänderungen oder Konfigurations-Commits. Im DAE durch TPM 2.0 Sealing, hardwaregebundene ECC-Keys, PCR-Attestation und GitOps-Provenenz erzwungen. |
-| **OSI-Layer 2–4** | Referenzschichten, auf denen das DAE operiert: L2 (MAC-basiertes Mesh-Routing), L3 (kryptographisches Overlay-VPN), L4 (zustandslose, verschlüsselte Datenströme). Ermöglicht native Sicherheit ohne applikatorische Nachrüstung. |
-| **p2plib** | Konzeptionelle P2P-Kommunikationsbibliothek für Service-Discovery ohne DNS, libsodium-basierte E2E-Payload-Verschlüsselung und CRDT-basierte Offline-First-Synchronisation. Framework-agnostisch, bindet sich in NodeJS/Python/Go-Dienste. |
-| **Protokoll-Triade** | Komplementäre Schichtarchitektur: `B.A.T.M.A.N. advanced` (L2), `WireGuard` (L3), `p2plib` (L5–7). Keine einzelne Schicht ist allein ausreichend; ihr Zusammenspiel eliminiert strukturelle Abhängigkeiten und erzwingt Zero-Trust. |
+| **Bidirektionale Replikation** | Synchronisation von Zuständen zwischen zwei autorisierten Peers in beide Richtungen. Im DAE via `p2plib` CRDT-Sync zwischen lokalem Node und öffentlichem Sibling. |
+| **Branch (Merkle-DAG)** | Verzweigter Pfad in einem Hash-verketteten Graphen. Ermöglicht parallele Narrative oder Interpretationen ohne Löschung des Originals. |
+| **Broadcast (Service Discovery)** | Lokale Ankündigung eines Dienstes im Mesh-Subnet. Im DAE via `p2plib` ohne DNS, innerhalb des WireGuard-Overlay. |
+
+---
+
+## C
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
+| **Caddy Reverse Proxy** | Moderner Webserver mit Auto-HTTPS, HTTP/2, HSTS und CSP. Im DAE für Public-Gateway-Termination, Circle-scoped Routing und Rate-Limiting. |
+| **Circle-Governance** | Demokratische Regelgestaltung innerhalb eines Circle. Änderungen erfordern explizite Autorisierung durch ≥3 autorisierte Peers, sind widerrufbar und auditierbar. |
+| **Circle-Prinzip** | Sozio-technisches Organisationsmodell, bei dem sich Peers in bekannten, persönlich verifizierten Gruppen strukturieren. Autorisierung ist explizit, widerrufbar und identitätsgebunden. |
+| **Circle-Topologie** | Netzwerkstruktur, in der Peers in sozial/geo-lokal definierten Kreisen organisiert sind. Gateways verbinden Circles föderiert, ohne zentrale Kontrollinstanz. |
+| **Cloud Computing** | Infrastrukturmodell (ab ~2010), bei dem Rechenleistung und Speicher bedarfsorientiert von externen Providern bezogen werden. Im DAE ersetzt durch lokale, autonome Nodes. |
+| **Compliance-by-Design** | Architektonische Implementierung regulatorischer Anforderungen (DSGVO, eIDAS, IFG) durch lokale Persistenz, TPM-basierte Non-Repudiation und selektive Disclosure. |
+| **Conflict-Free Replicated Data Types (CRDT)** | Mathematisch definierte Datenstrukturen, die konfliktfreie, offline-fähige Synchronisation zwischen autorisierten Peers ermöglichen. Im DAE ersetzen sie zentrale Sequenzierung. |
+| **Consensus (Multi-Peer)** | Dezentrale Validierung durch ≥3 autorisierte Peers. Im DAE ersetzt zentrale Zertifizierung; Konsens ist dokumentiert, nicht deklariert. |
+| **Container-Isolation** | Ausführung von Diensten in isolierten Docker-Containern mit non-root User, read-only Root-FS, Seccomp/AppArmor. Minimiert Angriffsflächen und laterale Bewegungen. |
+| **Context-First-Indexing** | Query-, Filter- und Aggregationslogik, die primär auf Metadaten-Ebene operiert, nicht auf Payload-Inhalten. Ermöglicht Proactive Transparency ohne Datenexposition. |
+| **Crypto-Key Routing** | WireGuard-Prinzip: IP-Adressen werden an öffentliche ECC-Keys gebunden. Verbindungen werden über kryptographische Identitäten, nicht über DNS oder CAs, hergestellt. |
+| **Curve25519** | Elliptische Kurve für Diffie-Hellman-Schlüsselaustausch. Im DAE verwendet für WireGuard-Authentifizierung und TPM-generierte ECC-Key-Pairs. |
+
+---
+
+## D
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
+| **Data Link Layer (OSI L2)** | Sicherungsschicht des OSI-Modells. Im DAE durch `B.A.T.M.A.N. advanced` für MAC-basiertes, proaktives Mesh-Routing operationalisiert. |
+| **Daten (Raw State)** | Strukturierte oder unstrukturierte Byte-Sequenzen, CRDT-Zustände oder kryptographische Payloads ohne Kontext-Mapping. Im DAE lokal persistiert, hardware-verschlüsselt, sync-geschützt. |
+| **Defense-in-Depth** | Sicherheit über mehrere Schichten (L2 MAC-Binding, L3 WireGuard, L5–7 libsodium). Selbst bei Kompromittierung einer Ebene bleibt Integrität gewahrt. |
+| **Desinformation-Detektion** | Strukturelle Analyse der Informations-Anatomie (Provenienz, Kontext, Kausalität) statt inhaltlicher Bewertung. Im DAE via Gap-Detection, Branch-Divergence, Immutability-Checks. |
+| **Disclosure-Mode** | Granulare Datenfreigabe: `metadata_only`, `payload_hash_only`, `full_frozen_snapshot`. Ermöglicht forensische Verwertbarkeit ohne vollständige Privatsphäre-Preisgabe. |
+| **Drift-Detection** | Automatische Erkennung von Abweichungen zwischen Ist- und Soll-Zustand. Im DAE via SaltStack Scheduler (alle 15 Min) + GitOps-Historie + TPM-PCR-Quotes. |
+
+---
+
+## E
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
+| **ECC (Elliptic Curve Cryptography)** | Kryptographisches Verfahren basierend auf elliptischen Kurven. Im DAE: Curve25519/Ed25519 für TPM-Key-Generierung, WireGuard-Auth, TPM-Signierung. |
+| **Ed25519** | Edwards-Curve-Variante für digitale Signaturen. Im DAE verwendet für `tpm2_sign`-Operationen und Non-Repudiation von Kompetenz-Nachweisen. |
+| **Ephemeral Key** | Temporärer kryptographischer Schlüssel, der nur für eine Session gültig ist. Im DAE für `p2plib` Session-Handshakes und Replay-Schutz. |
+| **eIDAS-Verordnung** | EU-Verordnung 910/2014 für elektronische Identifizierung und Vertrauensdienste. Im DAE operationalisiert via TPM-Signierung + GitOps-Provenienz + OP_RETURN-Timestamping. |
+
+---
+
+## F
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
+| **Fallback-Node** | Redundanter Peer, der bei Ausfall oder Kompromittierung des primären Nodes aktiviert wird. Im DAE: Öffentlicher Sibling übernimmt bei lokalem Node-Ausfall. |
+| **Forensische Verwertbarkeit** | Technische Eigenschaft, die Beweisketten gerichtsverwertbar macht. Im DAE via TPM-Attestation, Merkle-DAG-Provenienz, Bitcoin OP_RETURN, GitOps-Historie. |
+| **Full-Stack Autonomie** | Jeder Peer hostet den kompletten Anwendungs- und Infrastrukturstack lokal. Eliminiert funktionale Abhängigkeiten und Thin-Clients. |
+
+---
+
+## G
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
+| **Gateway-Peer** | Öffentlicher Node (Kimsufi/VPS), der lokale Circles mit dem Internet oder anderen Circles verbindet. Terminiert HTTPS, federiert ActivityPub, relayt autorisierte Daten. |
+| **GitFS** | SaltStack-Backend, das States und Pillars direkt aus einem Git-Repository bezieht. Ermöglicht dezentrale, versionierte Provisionierung ohne zentralen Master. |
+| **GitOps** | Betriebsparadigma, bei dem Infrastruktur-Konfiguration als versionierter, signierter Code in Git verwaltet wird. Automatische Konvergenz via `state.apply`, vollständige Auditierbarkeit. |
+| **Graceful Degradation** | Architektonische Eigenschaft, bei der Teilausfälle nicht zum Totalausfall führen. Im DAE via CRDT-Puffering, BATMAN-Multi-Path, WireGuard-Keepalives. |
+
+---
+
+## H
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
+| **Hash-Anchoring** | Regelmäßiges Synchronisieren von Log-Chunk-Hashes (`sha256(log_chunk)`) via `p2plib`. Ermöglicht Integritätsnachweis ohne Payload-Exposition. |
+| **Hardware-Root-of-Trust** | Unveränderlicher Vertrauensanker im Hardware-Chip (TPM 2.0). Private Keys verlassen niemals den Chip; alle kryptographischen Ops erfolgen im Enclave. |
+| **Health-Check** | Automatisierte Validierung des Service-Status nach `state.apply`. Im DAE: Trigger für Self-Healing oder Eskalation an Circle-Admin. |
+
+---
+
+## I
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
+| **Immutability (technisch)** | Unveränderlichkeit von Daten durch Hash-Verkettung (Merkle-DAG) und TPM-Signierung. Nachträgliche Änderungen erzeugen neuen Branch, Origin bleibt rekonstruierbar. |
+| **Information (Validated Context)** | Daten, die durch Metadaten-Schema, Provenenz-Kette, Validierungsstatus und Zweckbindung semantisch aufgelöst wurden. Im DAE: maschinenlesbar, konsensfähig, architektonisch verifizierbar. |
+| **Informationsfreiheit** | Recht der Gesellschaft auf Nachvollziehbarkeit von Prozesslogik, Entscheidungsgrundlagen und Validierungsregeln. Im DAE operationalisiert via Proactive Transparency-by-Design. |
+| **Internet Service Providing (ISP)** | Infrastrukturmodell (1990–1999), bei dem ISPs Rechenkapazitäten in Rechenzentren bündeln. Markierte den ersten Schritt zur strukturellen Anonymisierung. |
+
+---
+
+## K
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
+| **Key-Lifecycle (TPM)** | Phasen: Generierung (im Chip), Sealing (an PCR-Werte), Unsealing (nur bei validem State), Nutzung (Signierung), Rotation/Revocation. Private Keys verlassen niemals den TPM. |
+| **Key-Rotation** | Geplante Erneuerung kryptographischer Schlüssel. Im DAE: Neuer Key wird generiert, alter im TPM invalidiert; Circle-Autorisierung für kritische Rotationen. |
+
+---
+
+## L
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
+| **Layer 2–4 (OSI)** | Referenzschichten: Data Link (MAC), Network (IP), Transport (TCP/UDP). Im DAE operative Basis für echtes P2P; eliminiert Server-Vermittlung. |
+| **Loki** | Lokal deployter Log-Aggregator (CNCF-Stack). Im DAE: Logs verbleiben auf NVMe-2; nur Hashes via `p2plib` synchronisiert. |
+
+---
+
+## M
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
+| **MAC-Adress-Binding** | Hardware-basierte Identifikation von Peers über eindeutige MAC-Adressen. Im DAE: Erhöht Verbindungssicherheit vor IP-Ebene; Basis für `B.A.T.M.A.N.`-Routing. |
+| **Merkle-DAG (Directed Acyclic Graph)** | Hash-verkettete, verzweigte Datenstruktur zur Abbildung von Quellenprovenenz, Interpretations-Branches und CRDT-Merge-Historien. Gewährleistet Immutabilität bei Interpretationsoffenheit. |
+| **Metadata-First-Indexing** | Query-, Filter- und Aggregationslogik, die primär auf Metadaten-Ebene operiert. Ermöglicht Proactive Transparency ohne personenbezogene Datenexposition. |
+| **Multi-Path-Routing** | Proaktive Pfadfindung über alternative Links bei Ausfällen. Im DAE: `B.A.T.M.A.N.` erkennt TQ-Abfall, routed über Ethernet-Backup oder alternativen Peer. |
+
+---
+
+## N
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
+| **NAT-Durchdringung** | Fähigkeit, Verbindungen hinter restriktiven Routern herzustellen. Im DAE: `WireGuard` nutzt UDP-Keepalive (`PersistentKeepalive=25`) für stabile Tunnels. |
+| **Network Layer (OSI L3)** | Vermittlungsschicht des OSI-Modells. Im DAE durch `WireGuard` für Crypto-Key-Routing, NAT-Traversal und authentifizierten Overlay-Transit operationalisiert. |
+| **Non-Repudiation** | Technische Unabstreitbarkeit von Signaturen, Zustandsänderungen oder Konfigurations-Commits. Im DAE durch TPM 2.0 Sealing, hardwaregebundene ECC-Keys und GitOps-Provenienz erzwungen. |
+| **NVMe-OPAL 2.0** | Hardware-Verschlüsselungsstandard für NVMe-SSDs. Im DAE: NVMe-1 (OS) und NVMe-2 (Data) hardwareverschlüsselt; Keys via TPM gesiegelt. |
+
+---
+
+## O
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
+| **Offline-First** | Architektonisches Prinzip: Dienste funktionieren ohne Internet; Sync erfolgt asynchron bei Wiederverbindung. Im DAE: `p2plib` puffert CRDT-Zustände lokal. |
+| **OP_RETURN (Bitcoin)** | Transaktionsfeld für kleine Datenpayloads. Im DAE optional für unveränderliche Zeitstempel via Tor-geschützten Bitcoin-Node (~₿0.0001/Entry). |
+| **Originator Message (OGM)** | Regelmäßig gesendete Routing-Nachricht in `B.A.T.M.A.N.`. Enthält TQ-Metrik; ermöglicht proaktive Pfadfindung ohne zentrale Tabellen. |
+| **OSI-Modell** | ISO/IEC 7498-1:1994 Referenzrahmen für Netzwerkkommunikation (7 Schichten). Im DAE: Fundament für Layer-2–4-Architektur und Security-by-Design. |
+
+---
+
+## P
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
+| **p2plib** | Konzeptionelle P2P-Kommunikationsbibliothek für Service-Discovery ohne DNS, libsodium-basierte E2E-Verschlüsselung und CRDT-basierte Offline-First-Synchronisation. Framework-agnostisch. |
+| **PCR (Platform Configuration Register)** | 24 hash-basierte Register im TPM, die den Systemzustand kryptographisch abbilden. Im DAE: Binding von Keys an PCR 0,1,4,7 (Boot-Integrität) und 10+ (DAE-Config-Hashes). |
+| **PersistentKeepalive** | WireGuard-Parameter (Default: 25s) für UDP-Keepalive-Pakete. Ermöglicht stabile Verbindungen hinter NAT/Firewalls ohne manuelle Portfreigaben. |
+| **Pillar (SaltStack)** | Node-spezifische, sensitivere Konfigurationen, die nicht im allgemeinen State-Tree liegen. Im DAE: Strukturiert nach Circle, Pair, Rolle; Secrets via `sops`+`age` verschlüsselt. |
+| **Platform Configuration Register (PCR)** | Siehe PCR. |
 | **Proactive Transparency-by-Design** | Architekturprinzip, das Transparenz als Default-Verhalten implementiert. Metadaten, Algorithmus-Hashes und Validierungsregeln werden automatisch, maschinenlesbar und privacy-preserving publiziert. |
-| **Pseudo-P2P** | Applikative Dezentralisierung auf OSI-Layer 7 (z. B. ActivityPub, Matrix, Nostr). Client-zu-Client-Verbindungen werden über zentrale/föderierte Server-Relays vermittelt. Bewahrt das Vermittlungsparadigma und Datenextraktionsrisiken. |
-| **Selective Disclosure** | Granulare, kryptographisch gesteuerte Datenfreigabe. Export-Modes: `metadata_only`, `payload_hash_only`, `full_frozen_snapshot` + OTDK. Ermöglicht forensische Verwertbarkeit ohne vollständige Privatsphäre-Preisgabe. |
-| **Sibling-Paarung (1:1)** | Fest gekoppelte Node-Paarung: Lokaler Edge-Node ↔ Öffentlicher Gateway-Node. Bidirektionale CRDT-Synchronisation, Failover-Routing und Public-Termination. Eliminiert Single Point of Failure und Cloud-Backup-Abhängigkeit. |
-| **TPM 2.0 Sealing / Hardware-Root-of-Trust** | Bindung kryptographischer Keys an physische Systemstates (PCR-Quotes). Private Keys verlassen niemals den Chip; `tpm2_unseal` erfolgt nur zur Laufzeit bei validem Boot/Config-State. |
-| **WireGuard** | Stateless Layer-3-Overlay-VPN mit Curve25519/ChaCha20-Poly1305. Crypto-Key-Routing ersetzt DNS/CA-Abhängigkeit. <4.000 LOC, NAT-Durchdringung via `PersistentKeepalive=25`, kernel-native Integration. |
+| **Provenienz-Kette** | Kryptographisch verknüpfte Historie der Entstehung eines Datensatzes. Im DAE: `payload_hash` + `author_tpm_pubkey` + `git_config_hash` + optional `btc_timestamp`. |
+| **Pseudo-P2P** | Applikative Dezentralisierung auf OSI-Layer 7 (z. B. ActivityPub, Matrix, Nostr). Client-zu-Client-Verbindungen werden über zentrale/föderierte Server-Relays vermittelt. Bewahrt das Vermittlungsparadigma. |
+
+---
+
+## Q
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
+| **Quote (TPM)** | Signierte Zusammenfassung relevanter PCR-Werte. Im DAE: `tpm2_quote` für Remote-Attestation, Drift-Detection und Compliance-Nachweise. |
+
+---
+
+## R
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
+| **Replay-Schutz** | Verhinderung der Wiederverwendung alter Nachrichten. Im DAE: `p2plib` nutzt temporäre Session-Keys und Nonces für libsodium E2E-Verschlüsselung. |
+| **Review-Status** | Metadaten-Feld für Validierungsgrad: `draft`, `circle_verified`, `disputed`, `incomplete`. Im DAE: Steuert Query-Filter und Circle-Governance-Logik. |
+
+---
+
+## S
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
+| **SaltStack** | Konfigurationsmanagement- und Orchestrierungs-Engine. Im DAE: GitFS-Backend für dezentrale Provisionierung, `state.apply` für automatische Konvergenz. |
+| **Schema.org / JSON-LD** | Standardisierte Metadaten-Schemata für maschinenlesbare Annotation. Im DAE: Basis für Context-First-Indexing und Proactive Metadata Publication. |
+| **Sealing (TPM)** | Bindung kryptographischer Keys an PCR-Werte. Im DAE: Keys sind nur nutzbar, wenn Systemstate (Secure Boot, Kernel-Hash, Config) unverändert ist. |
+| **Selective Disclosure** | Granulare, kryptographisch gesteuerte Datenfreigabe. Export-Modes: `metadata_only`, `payload_hash_only`, `full_frozen_snapshot` + OTDK. |
+| **Self-Healing** | Autonome Wiederherstellung bei Drift oder Ausfall. Im DAE: Salt Scheduler prüft alle 15 Min; bei Abweichung: Git-basierter Rollback + `state.apply`. |
+| **Service Discovery** | Dezentrale Ankündigung und Auffindung von Diensten im Mesh. Im DAE: `p2plib` via Broadcast/DHT innerhalb des WireGuard-Subnets, ohne DNS. |
+| **Sibling-Paarung (1:1)** | Fest gekoppelte Node-Paarung: Lokaler Edge-Node ↔ Öffentlicher Gateway-Node. Bidirektionale CRDT-Synchronisation, Failover-Routing, Public-Termination. |
+| **Single Point of Failure (SPoF)** | Komponente, deren Ausfall das gesamte System lahmlegt. Im DAE eliminiert durch Full-Stack-Autonomie, 1:1-Pairing, Multi-Path-Routing. |
+| **State (SaltStack)** | Deklarative Beschreibung des Soll-Zustands eines Systems. Im DAE: Versioniert in Git, signiert, via GitFS gepullt, via `state.apply` konvergiert. |
+
+---
+
+## T
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
+| **TPM 2.0 (Trusted Platform Module)** | Dedizierter Mikrocontroller (ISO/IEC 11889:2015) für kryptographische Operationen in abgeschotteter Umgebung. Im DAE: Hardware-Root-of-Trust für Key-Sealing, Signierung, Attestation. |
+| **Transmission Quality (TQ)** | Dezentral gemessene Verbindungsqualität in `B.A.T.M.A.N.`. Basis für proaktives Routing; TQ < 70% trigger alternative Route. |
+| **Transport Layer (OSI L4)** | Transportschicht des OSI-Modells. Im DAE: Stateless UDP-Tunnel via `WireGuard`, NAT-Durchdringung via `PersistentKeepalive`. |
+
+---
+
+## U
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
+| **Unsealing (TPM)** | Entsiegelung von Keys zur Laufzeit nur bei validen PCR-Quotes. Im DAE: `tpm2_unseal` lädt Keys in ephemeren RAM; automatische Verweigerung bei Manipulation. |
+
+---
+
+## V
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
+| **Validation-Gate** | Automatisierte Qualitätsprüfung vor Konvergenz. Im DAE: `yamllint`, `salt-lint`, Schema-Validator, IP-Konflikt-Prüfung in CI/CD-Pipeline. |
+| **Virtualisierung** | Infrastrukturmodell (2000–2010), bei dem VMs physische Hardware effizienter nutzen. Im DAE ersetzt durch Container-Isolation auf bare-metal Nodes. |
+
+---
+
+## W
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
+| **WireGuard** | Stateless Layer-3-Overlay-VPN mit Curve25519/ChaCha20-Poly1305. Crypto-Key-Routing ersetzt DNS/CA-Abhängigkeit; <4.000 LOC, NAT-Durchdringung, kernel-native. |
+
+---
+
+## Z
+
+| Begriff | Definition im DAE-Kontext |
+|---------|---------------------------|
+| **Zero-Trust** | Sicherheitsparadigma: Keine implizite Vertrauensstellung; jede Session erfordert kryptographische Authentifizierung. Im DAE: Strukturelle Eigenschaft des Protokoll-Stacks, nicht Software-Feature. |
 
 ---
 
