@@ -288,16 +288,16 @@ flowchart TD
         APP["Competence Core, Chat, BBS, Friendica, WP"]
     end
     subgraph L5_6["Session & Payload (L5-L6)"]
-        P2P["p2plib<br/>Service Discovery, CRDT-Sync, E2E-Verschlüsselung"]
+        P2P["p2plib\nService Discovery, CRDT-Sync, E2E-Verschlüsselung"]
     end
     subgraph L3["Verschlüsseltes Overlay (L3)"]
-        WG["WireGuard<br/>Crypto-Key Routing, NAT-Traversal, Authenticated Tunnel"]
+        WG["WireGuard\nCrypto-Key Routing, NAT-Traversal, Authenticated Tunnel"]
     end
     subgraph L2["Mesh-Routing (L2)"]
-        BAT["B.A.T.M.A.N. advanced<br/>MAC-basiert, proaktiv, hybrid (WLAN+Ethernet)"]
+        BAT["B.A.T.M.A.N. advanced\nMAC-basiert, proaktiv, hybrid (WLAN+Ethernet)"]
     end
     subgraph PHY["Physikalische Schicht (L1)"]
-        HW["WiFi / Ethernet / LoRa (optional)<br/>Hardware-gebundene Adressierung"]
+        HW["WiFi / Ethernet / LoRa (optional)\nHardware-gebundene Adressierung"]
     end
 
     APP --> P2P --> WG --> BAT --> HW
@@ -562,22 +562,22 @@ Die folgende Mermaid-Visualisierung zeigt die physische und logische Anordnung d
 ```mermaid
 flowchart TD
     subgraph CircleA["Circle A (Lokal)"]
-        N1(("Lokal A1<br/>P330 Tiny"))
-        N2(("Lokal A2<br/>P330 Tiny"))
+        N1(("Lokal A1\nP330 Tiny"))
+        N2(("Lokal A2\nP330 Tiny"))
         N1 <-->|"B.A.T.M.A.N. L2"| N2
     end
 
     subgraph CircleB["Circle B (Lokal)"]
-        N3(("Lokal B1<br/>P330 Tiny"))
-        N4(("Lokal B2<br/>P330 Tiny"))
+        N3(("Lokal B1\nP330 Tiny"))
+        N4(("Lokal B2\nP330 Tiny"))
         N3 <-->|"B.A.T.M.A.N. L2"| N4
     end
 
-    GW1(("Sibling A<br/>Kimsufi/VPS"))
-    GW2(("Sibling B<br/>Kimsufi/VPS"))
-    BTC((Bitcoin<br/>Timestamping))
-    TOR((Tor<br/>Privacy))
-    WEB((Internet<br/>Public))
+    GW1(("Sibling A\nKimsufi/VPS"))
+    GW2(("Sibling B\nKimsufi/VPS"))
+    BTC((Bitcoin\nTimestamping))
+    TOR((Tor\nPrivacy))
+    WEB((Internet\nPublic))
 
     %% 1:1 Sibling Pairing
     N1 <-->|"WireGuard L3 + p2plib L5-7"| GW1
@@ -700,13 +700,13 @@ flowchart TD
         WP[WordPress]
     end
     subgraph L5_6["Session & Sync (L5-L6)"]
-        P2P["p2plib<br/>• Service Discovery (DNS-frei)<br/>• E2E Session-Handshake<br/>• CRDT Replication<br/>• libsodium Payload-Encryption"]
+        P2P["p2plib\n• Service Discovery (DNS-frei)\n• E2E Session-Handshake<br/>• CRDT Replication\n• libsodium Payload-Encryption"]
     end
     subgraph L3["Secure Transport (L3)"]
-        WG["WireGuard<br/>• Crypto-Key Routing<br/>• Authenticated Tunnel<br/>• NAT-Traversal (Keepalive)"]
+        WG["WireGuard\n• Crypto-Key Routing\n• Authenticated Tunnel\n• NAT-Traversal (Keepalive)"]
     end
     subgraph L2["Mesh Routing (L2)"]
-        BAT["B.A.T.M.A.N. advanced<br/>• MAC-basierte Pfadfindung<br/>• Proaktive TQ-Metrik<br/>• Hybrid WLAN/Ethernet"]
+        BAT["B.A.T.M.A.N. advanced\n• MAC-basierte Pfadfindung\n• Proaktive TQ-Metrik\n• Hybrid WLAN/Ethernet"]
     end
 
     CS --> P2P
@@ -1056,9 +1056,9 @@ Sicherheit im DAE folgt dem **Defense-in-Depth-Prinzip** über mehrere OSI-Schic
 
 ```mermaid
 flowchart TD
-    L2["Layer 2 (Data Link)<br/>MAC-Binding, B.A.T.M.A.N. Auth-Peering"] --> L3["Layer 3 (Network)<br/>WireGuard: Curve25519, ChaCha20-Poly1305, Auth-Tunnel"]
-    L3 --> L5["Layer 5-6 (Session/Presentation)<br/>p2plib: libsodium E2E, Ephemeral-Key-Handshake"]
-    L5 --> L7["Layer 7 (Application)<br/>Payload-Strukturen, CRDT-Merge-Logik"]
+    L2["Layer 2 (Data Link)\nMAC-Binding, B.A.T.M.A.N. Auth-Peering"] --> L3["Layer 3 (Network)\nWireGuard: Curve25519, ChaCha20-Poly1305, Auth-Tunnel"]
+    L3 --> L5["Layer 5-6 (Session/Presentation)\np2plib: libsodium E2E, Ephemeral-Key-Handshake"]
+    L5 --> L7["Layer 7 (Application)\nPayload-Strukturen, CRDT-Merge-Logik"]
     
     classDef layer fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
     class L2,L3,L5,L7 layer;
@@ -1523,14 +1523,14 @@ Betriebssicherheit im DAE wird nicht durch externe SaaS-Monitoring-Tools gewähr
 **Self-Healing-Workflow:**
 ```mermaid
 flowchart LR
-    A["Salt Scheduler<br/>(alle 15 Min)"] --> B{"Service/Config<br/>im Soll-Zustand?"}
+    A["Salt Scheduler\n(alle 15 Min)"] --> B{"Service/Config\nim Soll-Zustand?"}
     B -->|Ja| C["Nächster Check-Zyklus"]
-    B -->|Nein| D["Drift erkannt:<br/>Container down / Config geändert"]
-    D --> E["Auto-Rollback:<br/>Letzter validen State aus Git"]
-    E --> F["state.apply<br/>Konvergenz erzwingen"]
-    F --> G["Health-Check<br/>Validierung erfolgreich?"]
+    B -->|Nein| D["Drift erkannt:\nContainer down / Config geändert"]
+    D --> E["Auto-Rollback:\nLetzter validen State aus Git"]
+    E --> F["state.apply\nKonvergenz erzwingen"]
+    F --> G["Health-Check\nValidierung erfolgreich?"]
     G -->|Ja| H["Log-Entry: Self-Healing OK"]
-    G -->|Nein| I["Alert an Circle-Owner<br/>Manuelle Intervention"]
+    G -->|Nein| I["Alert an Circle-Owner\nManuelle Intervention"]
     
     classDef check fill:#e8f5e9,stroke:#2e7d32;
     classDef drift fill:#fff3e0,stroke:#ef6c00;
