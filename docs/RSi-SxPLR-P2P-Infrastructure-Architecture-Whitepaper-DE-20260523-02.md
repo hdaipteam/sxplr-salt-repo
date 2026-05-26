@@ -827,6 +827,229 @@ Der Trusted Platform Module (TPM 2.0) bildet das unveränderliche Vertrauensanke
 
 ---
 
+## 5.2.2 TPM 2.0: Technische Spezifikation & DAE-Integration
+
+Der Trusted Platform Module (TPM) 2.0 ist kein optionales Sicherheits-Add-on, sondern das **unveränderliche Vertrauensanker** des Decentralized Autonomous Ecosystems (DAE). Er operationalisiert die Prinzipien Non-Repudiation, Immutability und Hardware-basierte Access-Control durch kryptographische Primitive, die physisch vom Hauptprozessor isoliert sind. Dieser Abschnitt vertieft die TPM 2.0-Architektur, den Key-Lifecycle, PCR-basierte Systemattestation und die konkrete Integration in die DAE-Protokoll-Triade.
+
+### 5.2.2.1 TPM 2.0-Architektur & Kryptographische Primitive
+
+TPM 2.0 ist ein dedizierter Mikrocontroller (ISO/IEC 11889:2015), der kryptographische Operationen in einer abgeschotteten, manipulationssicheren Umgebung ausführt. Im DAE werden folgende Primitive genutzt:
+
+| Primitive | Algorithmus | DAE-Anwendung |
+|-----------|-------------|---------------|
+| **RSA / ECC** | RSA-2048, Curve25519 / Ed25519 | Key-Generierung, Signierung (`tpm2_sign`), WireGuard-Auth |
+| **Hash-Funktionen** | SHA-256, SHA-384 | Payload-Hashing, Merkle-DAG-Verkettung, PCR-Extension |
+| **Symmetrische Verschlüsselung** | AES-128/256-CFB, XOR-Obfuscation | Sealing/Unsealing von Keys, lokale Datenverschlüsselung |
+| **HMAC / KDF** | HMAC-SHA256, KDFa/KDFe | Key-Derivation, Session-Authentifizierung |
+| **Attestation** | Quote + Signature über PCR-Werte | Remote-Attestation, Drift-Detection, Compliance-Nachweis |
+
+**Wichtige TPM-Objekttypen im DAE:**
+- **Primary Keys**: Root-of-Trust, direkt im TPM erzeugt (`tpm2_createprimary`), niemals exportierbar.
+- **Sealing Keys**: Binden sensible Daten an PCR-Werte (`tpm2_create --seal`).
+- **Signing Keys**: Hardware-gesiegelte ECC-Keys für `tpm2_sign`-Operationen.
+- **NV-Indices**: Persistente, TPM-interne Speicherbereiche für Konfig-Hashes, Circle-ACLs.
+
+> 🔐 **Kerngarantie**: Private Keys verlassen **niemals** den TPM-Chip. Alle kryptographischen Operationen erfolgen innerhalb des geschützten Hardware-Enclaves.
+
+---
+
+### 5.2.2.2 Key-Lifecycle im DAE: Von der Generierung zur Revocation
+
+Der TPM-Key-Lifecycle im DAE folgt einem strikten, auditierbaren Prozess, der Datenhoheit und forensische Nachvollziehbarkeit gewährleistet:
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant U as User/Admin
+    participant TPM as TPM 2.0 Chip
+    participant OS as OS / SaltStack
+    participant APP as Application (p2plib/WireGuard)
+
+    Note over U,TPM: Phase 1: Initialisierung & Primary Key
+    U->>TPM: 1. tpm2_createprimary -C o -G ecc\n--hash-alg=sha256 --key-alg=ecc256
+    TPM-->>U: 2. Primary Key Context + Public Key\n(Private Key bleibt im Chip)
+    U->>OS: 3. Speichere Public Key in Pillar\n(author_tpm_pubkey: "0x81010001:...")
+
+    Note over TPM,APP: Phase 2: Sealing & Unsealing
+    APP->>TPM: 4. tpm2_create --seal <sensitive_data>\n--policy-pcr=sha256:0,1,4,7
+    TPM-->>APP: 5. Sealed Blob (verschlüsselt an PCR-Werte)
+    APP->>TPM: 6. tpm2_unseal -c <sealed_blob>\n(nur bei validen PCR-Quotes)
+    TPM-->>APP: 7. Plaintext Data (ephemer im RAM)
+
+    Note over TPM,APP: Phase 3: Signierung & Attestation
+    APP->>TPM: 8. tpm2_sign -c <signing_key>\n--hash-alg=sha256 <payload_hash>
+    TPM-->>APP: 9. ECC-Signature (Curve25519/Ed25519)
+    APP->>TPM: 10. tpm2_quote -c <attestation_key>\n-l sha256:0,1,4,7
+    TPM-->>APP: 11. Quote + Signature über PCR-Werte
+
+    Note over U,TPM: Phase 4: Rotation & Revocation
+    U->>TPM: 12. tpm2_evictcontrol -c <old_key>\n(Invalidierung im TPM)
+    TPM-->>U: 13. Key removed from persistent handle
+    U->>OS: 14. Update Pillar: new author_tpm_pubkey
+```
+
+**Operative Sicherheitsgarantien:**
+- ✅ **Kein Plaintext-Exposure**: Private Keys existieren nur innerhalb des TPM; Unsealing erfolgt nur zur Laufzeit in ephemeren RAM-Bereichen.
+- ✅ **PCR-Binding**: Keys sind an Systemzustände gebunden (Secure Boot, Kernel-Hash, Config-Integrität). Manipulation → Unsealing verweigert.
+- ✅ **Non-Repudiation**: Jede Signatur ist hardwaregebunden und forensisch einem spezifischen TPM-Chip zuordenbar.
+- ✅ **Revocability**: Keys können durch `tpm2_evictcontrol` sofort invalidiert werden, ohne Datenverlust.
+
+---
+
+### 5.2.2.3 PCR-Quotes & Systemattestation im DAE
+
+Platform Configuration Registers (PCRs) sind 24 hash-basierte Register im TPM, die den Systemzustand kryptographisch abbilden. Im DAE werden PCRs für **Drift-Detection**, **Remote-Attestation** und **Compliance-Nachweise** genutzt:
+
+| PCR-Index | Typischer Inhalt im DAE | Relevanz |
+|-----------|-------------------------|----------|
+| **PCR 0** | TPM Firmware / Boot ROM | Hardware-Integrität, Supply-Chain-Verification |
+| **PCR 1** | TPM Firmware Config | Konfigurations-Integrität des TPM selbst |
+| **PCR 2** | Option ROMs / External Code | Firmware-Erweiterungen, NIC-Boot-Code |
+| **PCR 4** | Bootloader (GRUB/systemd-boot) | Boot-Integrität, Secure-Boot-Validierung |
+| **PCR 7** | Secure Boot Policy / UEFI Variables | Policy-Integrität, Key-Enrollment-Status |
+| **PCR 8-15** | Kernel, Initramfs, Kernel-Params | OS-Integrität, Kernel-Parameter-Validierung |
+| **PCR 16+** | Userspace-Apps, Config-Hashes (DAE-spezifisch) | Application-Integrität, GitOps-Config-Hashes |
+
+**Attestation-Workflow im DAE:**
+1. **Quote-Erstellung**: `tpm2_quote -c <key> -l sha256:0,1,4,7,10` generiert eine signierte Zusammenfassung relevanter PCR-Werte.
+2. **Remote-Verifikation**: Ein autorisierter Peer (z. B. Circle-Mitglied, Audit-Service) prüft die Quote gegen eine bekannte Baseline.
+3. **Drift-Erkennung**: Abweichungen in PCR 10+ (DAE-Config-Hashes) triggeren automatischen Rollback via SaltStack.
+4. **Compliance-Nachweis**: TPM-Quotes + Git-Commit-Historie bilden eine forensisch verwertbare Kette für eIDAS/DSGVO-Audits.
+
+> 📋 **Praktisches Beispiel**: Ein Circle-Mitglied möchte verifizieren, dass ein Peer nicht manipuliert wurde:
+> ```bash
+> # Auf dem zu attesting Node:
+> tpm2_quote -c 0x81010001 -l sha256:0,1,4,7,10 -q <nonce> -o quote.dat -s sig.dat
+> 
+> # Auf dem verifizierenden Peer:
+> tpm2_checkquote -u <public_key.pem> -m quote.dat -s sig.dat -f <pcr_values.json> -n <nonce>
+> # → Output: "Quote valid" oder "PCR mismatch detected"
+> ```
+
+---
+
+### 5.2.2.4 Integration mit DAE-Protokollen & Diensten
+
+TPM 2.0 ist kein isoliertes Security-Modul, sondern tief in die DAE-Architektur integriert:
+
+| DAE-Komponente | TPM-Integration | Operativer Nutzen |
+|----------------|-----------------|-------------------|
+| **WireGuard** | Private Keys via `tpm2_unseal` entsiegelt; Public Keys als Routing-Identität | Key-Exfiltration unmöglich; Auth via Hardware-Identität |
+| **p2plib CRDT-Sync** | Payload-Signaturen via `tpm2_sign`; Review-Status hardwaregebunden | Non-Repudiable Zustandsänderungen; Circle-Konsens forensisch nachvollziehbar |
+| **GitOps / SaltStack** | Config-Hashes in PCR 16+; TPM-Quote vor `state.apply` | Drift-Detection auf Hardware-Ebene; Auto-Rollback bei Manipulation |
+| **Competence Signature** | Kompetenz-Nachweise hardware-signiert; Timestamping via TPM-Quote + OP_RETURN | Forensisch verwertbare Beweiskette; eIDAS-konforme Qualifizierte Signatur-Äquivalenz |
+| **Audit-Logging (Loki)** | Log-Chunk-Hashes TPM-signiert; nur Hashes synchronisiert | Integritätsnachweis ohne Payload-Exposition; Privacy-preserving Audit |
+
+**Beispiel: WireGuard-Integration mit TPM**
+```bash
+# 1. ECC-Key im TPM erzeugen (persistent handle 0x81010001)
+tpm2_createprimary -C o -G ecc256:ecdh_sha256 \
+  --key-alg=ecc256 --hash-alg=sha256 \
+  -c primary.ctx -u wg_pub.pem
+
+# 2. WireGuard Private Key aus TPM entsiegeln (nur zur Laufzeit)
+tpm2_unseal -c 0x81010001 -o wg_priv.key
+
+# 3. WireGuard konfigurieren (Private Key nur im RAM)
+wg setconf wg0 <(cat <<EOF
+[Interface]
+PrivateKey = $(cat wg_priv.key)  # ephemeral, never written to disk
+ListenPort = 51820
+EOF
+)
+
+# 4. Private Key sofort aus RAM löschen
+shred -u wg_priv.key
+```
+
+---
+
+### 5.2.2.5 Sicherheitsgarantien & Threat Model
+
+Das TPM 2.0 im DAE adressiert folgende Angriffsvektoren:
+
+| Bedrohung | TPM-Gegenmaßnahme | DAE-Operationalisierung |
+|-----------|-------------------|------------------------|
+| **Key-Exfiltration** | Private Keys verlassen Chip nie; alle Ops im Enclave | `tpm2_sign`/`tpm2_unseal` nur via autorisierte Sessions |
+| **Boot-Time Manipulation** | PCR 0-7 binden Keys an Secure Boot / Kernel-Hash | Unsealing verweigert bei PCR-Mismatch; Auto-Rollback |
+| **Runtime-Tampering** | PCR 10+ für App/Config-Hashes; Quote-basierte Drift-Detection | SaltStack prüft Quote vor `state.apply`; Alert bei Abweichung |
+| **Physical Access Attack** | TPM Rate-Limiting, Dictionary-Attack Protection, Physical Presence Required | Brute-Force auf TPM-PIN/Policy praktisch unmöglich |
+| **Side-Channel Attacks** | TPM 2.0 implementiert Countermeasures gegen Timing/Power-Analysis | DAE nutzt zusätzlich OPAL 2.0 für NVMe-Verschlüsselung (Defense-in-Depth) |
+
+**Restrisiken & Mitigation:**
+- ⚠️ **TPM Firmware Vulnerabilities**: Regelmäßige Firmware-Updates via `fwupd`; PCR 0/1-Attestation für Supply-Chain-Verification.
+- ⚠️ **Cold-Boot Attacks auf RAM**: Ephemere Keys nur kurz im RAM; `mlock()` + `shred` für sofortiges Löschen.
+- ⚠️ **Social Engineering / Admin-Kompromittierung**: Circle-basierte Multi-Sig für kritische TPM-Operationen (z. B. Key-Rotation).
+
+---
+
+### 5.2.2.6 Implementierungs-Leitfaden für Entwickler & Administratoren
+
+**Voraussetzungen:**
+- TPM 2.0-fähige Hardware (Intel PTT, AMD fTPM, discrete TPM-Chip)
+- Linux-Kernel ≥ 4.12 mit `tpm2-tools` ≥ 4.1.1
+- `tpm2-abrmd` (Resource Manager) für parallele TPM-Zugriffe
+
+**Empfohlene TPM-Konfiguration für DAE-Nodes:**
+```yaml
+# pillar/tpm_config.yaml
+tpm:
+  primary_key:
+    handle: 0x81010001
+    algorithm: ecc256
+    hash_alg: sha256
+  pcr_policy:
+    sealed_keys: [0, 1, 4, 7]  # Boot-Integrität
+    config_keys: [10, 11, 12]   # DAE-Config-Hashes
+  attestation:
+    enabled: true
+    interval_minutes: 15
+    alert_on_drift: true
+  rotation:
+    key_lifetime_days: 365
+    auto_renew: true
+    circle_approval_required: true
+```
+
+**Wichtige `tpm2-tools`-Kommandos im DAE-Betrieb:**
+```bash
+# Primary Key erzeugen (einmalig)
+tpm2_createprimary -C o -G ecc256 -c primary.ctx -u pub.pem
+
+# Sealed Blob erstellen (sensitiver Config-Wert)
+echo "circle_secret" | tpm2_create -C primary.ctx -u seal.pub -r seal.priv \
+  --seal - -p policy:sha256:0,1,4,7
+
+# Unseal zur Laufzeit (nur bei validen PCRs)
+tpm2_unseal -c seal.pub -r seal.priv -p policy:sha256:0,1,4,7
+
+# Payload signieren (z. B. Kompetenz-Nachweis)
+echo -n "competence_claim_v1" | sha256sum | cut -d' ' -f1 > payload.hash
+tpm2_sign -c 0x81010001 --hash-alg=sha256 -g sha256 -o signature.dat payload.hash
+
+# PCR-Quote für Remote-Attestation
+tpm2_quote -c 0x81010001 -l sha256:0,1,4,7,10 -q <nonce> -o quote.dat -s sig.dat
+
+# Key invalidieren (Revocation)
+tpm2_evictcontrol -c 0x81010001
+```
+
+---
+
+### 5.2.2.7 Fazit des Abschnitts
+
+TPM 2.0 ist im DAE nicht nur ein Security-Feature, sondern das **architektonische Fundament** für:
+- 🔐 **Non-Repudiation**: Hardware-gebundene Signaturen ersetzen vertrauensbasierte Identitäten.
+- 🛡️ **Immutability**: PCR-Binding macht nachträgliche Manipulation technisch nachweisbar.
+- 🔄 **Auto-Recovery**: Drift-Detection auf Hardware-Ebene ermöglicht autonomes Self-Healing.
+- ⚖️ **Compliance**: TPM-Quotes + GitOps-Historie bilden forensisch verwertbare Beweisketten.
+
+Durch die tiefe Integration in WireGuard, p2plib, GitOps und die Anwendungs-Schicht wird digitale Souveränität nicht durch Richtlinien, sondern durch **Hardware-Design, kryptographische Primitive und protokollgesteuerte Abläufe** erzwungen.
+
+> *„Der TPM-Chip ist kein Blackbox-Security-Modul. Er ist der kryptographische Anker, der Code, Konfiguration und Identität physisch verankert – und damit digitale Souveränität von einer vertraglichen Fiktion in eine engineering-getriebene Realität überführt."*
+
+---
+
 ## 5.3 Verschlüsselungskaskade: Von Layer 2 bis Layer 7
 
 Sicherheit im DAE folgt dem **Defense-in-Depth-Prinzip** über mehrere OSI-Schichten. Selbst bei Kompromittierung einer Ebene bleibt die Integrität und Vertraulichkeit der Daten geschützt.
