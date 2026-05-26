@@ -2127,7 +2127,7 @@ Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und hi
 
 ### 11.1 Tiefenanalyse: Freifunk & FunkFeuer Wien im Kontext des Decentralized Autonomous Ecosystems (DAE)
 
-Basierend auf der Recherche zu Freifunk [[1]][[6]][[8]] und spezifisch zu FunkFeuer Wien [[46]][[47]][[54]] präsentiere ich hier eine umfassende Analyse der technischen Architektur, der konzeptionellen Schnittstellen und der Integrationspotenziale mit dem DAE.
+Basierend auf der Recherche zu Freifunk und spezifisch zu FunkFeuer Wien präsentiere ich hier eine umfassende Analyse der technischen Architektur, der konzeptionellen Schnittstellen und der Integrationspotenziale mit dem DAE.
 
 ---
 
@@ -2135,24 +2135,24 @@ Basierend auf der Recherche zu Freifunk [[1]][[6]][[8]] und spezifisch zu FunkFe
 
 ##### 1.1 Grundlegende Architektur
 
-Freifunk ist eine nicht-kommerzielle, gemeinnützige Initiative zum Aufbau freier Funknetzwerke [[9]]. Die technische Basis bildet ein **dezentrales Mesh-Netzwerk**, das auf folgenden Kernkomponenten aufbaut:
+Freifunk ist eine nicht-kommerzielle, gemeinnützige Initiative zum Aufbau freier Funknetzwerke. Die technische Basis bildet ein **dezentrales Mesh-Netzwerk**, das auf folgenden Kernkomponenten aufbaut:
 
 | Komponente | Technologie | Funktion im Freifunk-Netz |
 |------------|-------------|---------------------------|
 | **Firmware** | Gluon (OpenWrt-basiert) [[56]] | Modularer Framework für Mesh-Firmware mit Autoupdater, Respondd, VPN-Integration |
-| **Routing-Protokoll** | B.A.T.M.A.N. advanced (batman-adv) [[10]][[11]] | Proaktives Layer-2-Mesh-Routing mit MAC-basierter Pfadfindung und Transmission-Quality-Metriken |
-| **VPN-Tunneling** | fastd (primär), WireGuard (zunehmend) [[76]][[77]] | Layer-2-VPN-Verbindung zwischen Nodes und Gateways für Internet-Zugang und Mesh-Cloud-Verknüpfung |
-| **Gateway-Struktur** | Linux-Server mit batman-adv, fastd/WireGuard, DHCP/DNS [[12]] | Brücke zwischen lokalem Mesh und Internet; DHCP/DNS-Server für Mesh-Clients |
-| **Node-Information** | respondd / mesh-announce [[45]] | Publikation von Node-Status, Statistiken und Metadaten für Karten und Monitoring |
+| **Routing-Protokoll** | B.A.T.M.A.N. advanced (batman-adv) | Proaktives Layer-2-Mesh-Routing mit MAC-basierter Pfadfindung und Transmission-Quality-Metriken |
+| **VPN-Tunneling** | fastd (primär), WireGuard (zunehmend) | Layer-2-VPN-Verbindung zwischen Nodes und Gateways für Internet-Zugang und Mesh-Cloud-Verknüpfung |
+| **Gateway-Struktur** | Linux-Server mit batman-adv, fastd/WireGuard, DHCP/DNS | Brücke zwischen lokalem Mesh und Internet; DHCP/DNS-Server für Mesh-Clients |
+| **Node-Information** | respondd / mesh-announce | Publikation von Node-Status, Statistiken und Metadaten für Karten und Monitoring |
 
 ##### 1.2 FunkFeuer Wien: Spezifika der Wiener Implementation
 
-FunkFeuer.at ist ein freies Wireless-Mesh-Community-Netzwerk in Wien und weiteren österreichischen Standorten [[47]]. Besonderheiten:
+FunkFeuer.at ist ein freies Wireless-Mesh-Community-Netzwerk in Wien und weiteren österreichischen Standorten. Besonderheiten:
 
-- **Skalierung**: Eines der größten homogenen WiFi-Meshes mit mehreren hundert Nodes in Wien [[50]]
-- **Infrastruktur**: Eigenes Server-Colocation-Center mit Anbindung an den Vienna Internet Exchange (VIX) und öffentlichem IPv4/IPv6-Space [[54]]
-- **Topologie**: Homogenes WiFi-Mesh mit zentraler Uplink-Struktur; Netzwerk-Partitionen werden aktiv gemanagt [[46]]
-- **Community-Struktur**: Verein zur Förderung freier Netze; dezentrale Organisation mit lokaler Autonomie [[47]]
+- **Skalierung**: Eines der größten homogenen WiFi-Meshes mit mehreren hundert Nodes in Wien
+- **Infrastruktur**: Eigenes Server-Colocation-Center mit Anbindung an den Vienna Internet Exchange (VIX) und öffentlichem IPv4/IPv6-Space
+- **Topologie**: Homogenes WiFi-Mesh mit zentraler Uplink-Struktur; Netzwerk-Partitionen werden aktiv gemanagt
+- **Community-Struktur**: Verein zur Förderung freier Netze; dezentrale Organisation mit lokaler Autonomie
 
 ---
 
