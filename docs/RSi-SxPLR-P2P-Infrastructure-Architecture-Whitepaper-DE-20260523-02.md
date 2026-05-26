@@ -2142,7 +2142,7 @@ Freifunk ist eine nicht-kommerzielle, gemeinnützige Initiative zum Aufbau freie
 
 | Komponente | Technologie | Funktion im Freifunk-Netz |
 |------------|-------------|---------------------------|
-| **Firmware** | Gluon (OpenWrt-basiert) [[56]] | Modularer Framework für Mesh-Firmware mit Autoupdater, Respondd, VPN-Integration |
+| **Firmware** | Gluon (OpenWrt-basiert) | Modularer Framework für Mesh-Firmware mit Autoupdater, Respondd, VPN-Integration |
 | **Routing-Protokoll** | B.A.T.M.A.N. advanced (batman-adv) | Proaktives Layer-2-Mesh-Routing mit MAC-basierter Pfadfindung und Transmission-Quality-Metriken |
 | **VPN-Tunneling** | fastd (primär), WireGuard (zunehmend) | Layer-2-VPN-Verbindung zwischen Nodes und Gateways für Internet-Zugang und Mesh-Cloud-Verknüpfung |
 | **Gateway-Struktur** | Linux-Server mit batman-adv, fastd/WireGuard, DHCP/DNS | Brücke zwischen lokalem Mesh und Internet; DHCP/DNS-Server für Mesh-Clients |
