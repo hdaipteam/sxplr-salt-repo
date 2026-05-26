@@ -2030,7 +2030,7 @@ Dieses Glossar definiert die zentralen Fachbegriffe, Protokolle, kryptographisch
 
 # 10. Referenzen & Quellenverzeichnis
 
-Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und historische Grundlage des Positionspapiers. Sie sind nach Kategorien sortiert, um eine zielgerichtete Vertiefung zu ermöglichen. Alle Verweise entsprechen dem Stand der Diskussion und den im Text integrierten Erkenntnissen.
+Die nachfolgenden Quellen bilden die theoretische, technische, rechtliche und historische Grundlage des Whitepapers. Sie sind nach Kategorien sortiert, um eine zielgerichtete Vertiefung zu ermöglichen. Alle Verweise entsprechen dem Stand der Diskussion und den im Text integrierten Erkenntnissen.
 
 ---
 
