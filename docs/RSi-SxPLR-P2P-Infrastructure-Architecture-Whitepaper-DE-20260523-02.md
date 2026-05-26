@@ -2549,7 +2549,7 @@ dae-auth-blueprint/
 
 ### 11.2.5 Analyse Gosuslugi/ESIA: Zentrale Biometrie-Authentifizierung & Übertragbarkeit auf das DAE
 
-Das russische Staatsportal **Gosuslugi** (Госуслуги) implementiert ein flächendeckendes, zentralisiertes Authentifizierungssystem für natürliche Personen, das biometrische Verifizierung, staatliche Identitätsprüfung und App-basierte Dienstnutzung in einer integrierten Architektur vereint. Dieses System bietet wertvolle Lessons Learned – sowohl für die technische Umsetzung als auch für die kritische Abgrenzung dezentraler Souveränitätsarchitekturen.
+Das russische, staatliche Portal für alle Angelegenheiten der öffentlichen Verwaltung **Gosuslugi** (Госуслуги) implementiert ein flächendeckendes, zentralisiertes Authentifizierungssystem für natürliche Personen, das biometrische Verifizierung, staatliche Identitätsprüfung und App-basierte Dienstnutzung in einer integrierten Architektur vereint. Dieses System bietet wertvolle Lessons Learned – sowohl für die technische Umsetzung als auch für die kritische Abgrenzung dezentraler Souveränitätsarchitekturen.
 
 #### 11.2.5.1 Technische Architektur von Gosuslugi/ESIA
 
@@ -2678,7 +2678,7 @@ Gosuslugi/ESIA demonstriert eindrucksvoll, wie biometrische Authentifizierung, A
 ✅ **Übernehmen**: Mobile-First-Erfassung, Token-basierte Session-Authentifizierung, Cancelable Biometrics als Privacy-Safeguard.  
 ❌ **Vermeiden**: Zentrale Biometrie-Speicherung, staatliche Identitäts-Instanzen, permanente Autorisierung ohne Widerrufbarkeit.
 
-> *"Die technische Reife von Gosuslugi bestätigt: Biometrie und App-basierte Authentifizierung sind produktionsfähig. Das DAE transformiert diese Erkenntnisse in eine dezentrale Architektur, die Souveränität nicht durch staatliche Garantie, sondern durch technische Zwangsläufigkeit operationalisiert. Biometrie wird nicht zentral gespeichert, sondern lokal verifiziert. Autorisierung wird nicht zentral verwaltet, sondern dezentral konsentiert. Und Widerrufbarkeit ist nicht eine Ausnahme, sondern der Default."*
+> *"Die technische Reife von Gosuslugi bestätigt: Biometrie und App-basierte Authentifizierung sind produktionsfähig. Das DAE transformiert diese Erkenntnisse in eine dezentrale Architektur, die Souveränität nicht durch staatliche Garantie, sondern durch technische Zwangsläufigkeit operationalisiert. Biometrie wird nicht zentral gespeichert, sondern lokal verifiziert. Autorisierung wird nicht zentral verwaltet, sondern dezentral konsentiert. Und Widerrufbarkeit ist nicht eine Ausnahme, sondern der Default. Rechtsstaatliche Kontrolle im Sinne der Strafverfolgung und der Prävention in Bezug auf strafbare Handlungen werden ganz klar den entsprchenden Behörden übermittelt und richten sich damit nach den Rechtsvorschriften der jeweiligen Staaten, sollte das DAE in anderen Staaten außerhalb das DACH-Raums zur Anwendung kommen. Durch die personalisierte Konstruktion. der Nodes sind es im wesentliche natürliche Personen, denen die Datenund Transaktionen zuzuordenen sind. Fairness und Ethik sind klares Gebot."*
 
 ---
 
