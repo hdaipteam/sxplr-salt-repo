@@ -1,7 +1,7 @@
 # Decentralized Autonomous Ecosystem Architecture
 ## Infrastruktur für digitale Souveränität durch echtes Peer-to-Peer
 
-**Whitepaper v0.5.1 (DRAFT)**
+**Whitepaper v0.5.2 (DRAFT)**
 
 ---
 
@@ -9,7 +9,7 @@
 
 | Feld | Wert |
 |------|------|
-| **Version** | 0.5.1 (DRAFT) |
+| **Version** | 0.5.2 (DRAFT) |
 | **Datum** | 23. Mai 2026 |
 | **Autor** | Ralf Siebert (aka Maxim R. Garrtner) |
 | **Kontakt** | [maxim.r.garrtner@yandex.com](mailto:maxim.r.garrtner@yandex.com) |
@@ -45,7 +45,7 @@ Bei prädiktiven Betriebskosten von ca. **23 €/Monat pro Node-Paar** transform
 
 | Feld | Wert |
 |------|------|
-| **Dokument-ID** | `DAE-WP-2026-001-v0.5.1` |
+| **Dokument-ID** | `DAE-WP-2026-001-v0.5.2` |
 | **Versionierung** | Semantic Versioning (Major.Minor.Patch) |
 | **Primärer Fokus** | Infrastruktur-Architektur des Decentralized Autonomous Ecosystems (DAE) |
 | **Sekundärer Fokus** | Anwendungsbeispiel: Competence Signature (eine von vielen möglichen Applikationen) |
@@ -55,7 +55,7 @@ Bei prädiktiven Betriebskosten von ca. **23 €/Monat pro Node-Paar** transform
 | **Hardware-Referenz** | Lenovo ThinkStation P330 Tiny (lokal), OVH Kimsufi KS-B / VPS (öffentlich) |
 | **Betriebssystem** | DietPi / Debian 12 Bookworm (minimal) |
 | **Orchestrierung** | SaltStack (GitFS), Docker Compose, Caddy Reverse Proxy, Restic Backup |
-| **Zitierempfehlung** | Siebert, R. (2026). *Decentralized Autonomous Ecosystem Architecture: Infrastruktur für digitale Souveränität durch echtes Peer-to-Peer* (Whitepaper v0.5.1). Verfügbar unter: [maxim.r.garrtner@yandex.com] |
+| **Zitierempfehlung** | Siebert, R. (2026). *Decentralized Autonomous Ecosystem Architecture: Infrastruktur für digitale Souveränität durch echtes Peer-to-Peer* (Whitepaper v0.5.2). Verfügbar unter: [maxim.r.garrtner@yandex.com] |
 
 ---
 
